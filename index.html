@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chordloops - Home</title>
+    <meta name="description" content="A tool that endlessly generates loops, used
+    for discovering interesting chord progressions and ear training.">
+    <link rel="icon" type="image/x-icon" href="img/favicon.png">
+    <meta name='viewport' content='initial-scale=1, viewport-fit=cover'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto Condensed' rel='stylesheet'>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    <link rel="stylesheet" href="index-updated.css">
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2KR1FZCMFL"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-2KR1FZCMFL');
+</script>
+<!-- <script src="src/App.js" type="module"></script> -->
+<body>
+    <section class="content">
+        <header>
+            <div class = "navBar">
+                <a class = "nav" style="cursor: pointer" ontouchstart="toggleDropdown()">
+                    <img src ="img/menu.png" class="navImg">
+                </a>
+                <div class="dropdown-content">
+                    <a href="index.html">Home</a>
+                    <a href="experiment.html">Generator</a>
+                    <a href="browsePresets.html">Presets</a> 
+                    <a href="howToUse.html">User Guide</a>
+                    
+                </div>
+            </div>
+            <a href="index.html"><img class = "logo", src="img/chordloopsLogo5.png" style="cursor:pointer"></a>
+        </header>
+
+        <img id="backgroundImage" src="img/dark_piano.png">
+        <section class="generalInfo">
+            <div class="newFeature"><b>New feature: <i>MIDI download</i> has been added</b>, allowing you to import loops into your
+                DAW as MIDI to change the instrument sound or notes.
+            </div>
+            <h1>Chord Progression Generator</h1>
+            <h3>Version: Beta</h3>
+            <p><i>Chordloops.net</i> is a new tool that endlessly generates loops, used
+                for discovering creative ideas and advancing as a musician.
+            </p>
+
+            <span class="quickLinksOne">
+                <a id="generator" href="experiment.html">
+                    <span class="material-symbols-outlined">
+                        piano
+                    </span>
+                    Generator<span class="buttonArrow">&#8680;</span>
+                </a>
+                <a id="preset" href="browsePresets.html">
+                    <span class="material-symbols-outlined">
+                        explore
+                    </span>
+                    Presets<span class="buttonArrow">&#8680;</span>
+                </a>
+                <a id="guide" href="howToUse.html">
+                    <span class="material-symbols-outlined">
+                        quick_reference_all
+                    </span>
+                    User Guide<span class="buttonArrow">&#8680;</span>
+                </a>
+            </span>
+
+        </section>
+        <div class="videoPanel">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/FXSzanxzC4A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+        <section class="lowerInfo">
+            <div class="overviewPanels">   
+                <div>
+                    <h1>How does it work?</h1>
+                    <p>
+                        Chordloops uses an algorithm to randomly arrange chords&mdash;incorporating voice leading, 
+                        rhythm generation, and key and instrument selection. This produces a wide range of musical 
+                        possibilities, resulting in many great-sounding loops!
+                        <!-- 9 out 10 musicians recommend it.  -->
+                    </p>
+                </div>
+                <div>
+                    <h1>Why use Chordloops.net?</h1>
+                    <p>
+                        It can inspire new songs, compositions, improvisations, and beats.
+                        Additionally, it is an effective <a href="browsePresets.html" id="earTrainerLink">
+                            ear trainer <i>(scroll for lessons)</i>,</a> 
+                        an interactive game that provides endless practice for transcribing chord progressions.
+                        <!-- Producers, composers, songwriters, instrumentalists, music educators and students. Can be used to create samples for beatmaking, backing tracks to practice soloing, and much more. -->
+                        
+                    </p>
+                </div>
+                <div>
+                    <h1>Features</h1>
+                    <p>
+                        Supported are: Major and minor keys, borrowed chords, secondary dominants,
+                        and several possible variations of any chord (extensions, suspensions).
+                        Download audio (.wav) and MIDI for loops in Experiment Mode. 
+                        
+                    </p>
+                </div>
+            </div>
+            <div id ='features'>
+                <h1 id="featuresTitle">Features coming soon:</h1>
+                <div id="featuresUL">
+                    <ul id="featureA">
+                        <li>Login system to save loops, track Ear Training progress</li>
+                        <li>A huge update to the rhythm generation</li>
+                    </ul>
+                    <ul id="featureB">
+                        <li>Audio effects like delay and chorus</li>
+                        <li>Many more instrument sounds</li>
+                    </ul>
+                    <ul id="featureA">
+                        <li>Many new chord types</li>
+                        <li>New generator settings</li>
+                    </ul>
+                    <ul id="featureB">
+                        <li>Arpeggios. Inversions. Better bass lines</li>
+                        <li>Various other Improvements
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <footer>
+            <p>For feedback or inquiries, please contact:
+             <a href="mailto:chordloops@gmail.com?subject=Feedback" style="color: grey">chordloops@gmail.com</a>.
+             
+            </p>
+            <div>Terms of service: (1) Any audio generated by the Chordloops.net algorithm is royalty-free and may be used 
+                in any musical composition without the need for additional payment or clearance. (2) Users are solely 
+                responsible for ensuring that their use of loops generated by Chordloops.net complies with all applicable 
+                laws and regulations regarding copyright. (3) Users are prohibited from selling or redistributing the audio
+                or midi generated or used by Chordloops.net, except as part of a derivative work, such as a song or beat. 
+                (4) Chordloops.net reserves the right to modify or discontinue the service at any time. Any changes to 
+                these terms will be posted on the website and will be effective immediately upon posting. Users will be 
+                notified of any changes via the website's homepage, email, or in a prominent location, such as in the 
+                footer or as a pop-up. By using the service after any changes are posted, you agree to be bound by any 
+                such changes. (5) Audio generated by Chordloops.net before any future changes to Clause 1 will remain
+                royalty-free. 
+                (6) By using Chordloops.net, you agree to indemnify and hold harmless Chordloops.net, its employees, agents, 
+                and representatives, from and against any and all claims, damages, liabilities, costs, and expenses (including 
+                reasonable attorneys' fees) arising from or related to your use of the service.
+            </div>
+        </footer>
+
+    </section>
+</body>
+<script>
+
+    function toggleDropdown() {
+        console.log('touch screen')
+      document.querySelector('.dropdown-content').classList.toggle('display-grid');
+    }
+
+</script>
+<script>
+    
+    
+</script>

@@ -1,0 +1,862 @@
+body {
+    background-image: linear-gradient(to right, var(--background-color), var(--background-color));
+    background-color: var(--header-color);
+    margin: 0px;
+}
+@supports(padding:max(0px)) {
+    body, header {
+        padding-left: min(0vmin, env(safe-area-inset-left));
+        padding-right: min(0vmin, env(safe-area-inset-right));
+        padding-top: min(0vmin, env(safe-area-inset-top))
+    }
+}
+
+:root {
+    --background-color: rgb(28, 28, 28);
+    --header-color: rgb(22, 22, 22);
+    --heading-mouseover-color: rgb(8, 8, 8);
+    --heading-border-color: rgb(52, 52, 52);
+
+    --titles-color: white;
+    --main-text-color: white;
+    --fade-out-gradient: linear-gradient(90deg, rgba(255,255,255,0) 85%, rgb(26, 26, 26) 98%);
+
+    --generator-text-color: black;
+    --main-dotted-border: white;
+
+    --primary-generator-color: rgb(218, 218, 218);
+    --generator-accent-color: rgb(240, 240, 240);
+    --generator-RN-button:  white;
+    --RN-pressed-color: #0FAFFF;
+
+    --extension-hover-color: rgb(255, 255, 255);
+    --extension-selected-color: rgb(199, 199, 199);
+    --append-color: rgb(184, 184, 184);
+
+    --CL-orange: #ff8041;
+    --lowerInfo: #273f48;
+    --settings: #274841;
+}
+
+@font-face {
+    font-family: 'Music';
+    src: url(MusAnalysis.otf);
+}
+@font-face {
+    font-family: 'flat';
+    src: url(muscEdited.otf);
+    unicode-range: U+0062;
+}
+
+.content{
+    column-gap: 16px;
+    margin-bottom: 16px;
+    display: grid;
+    grid-template-columns: 168px 1fr 168px;
+    grid-template-rows: 63.79px auto auto;
+    font-family: 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
+    letter-spacing: +1px;
+}
+
+/* Start header:  */
+header {
+    grid-column: 1/3;
+    grid-row: 1/2;
+    background-color: var(--header-color);
+    box-shadow: 0px 2px 12px rgba(11, 11, 11, 0.783);
+    border-bottom: 2px solid var(--heading-border-color);
+    display: grid;
+    grid-template-rows: none;
+    grid-template-columns: 1fr 1fr 1fr;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+}
+
+.navBar {
+    display: inline-flex;
+    height: 61.79px;
+    width: min-content;
+    margin-left: env(safe-area-inset-left)
+}
+.navImg {
+    margin: auto;
+    padding: 13.985px;
+    padding-inline: 40px;
+}
+.logo {
+    width: 220px;
+}
+header > a {
+    margin: auto;
+    width: min-content;
+    height: min-content;
+    width: 220px;
+    padding-top: 6px;
+    padding-bottom: 0px;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    width: 250px;
+    top: 61.97px;
+    box-shadow: 0px 2px 12px rgba(11, 11, 11, 0.783);
+}
+@media (hover: hover) {
+    .nav:hover {
+      background-color: var(--heading-mouseover-color);
+    }
+    .navBar:hover .dropdown-content {
+        display: grid;
+        grid-auto-flow: row;
+    }
+}
+.display-grid {
+    display: grid;
+    grid-auto-flow: row;
+}
+.dropdown-content > a {
+    padding: 20px;
+    padding-left: calc(20px + env(safe-area-inset-left));
+    background-color: hsla(0, 0%, 0%, 0.95);
+    color: white;
+    text-decoration: none;
+    user-select: none;
+}
+.dropdown-content > a:hover {
+    background-color: var(--header-color);
+}
+.display-grid > a {
+    padding: 20px;
+    background-color: hsla(0, 0%, 0%, 0.95);
+    color: white;
+    text-decoration: none;
+    user-select: none;
+}
+/* end header */
+
+
+
+
+.aboveMain {
+    grid-row: 2/3;
+    grid-column: 2/3;
+    margin-top: 16px;
+    color: var(--titles-color);
+    display: grid;
+    grid-template-columns: 170px 1fr;
+}
+.explanation {
+    grid-row: 2/3;
+    grid-column: 1/4;
+    color: white;
+    margin: 20px;
+    margin-inline: 12%;
+}
+.explanation a {
+    color: var(--RN-pressed-color);
+    text-decoration: none;
+}
+
+
+.fadeOut {
+    grid-row: 1/2;
+    grid-column: 2/3;
+    margin-bottom: 4px;
+    background: var(--fade-out-gradient);
+    pointer-events: none;
+    z-index: 0;
+    
+}
+.tutorials {
+
+    border-right: 1px dotted var(--main-dotted-border);
+    border-bottom: 1px dotted var(--main-dotted-border);
+}
+.presets {
+    border-bottom: 1px dotted var(--main-dotted-border);
+    overflow-x: scroll;
+}
+.aboveMainTitles {
+    font-size: 20px;
+    margin-top: 0px;
+}
+#tutorialTitle {
+    margin-left: 19.2px
+}
+#presetTitle {
+    margin-left: 32px;
+}
+.tutorialLinks {
+    color: var(--main-text-color);
+    padding-left: 1.2em;
+}
+li:hover {
+    text-decoration: underline;
+}
+.presetPannels {
+    color: var(--main-text-color);
+    width: 183px;
+    height: 102px;
+    margin-bottom: 16px;
+    margin-inline-start: 16px;
+    border-radius: 16px;
+    background-size: cover;
+    box-shadow: 2px 3px 3px rgb(19, 19, 19);
+}
+.presetsUL {
+    padding-left: 0px;
+    display: inline-flex;
+    list-style: none;
+    margin: 0px;
+    text-align: center;
+    text-shadow: 3px 3px 2px black;
+}
+.presetPannels:hover {
+    cursor: pointer;
+    z-index: 0;
+}
+.presetScroll {
+    display: block;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    
+}
+#pannelA {
+    background-image: url(img/music_picture.jpeg);
+}
+#pannelB {
+    background-image: url(img/music_image2.jpeg);
+}
+#pannelC {
+    background-image: url(img/baby_piano.jpeg);
+}
+#pannelD {
+    background-image: url(img/dark_piano.png);
+}
+#pannelE {
+    background-image: url(img/guitar_image.jpeg);
+}
+
+
+.generator {
+    grid-row: 3/4;
+    grid-column: 2/3;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    column-gap: 32px;
+}
+.chordSelection {
+    width: min-content;
+}
+.options {
+    margin-left: auto;
+}
+.generatorTitles {
+    margin-top: 32px;
+    margin-bottom: 16px;
+    font-size: 20px;
+    color: var(--titles-color);
+    text-align: center;
+    font-size: 150%;
+}
+.previewsPanel {
+    margin-inline: auto;
+    background-color: var(--primary-generator-color);
+    height: 624px;
+    width: 324px;
+    border-radius: 32px;
+
+    color: var(--generator-text-color);
+    font-size: 32px;
+    line-height: 44px;
+
+    padding-left: 16px;
+    padding-right: 16px;
+
+    overflow-y: scroll;
+
+}
+.optionsPanel {
+    max-width: 392px;
+    background-color: var(--primary-generator-color);
+    padding: 16px;
+
+    height: 592px;
+    border-radius: 32px;
+    position: relative;
+
+}
+.chordSelectionPanels {
+    width: max-content;
+    height: 624.5px;
+    text-align: center;
+    display: grid;
+    grid-template-columns: auto 1fr 32px;
+
+
+    border-radius: 32px;
+    overflow: scroll;
+}
+
+
+.romanNumeralGrid {
+    background-color: var(--generator-accent-color);
+    border-bottom-left-radius: 32px;
+    border-top-left-radius: 32px;
+    height: 624.5px;
+
+    grid-column: 1/2;
+    display: grid;
+    grid-template-columns: 1fr
+}
+#diatonicNumerals {
+    height: 624.5px;
+    width: 148px;
+    grid-template-rows: 36.5px auto;
+}
+#modalNumerals {
+    height: 624.5px;
+    width: 148px;
+    grid-template-rows: 36.5px auto;
+}
+#secDomNumerals {
+    height: 624.5px;
+    width: 164px;
+    grid-template-rows: 36.5px 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.extensions {
+    background-color: var(--primary-generator-color);
+    height: 100%;
+    grid-column: 2/3;
+    color: var(--generator-text-color);
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+
+
+.selectAll {
+    cursor:pointer;
+    user-select: none;
+    font-size: 16px;
+    color: var(--generator-text-color);
+    margin-top: 8px;
+    margin-bottom: 10px;
+}
+.selectAll:hover {
+    text-decoration: underline;
+}
+.romanNumeralButton {
+    margin: auto;
+    position: relative
+
+}
+.romanNumeralButton:active .romanNumeralLabel {
+    box-shadow: inset -10px -10px 10px rgb(255, 255, 255);
+}
+.romanNumeralInput {
+    height: 64px;
+    appearance: none;
+    cursor: pointer;
+}
+.romanNumeralInput:checked + .romanNumeralLabel {
+    border: 3px solid var(--RN-pressed-color);
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.189);
+    top: -3px;
+    left: -3px;
+
+
+}
+.romanNumeralLabel {
+
+    font-family: 'Music';
+    letter-spacing: -3px;
+
+    color: var(--generator-text-color);
+    font-size: 40px;
+
+    height: 64px;
+    background-color: var(--generator-RN-button);
+    box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.165);
+    line-height: 64px;
+    pointer-events: none;
+    position: absolute;
+    top:0px;
+    left: 0px;
+
+}
+
+#diatonicNumerals > .romanNumeralButton > .romanNumeralLabel {
+    width: 64px;
+    border-radius: 50%;
+}
+#diatonicNumerals > .romanNumeralButton > .romanNumeralInput {
+    width: 64px;
+}
+#modalNumerals > .romanNumeralButton > .romanNumeralLabel {
+    width: 88px;
+    border-radius: 24px;
+}
+#modalNumerals > .romanNumeralButton > .romanNumeralInput {
+    width: 88px;
+}
+#secDomNumerals > .romanNumeralButton > .romanNumeralLabel {
+    width: 128px;
+    border-radius: 24px;
+}
+#secDomNumerals > .romanNumeralButton > .romanNumeralInput {
+    width: 128px;
+}
+
+
+.extensionGrid {
+    text-align: center;
+}
+#diatonicExtensions {
+    height: 624.5px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 36.5px 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+#modalExtensions {
+    height: 624.5px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 36.5px 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+#secDomExtensions {
+    height: 456.5px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 36.5px 1fr 1fr 1fr 1fr 1fr;
+}
+.extensionTitles {
+    letter-spacing: -0.5px;
+    text-align: center;
+    margin-top:8px;
+    min-width: 45px;
+    user-select: none;
+}
+.extensionTitles:not(#append) {
+    cursor: pointer;
+}
+.extensionTitles:not(#append):hover {
+    text-decoration: underline;
+}
+.extensionLabel {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    font-size:larger;
+    font-family: 'Lucida Console', 'Courier';
+    color: var(--generator-text-color);
+    letter-spacing: 0.05rem;
+    background-color: var(--generator-accent-color);
+    border-left: 1px dotted black;
+    border-bottom-right-radius: 32px;
+    border-top-right-radius: 32px;
+    user-select: none;
+}
+
+
+.extensionsButtons {
+    display: block;
+    position: relative;
+}
+.extensionsInputs {
+    margin:0px;
+    padding: 0px;
+    height: 100%;
+    width: 100%;
+    appearance: none;
+    cursor: pointer;
+}
+.extensionsLabels {
+    background-color: var(--primary-generator-color);
+    pointer-events: none;
+    margin: 0px;
+    padding: 0px;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+@media (hover: hover){
+    .extensionsInputs:hover + .extensionsLabels {
+        background-color: var(--extension-hover-color);
+        transition: background-color 0.1s;
+    }
+}
+.extensionsInputs:checked + .extensionsLabels {
+    background-color: var(--extension-selected-color);
+}
+.material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 600,
+    'GRAD' 0,
+    'opsz' 48;
+    margin: auto;
+    color: var(--append-color);
+    cursor: default;
+}
+
+.previewNotif{
+    color: var(--append-color);
+    font-weight: 600;
+    text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.061);
+    display: block;
+    margin: 10%;
+    align-content: center;
+}
+.previewDiv {
+    height: 46px;
+    margin-top: 24px;
+    margin-bottom: 24px;
+    padding-left: 8px;
+
+    font-family: 'Music';
+
+    display: grid;
+    grid-template-columns: auto auto 1fr auto auto;
+    grid-template-rows: 1fr;
+
+    background-color: var(--generator-accent-color);
+    border-radius: 8px;
+    box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.177);
+
+    position: relative;
+
+}
+.RN {
+    font-weight: 500;
+    letter-spacing: 0px;
+}
+.LStag {
+    font-family: "flat", "Lucida Console", "Times New Roman";
+    margin-left: 1px;
+    font-size: 24px;
+    line-height: 32px;
+}
+.playPreview {
+    grid-column: 4/5;
+    position: relative;
+    pointer-events: all;
+
+    height: 32px;
+    width: 32px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    margin:auto;
+    color: var(--main-text-color);
+    cursor: pointer;
+}
+.playPreview:hover {
+    background-color: #26ff0080;
+}
+.removeChord {
+    grid-column: 5/6;
+    position: relative;
+    pointer-events: all;
+
+    height: 28px;
+    width: 28px;
+    padding-top: 9px;
+    padding-bottom: 9px;
+    border-bottom-right-radius: 8px;
+    border-top-right-radius: 8px;
+
+
+    margin:auto;
+    color: var(--main-text-color);
+    cursor: pointer;
+}
+.removeChord:hover {
+    background-color: rgba(255, 0, 0, 0.273);
+}
+
+
+.start {
+    font-weight: 300;
+    color:limegreen;
+    border:rgb(241, 239, 239) 3px solid;
+    background-color: rgb(241, 239, 239);
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.09);
+    border-radius: 34px;
+    width: 160px;
+    height: 60px;
+    text-align: center;
+    margin-inline: auto;
+}
+.headingForEachOption {
+    margin-top: 16px;
+    margin-bottom: 4px;
+}
+#optionsOne {
+    width: fit-content;
+    margin: auto;
+}
+#optionsTwo {
+    width: fit-content;
+    padding-inline: 64px;
+    margin: auto;
+}
+#moreOptions {
+    position: absolute;
+    right: 16px;
+    bottom: 32px;
+    border-color: var(--extension-selected-color);
+    background-color: var(--generator-accent-color);
+    cursor: pointer;
+    height: 32px;
+}
+#nextArrow {
+    position:absolute;
+    top: 2px;
+    right: 0px;
+    width: 25px
+}
+#backOptions {
+    position: absolute;
+    left: 16px;
+    bottom: 32px;
+    border-color: var(--extension-selected-color);
+    background-color: var(--generator-accent-color);
+    cursor: pointer;
+    height: 32px;
+}
+#bpmValue {
+    margin: auto;
+    padding: 0px;
+    height: 12px;
+    background-color: #0FAFFF;
+    pointer-events: none;
+}
+#keyDropdown {
+    pointer-events: none;
+}
+.startEndBlock {
+    display: grid;
+    grid-template-columns: 16px 1fr;
+}
+.startEndIndicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 2px black ;
+    margin: auto;
+    margin-left: 0px;
+}
+#startIndicator {
+    background-color: limegreen;
+    box-shadow: 0px 0px 2px limegreen, 2px 2px 2px rgba(0, 0, 0, 0.09);
+    border: 0.25px solid grey
+}
+#endIndicator {
+    background-color: red;
+    box-shadow: 0px 0px 1px red, 2px 3px 2px rgba(0, 0, 0, 0.09);
+    border: 0.25px solid grey
+}
+.instrumentBoxes {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-auto-flow: row;
+}
+
+
+@media (hover: none){
+    .selectAll:hover {
+        text-decoration: none;
+    }
+    .extensionTitles:not(#append):hover {
+        text-decoration: none;
+    }
+    .extensionsInputs:hover + .extensionsLabels {
+        background-color: none;
+    }
+}
+
+@media only screen and (max-width: 1470px) {
+    .content {
+        grid-template-columns: 32px 1fr 32px;
+    }
+}
+@media only screen and (max-width: 1210px) {
+    .generator {
+        column-gap: 0px;
+        display: block;
+    }
+    header {
+        position: relative;
+    }
+    .content {
+        column-gap: 0px;
+        padding-right: 0px;
+    }
+    .aboveMain {
+        padding-inline: 32px;
+    }
+    .previewsPanel {
+        width: 405px;
+        margin-left: 8px;
+        margin-right: auto;
+        padding: 0px;
+
+    }
+    .options {
+        width: 405px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 0px;
+        padding-top: 16px;
+    }
+    .previewDiv {
+        margin-inline: 16px;
+    }
+
+    .generator {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+    }
+    .chordSelection {
+        grid-row: 1/2;
+        grid-column: 1/2;
+        width: 405px;
+        margin-left: auto;
+    }
+    .previews {
+        grid-row: 1/2;
+        grid-column: 2/3;
+        width: 405px;
+        margin-left: 8px;
+        margin-right: auto;
+    }
+    .options {
+        grid-row: 2/3;
+        grid-column: 1/3
+    }
+
+}
+@media only screen and (max-width: 900px) {
+    .aboveMain {
+        display: none;
+    }
+    .content {
+        display: block;
+        padding: 0px;
+    }
+    .navImg {
+        width: 26px;
+        padding: 17.685px;
+    }
+
+    .generator {
+        display: block;
+    }
+    .chordSelection {
+        margin: auto;
+    }
+    .previews {
+        margin: auto;
+    }
+    .chordSelectionPanels {
+        margin: auto;
+    }
+    .previewsPanel {
+        margin: auto;
+    }
+}
+
+@media only screen and (max-width: 425.5px) {
+    .chordSelection {
+        width: 300px;
+    }
+    .chordSelectionPanels {
+        grid-template-columns: auto auto 32px;
+        height: max-content;
+    }
+
+    .generatorTitles {
+        margin-inline: 8px;
+    }
+
+    .romanNumeralGrid {
+        height: auto;
+    }
+    .romanNumeralButton {
+        transform: scale(0.8);
+    }
+    .selectAll {
+        margin-bottom: 0px;
+        margin-top: 13px;
+    }
+    #diatonicNumerals {
+        height: auto;
+        width: auto;
+        padding-inline: 6px;
+    }
+    #modalNumerals {
+        height: auto;
+        width: auto;
+    }
+    #secDomNumerals {
+        height: auto;
+        width: auto;
+    }
+    #diatonicExtensions {
+        height: 551px;
+    }
+    #modalExtensions {
+        height: 551px;
+    }
+    #secDomExtensions {
+        height: 404px;
+    }
+    .extensionTitles {
+        margin-top:12.5px;
+    }
+    .extensionLabel {
+        letter-spacing: -2px;
+    }
+
+
+    .extensionTitles {
+        min-width: 36px;
+    }
+
+    .RN {
+        font-size: 27px;
+    }
+    .LStag {
+        font-size: 19px;
+    }
+
+
+    .previews {
+        width: 300px;
+    }
+    .previewNotif {
+        font-size: 24px;
+    }
+    .previewsPanel {
+        width: 300px;
+    }
+    .options {
+        width: 300px;
+    }
+    .previewDiv {
+        margin-inline: auto;
+        grid-template-columns: auto auto 1fr 28px 32px;
+        width: 264px;
+    }
+
+    #optionsOne {
+        padding-inline: 16px;
+    }
+    #bpmValue {
+        width: 110px;
+    }
+}

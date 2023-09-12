@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Guide</title>
+    <meta name="description" content="How to use the Generator for chordloops.net to make custom Experiment
+    Mode presets and Ear Trainer lessons.">
+    <link rel="icon" type="image/x-icon" href="img/favicon.png">
+    <meta name='viewport' content='initial-scale=1, viewport-fit=cover'>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="howToUse.css">
+</head> 
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2KR1FZCMFL"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-2KR1FZCMFL');
+</script>
+
+<body>
+    <section class="content">
+        <header>
+            <div class = "navBar">
+                <a class = "nav" style="cursor: pointer" ontouchstart="toggleDropdown()">
+                    <img src ="img/menu.png" class="navImg">
+                </a>
+                <div class="dropdown-content">
+                    <a href="index.html">Home</a>
+                    <a href="experiment.html">Generator</a>
+                    <a href="browsePresets.html">Presets</a> 
+                    <a href="howToUse.html">User Guide</a>
+                    
+                </div>
+            </div>
+            <a href="index.html"><img class = "logo", src="img/chordloopsLogo5.png" style="cursor:pointer"></a>
+        </header>
+        <section class="userGuide">
+            <h1 class="generatorOverview">Overview of Generator page:</h1>
+            <place value="This is just a placeholder"></place>
+            <div class="generatorOverview" id="chordSelector">
+                <p>First, select chords in the <i>Chord Selector</i> panel. The generator will randomly
+                    sequence these chords into progressions:
+                </p>
+                <img id="tutOne" src="img/generatorPic1.png">
+                <p>Natural Minor and Secondary Dominant chords can be accessed from the dropdown menu.
+                </p>
+                <p>
+                    Extensions like 7ths and 9ths, as well as suspensions, can be added to chords. Several
+                    different combinations are possible: for example, add9 or maj7sus2.
+                </p>
+                <p class="tip">Tip: quickly select or deselect Roman numerals and extensions by tapping the titles 
+                    above each column.
+                </p>
+            </div>
+            <div class="generatorOverview" id="previews">
+                <p>In the next panel, you'll be able to preview the chord symbols.
+                    Each has a play button and delete button.
+                </p>
+                <img id="tutTwo" src="img/previewsPic1.png">
+                <p>Going back to the Chord Selector, say you would like multiple variations of the same chord&#8212;for instance:
+                    Imaj7 and Isus2. Simply press <span class="material-symbols-outlined">library_add</span> to add each variation. 
+                </p>
+                <p>
+                    You can add borrowed chords by simply including chords from both Diatonic Major and Natural Minor.
+                </p>
+                <p>
+                    The algorithm can place one borrowed chord or one secondary dominant per loop, and will do so for
+                    about 3/4ths of the generated loops.
+                </p>
+            </div>
+            <div class="generatorOverview" id="settings">
+                <p>The third panel, <i>Settings</i>, provides further controls. Press <i>Start</i> to begin generating loops.</p>
+                <img id="tutThree" src="img/settingsPic1.png">
+            </div>
+
+            <div class="settingsExplained" id="mode">
+                <h1><i>Settings</i>, explained:</h1>
+                <p><i>Ear Trainer</i> mode displays the loops as a chord-guessing-game:</p>
+                <img id="earTrainerPic" src="img/earTrainer.png">
+                <p>On the other hand, <i>Experiment Mode</i> simply displays the chords and loop info:</p>
+                <img id="experimentPic" src="img/experiment.png">
+                <p><i>Auto Key</i> and <i>Auto Tempo</i> will select a random key and tempo for each loop.
+                    Alternatively, you can specify a key and tempo, which every loop will generate with.
+                </p>
+                <p><i>Length</i> is how many chords each loop contains. You can select more than one for a variety of lengths.
+                </p>
+                <p>Tip: Lengths of 3 and 4 sound best in the current version. 2, 5, and 6 are also good. 8 is usually
+                    too long for chords to randomly align in a pleasing way.
+                </p>
+            </div>
+            <div class="settingsExplained" id="startEndOn">
+                <p>By default, <i>Always Start On</i> is engaged. Simply tap a chord in Previews, and a green
+                    indicator will appear to the left:
+                </p>
+                <img id="startEndPic" src="img/startEndOnPic.png">
+                <p>Likewise, <i>Always End On</i>
+                    places a red indicator to the right.
+                    In the above preset, loops will always begin on i and end on either ii&#176;, iv, or V.
+                </p>
+                <p>Using <i>Always Start On</i> is recommended- usually for the I or i chord, depending on the key. 
+                </p>
+                <p>Tip: Both are great tools for experimenting. For example, what happens if you always start on iii and 
+                    end on ii?</p>
+            </div>
+            <div class="settingsExplained" id="lastSettings">
+                <p>In <i>More Settings</i>, you'll find an instrument selector. The more you check, the
+                    longer it may take the next page to load:
+                </p>
+                <img id="instrumentsPic" src="img/instrumentsPic.png">
+                <p>
+                    After pressing <i>Start</i>, you can return to the Generator page without loosing your preset!
+                    But make sure you press <i>Start</i> again, rather than going forward via your browser controls.
+                </p>
+                <p>
+                    Note: Some loops may have an ambiguous key&#8212;for example, ii-I in C major (Dm to C) could also 
+                    be vi-V in in F major, i-bVII in D minor, or iv-bIII in A minor. Chordloops can only display one of these
+                    interpretations, but which one is "right" depends on musical context (and the experience of the listener).
+                    In <i>Ear Trainer</i> mode, enabling the KEP button provides this musical context by playing a 
+                    short <i>key-establishing progression</i> before the loop. 
+                    
+                </p>
+            </div>
+        </section>
+    </section>
+</body>
+
+<script>
+
+    function toggleDropdown() {
+        console.log('touch screen')
+      document.querySelector('.dropdown-content').classList.toggle('display-grid');
+    }
+</script>

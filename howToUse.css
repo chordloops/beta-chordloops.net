@@ -1,0 +1,320 @@
+body {
+    background-image: linear-gradient(to right, var(--background-color), var(--background-color));
+    background-color: var(--header-color);
+    margin: 0px;
+}
+@supports(padding:max(0px)) {
+    body, header {
+        padding-left: min(0vmin, env(safe-area-inset-left));
+        padding-right: min(0vmin, env(safe-area-inset-right));
+        padding-top: min(0vmin, env(safe-area-inset-top))
+    }
+}
+
+:root {
+    --background-color: #1c1c1c;
+    --header-color: rgb(22, 22, 22);
+    --heading-mouseover-color: rgb(8, 8, 8);
+    --heading-border-color: rgb(52, 52, 52);
+
+    --titles-color: white;
+    --main-text-color: white;
+    --fade-out-gradient: linear-gradient(90deg, rgba(255,255,255,0) 85%, rgb(26, 26, 26) 98%);
+
+    --generator-text-color: black;
+    --main-dotted-border: white;
+
+    --primary-generator-color: rgb(218, 218, 218);
+    --generator-accent-color: rgb(240, 240, 240);
+    --generator-RN-button:  white;
+    --RN-pressed-color: #0FAFFF;
+
+    --extension-hover-color: rgb(255, 255, 255);
+    --extension-selected-color: rgb(199, 199, 199);
+    --append-color: rgb(184, 184, 184);
+
+    --CL-orange: #ff8041;
+    --lowerInfo: #273f48;
+    --settings: #274841;
+}
+
+@font-face {
+    font-family: 'Music';
+    src: url(MusAnalysis.otf);
+}
+@font-face {
+    font-family: 'flat';
+    src: url(muscEdited.otf);
+    unicode-range: U+0062;
+}
+@font-face {
+    font-family: 'Porshe';
+    src: url(PorscheNext-Regular.otf);
+}
+
+
+
+.content{
+    
+    margin-bottom: 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 63.79px auto auto auto;
+    column-gap: 16px;
+    font-family: 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
+    letter-spacing: +1px;
+}
+
+/* Start header:  */
+header {
+    grid-column: 1/3;
+    grid-row: 1/2;
+    background-color: var(--header-color);
+    box-shadow: 0px 2px 12px rgba(11, 11, 11, 0.783);
+    border-bottom: 2px solid var(--heading-border-color);
+    display: grid;
+    grid-template-rows: none;
+    grid-template-columns: 1fr 1fr 1fr;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+}
+
+.navBar {
+    display: inline-flex;
+    height: 61.79px;
+    width: min-content;
+    margin-left: env(safe-area-inset-left)
+}
+.navImg {
+    margin: auto;
+    padding: 13.985px;
+    padding-inline: 40px;
+}
+.logo {
+    width: 220px;
+}
+header > a {
+    margin: auto;
+    width: min-content;
+    height: min-content;
+    width: 220px;
+    padding-top: 6px;
+    padding-bottom: 0px;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    width: 250px;
+    top: 61.97px;
+    box-shadow: 0px 2px 12px rgba(11, 11, 11, 0.783);
+}
+@media (hover: hover) {
+    .nav:hover {
+      background-color: var(--heading-mouseover-color);
+    }
+    .navBar:hover .dropdown-content {
+        display: grid;
+        grid-auto-flow: row;
+    }
+}
+.display-grid {
+    display: grid;
+    grid-auto-flow: row;
+}
+.dropdown-content > a {
+    padding: 20px;
+    padding-left: calc(20px + env(safe-area-inset-left));
+    background-color: hsla(0, 0%, 0%, 0.95);
+    color: white;
+    text-decoration: none;
+    user-select: none;
+}
+.dropdown-content > a:hover {
+    background-color: var(--header-color);
+}
+.display-grid > a {
+    padding: 20px;
+    background-color: hsla(0, 0%, 0%, 0.95);
+    color: white;
+    text-decoration: none;
+    user-select: none;
+}
+/* end header */
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('https://fonts.googleapis.com/css?family=Roboto Condensed');
+}
+.userGuide {
+    margin-inline: 150px;
+    grid-row: 3/4;
+    grid-column: 1/3;
+    color: white; 
+    text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.622);
+    /* background-color: VAR(--settings); */
+
+    display: grid; 
+    grid-template-rows: auto auto auto auto;
+    grid-template-columns: auto auto auto;
+    padding: 32px;
+    padding-bottom: 0px;
+    column-gap: 48px;
+    row-gap: 32px;
+
+    /* box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.64); */
+    font-family: 'Roboto';
+    font-size: 17px;
+}
+.userGuide > h1 {
+    margin-bottom: 0px;
+    
+}
+.generatorOverview:not(h1) {
+    padding-inline: 16px;
+    box-shadow: 2px 2px 6px black;
+    border-radius: 12px;
+    background-color: VAR(--lowerInfo);
+    grid-row: 2/3;
+    width: min-content
+}
+.settingsExplained {
+    padding-inline: 16px;
+    box-shadow: 2px 2px 6px black;
+    border-radius: 12px;
+    background-color: VAR(--settings);
+    grid-row: 4/5;
+    width: min-content
+
+}
+
+#previews {
+    margin-inline: auto;
+}
+#settings {
+    margin-left: auto;
+}
+#tutOne {
+    width: 300px;
+    /* border: 0.5px solid white; */
+    /* box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.781); */
+}
+#tutTwo {
+    width: 280px;
+    height: 286px;
+    overflow-y: hidden;
+    /* border: 0.5px solid white; */
+    /* box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.781); */
+}
+#tutThree {
+    width: 280px;
+    padding-bottom: 12px;
+}
+.material-symbols-outlined {
+    position: relative;
+    bottom: -3px;
+    font-size: 17px;
+    line-height: 17px;
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 500,
+    'GRAD' 0,
+    'opsz' 48
+}
+/* .tip {
+    color: rgb(255, 255, 86);
+} */
+
+
+
+#earTrainerPic {
+    width: 300px;
+    /* border: 0.5px solid white; */
+    /* box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.781); */
+}
+#experimentPic {
+    width: 300px;
+    /* border: 0.5px solid white; */
+    /* box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.781); */
+}
+#startEndOn {
+    margin-inline: auto;
+}
+#startEndPic {
+    width: 290px;
+    /* border: 0.5px solid white; */
+    /* box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.781); */
+}
+#lastSettings {
+    margin-left: auto;
+}
+#instrumentsPic {
+    width: 280px;
+    /* height */
+    /* border: 0.5px solid white; */
+    /* box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.781); */
+}
+ul {
+    padding-left: 24px;
+}
+li {
+    padding-bottom: 16px;
+}
+
+
+
+@media only screen and (max-width: 1416px){
+    .userGuide {
+        margin-inline: 16px;
+    }
+    
+}
+@media only screen and (max-width: 1145px){
+    .userGuide {
+        grid-template-rows: auto auto auto auto;
+        grid-template-columns: auto auto;
+    }
+    .generatorOverview:not(h1) {
+        grid-row:auto;
+        grid-column:auto;
+    }
+    .settingsExplained {
+        grid-row:auto;
+        grid-column:auto;
+    }
+    .userGuide > div {
+        float: none;
+        margin-inline: auto;
+    }
+}
+@media only screen and (max-width: 860px){
+    header {
+        position: relative;
+    }
+    .navImg {
+        width: 26px;
+        padding: 17.685px;
+    }
+    .content {
+        grid-template-columns: 1fr;
+        
+    }
+    h1 {
+        text-align: center;
+    }
+    .userGuide{
+        grid-column: 1/3;
+        margin-inline: auto;
+        display: block;
+        padding-inline: 16px;
+    }
+    .userGuide > div {
+        margin-bottom: 32px;
+        padding-top: 4px;
+        padding-bottom: 8px;
+    }
+    .userGuide > h1 {
+        margin-bottom: 16px;
+    }
+}

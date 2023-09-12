@@ -1,0 +1,1791 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-P5RGMGZ');</script>
+    <!-- End Google Tag Manager -->
+    <title>Loops</title>
+    <!-- <link rel="icon" type="image/x-icon" href="img/favicon.png"> -->
+    <meta name='viewport' content='initial-scale=1, viewport-fit=cover'>
+    <link rel="stylesheet" href="loops.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <html lang="en" xml:lang="en" xmlns= "http://www.w3.org/1999/xhtml">
+    <meta charset="UTF-8">
+    <meta name="google" content="notranslate">
+    <meta http-equiv="Content-Language" content="en">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1759202009182339"
+     crossorigin="anonymous"></script>
+</head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2KR1FZCMFL"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-2KR1FZCMFL');
+</script>
+
+
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P5RGMGZ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <header class = "content">
+        <div class = "navBar">
+            <a class = "nav" style="cursor: pointer" ontouchstart="toggleDropdown()">
+                <img src="img/menu.png" class="navImg">
+            </a>
+            <div class="dropdown-content">
+                <a href="index.html">Home</a>
+                <a href="experiment.html">Generator</a>
+                <a href="browsePresets.html">Presets</a> 
+                <a href="howToUse.html">User Guide</a>
+                
+            </div>
+        </div>
+        <a href="index.html"><img class = "logo", src="img/chordloopsLogo5.png" style="cursor:pointer"></a>
+    </header>
+
+    <section class="loading">
+        <h4>Loading Instruments:</h4>
+    </section>
+    <section class="experimentModeUI">
+        <section class="loopDisplay" style="display:none">
+        </section>
+        
+        <section class ="buttonsDisplay" style="display:none">
+            <button class="playButton" onclick="if (spaceTimeout == false){playButton()}">Play</button>
+            <button class="experimentNext" onclick="nextButton()" title="Next chord loop">
+                <img src="img/nextArrow.png" id="nextArrowImg">
+            </button>
+            <button id = "backButton" onclick="backButton()" title="Previous chord loop">
+                <img src="img/nextArrow.png" id="backArrowImg">
+            </button>
+            <div class="downloadDiv" onclick="downloadPopUp()" style="display: none">
+                <span class="material-symbols-outlined" id="downloadIcon">
+                    download
+                </span>
+            </div>
+            <div class="downloadPopUp" style="display:none">
+                <div id="downloadX" onclick="downloadPopUp()">&#10005;</div>
+                <p onclick="createWav()" id="downloadWavButton"><span class="material-symbols-outlined" id="downloadIcon">download</span>Download .wav</p>
+                <p onclick="createMIDI()" id="downloadMidiButton"><span class="material-symbols-outlined" id="downloadIcon">download</span>Download MIDI</p>
+            </div>
+            
+            <section class="loopInfo">
+                <p>Loop: </p>
+                <p>Key: </p>
+                <p>Tempo: </p>
+                <p>Instrument: </p>
+            </section>
+
+
+        </section>
+    </section>
+    <section class ="earTrainerUI" style="display:none">
+        <div id="rotateNotif">
+            Please rotate your device into landscape mode
+            <div id="outerPhone">
+                <div id="innerPhone"></div>
+            </div>
+            
+        </div>
+        <section class="ETloop"></section>
+        <section class="ETbuttons">
+            <div class="ETbuttonBar">
+                <button class="ETplayButton" onclick="if (spaceTimeout == false){playButton()}">Play</button>
+
+                <button class="ETcheckDisabled">Check Answer</button>
+                <button class="ETcheck" onclick="checkAnswer()" style="display:none">Check Answer</button>
+                <button class="ETnext" onclick="nextQuestion()" style="display:none">
+                    <img src='img/nextArrow.png' id='nextArrowImg'>
+                </button>
+
+                <div class="KEPdiv">
+                    <input type="checkbox" id="KEP" onchange="toggleKEP()">
+                    <label for="KEP">KEP</label>
+                    <div id="KEPinfo">
+                        A "key-establishing progression" will sound before each play. This
+                        helps with identifying the correct key.
+                    </div>
+                </div>
+                <img src="img/moreInfo.png" id="moreInfo" onclick="toggleKEPInfo()">
+                
+
+            </div>
+            <section class="ETchoices">
+                <div class="majChoices" style="display: none"></div>
+                <div class="minChoices" style="display: none"></div>
+                <div class="secDomChoices" style="display: none"></div>
+            </section>
+        </section>
+        <section class="controlsStats">
+            <h3 style="margin-top: 0px">Score</h3>
+            <div class="statGrid">
+                <div class="statTitleA" id="scoreTitle">Score: </div>
+                <div class="statTitleA" title="Total time spent listening, divided by length of loop.">Listens: </div>
+
+
+                <div class="statTitleB">Question: </div>
+                <div class="statTitleB">Key: </div>
+                <div class="statTitleB">Tempo: </div>
+                <div class="statTitleA" id="scoreDisplay">...</div>
+                <div class="statTitleA" id="elapsedTime">...</div>
+                <div class="statTitleB" id="questionNumber">#1</div>
+                <div class="statTitleB" id="ETmodeDisplay"></div>
+                <div class="statTitleB" id="tempoDisplay">...</div>
+
+                <div class="statTitleA" id="averageScore">...</div>
+                <div class="statTitleA" id="averageTime">...</div>
+                
+
+            </div>
+            
+        </section>
+        
+    </section>
+</body>
+
+<script src="solfege.js"></script>
+<script src="https://unpkg.com/tone@14.7.77/build/Tone.js"></script>
+<script src="audiobuffer-to-wav-master/index.js"></script>
+<script src="midiwriter.js"></script>
+<script src="session-VOICING.js"></script>
+<script src="session-RHYTHM.js"></script>
+
+<script>
+
+    function toggleDropdown() {
+      document.querySelector('.dropdown-content').classList.toggle('display-grid');
+    }
+
+    // converting input rules from last page
+
+    let selectionsForEachPanel = JSON.parse(localStorage.getItem('selectionsForEachPanel'))
+    let solfegesForEachPanel = JSON.parse(localStorage.getItem('solfegesForEachPanel'))
+    let LSForEachPanel = JSON.parse(localStorage.getItem('LSForEachPanel'))
+    let finalChordList = JSON.parse(localStorage.getItem('finalChordList'))
+    let settings = JSON.parse(localStorage.getItem('settings'))
+
+    fixSolfegeStrings(LSForEachPanel)
+    fixSolfegeStrings(finalChordList)
+
+    function fixSolfegeStrings(input){  
+        if (input == LSForEachPanel){
+            for (let p = 0; p < LSForEachPanel.length; p++){
+                for (let r = 0; r < input[p].length; r++){
+                    for (let i = 0; i < input[p][r].length; i++){
+                        for (let s = 0; s < input[p][r][i].solfege[0].length; s++){
+                            input[p][r][i].solfege[0][s] = new Function("return " + input[p][r][i].solfege[0][s].string)();
+                        }
+                    }
+                }
+            }
+        }
+        else if (input == finalChordList){
+            for (let r = 0; r < finalChordList.length; r++){
+                for (let p = 0; p < finalChordList[r].length; p++){
+                    for (let i = 0; i < finalChordList[r][p].length; i++){
+                        for (let s = 0; s < finalChordList[r][p][i].solfege[0].length; s++){
+                            if (finalChordList[r][p][i].solfege[0][s].string.length > 0){
+                                finalChordList[r][p][i].solfege[0][s] = new Function("return " + finalChordList[r][p][i].solfege[0][s].string)()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // create loading screen for buffer progress
+    let bufferProgress = document.createElement('div')
+    bufferProgress.setAttribute('class','loadingBar')
+    document.querySelector('.loading').append(bufferProgress)
+
+    for (let i = 0; i < settings.instruments.length; i++){
+        let loadingItem = document.createElement('div')
+        loadingItem.setAttribute('class','loadingItem')
+        bufferProgress.append(loadingItem)
+    }
+
+    let synthsLoaded = 0
+    let allSynths = []
+
+    function createBuffers() {
+        const synths = [
+            {
+            name: 'vintagePad',
+            displayName: 'Vintage Pad',
+            baseUrl: 'https://sounds.chordloops.net/CLSynth1Ogg/'
+            },
+            {
+            name: 'darkSurge',
+            displayName: 'Dark Surge',
+            baseUrl: 'https://sounds.chordloops.net/CLSynth2Ogg/'
+            },
+            {
+            name: 'liquidKeys',
+            displayName: 'Liquid Keys',
+            baseUrl: 'https://sounds.chordloops.net/CLSynth3Ogg/'
+            },
+            {
+            name: 'synthPianoOne',
+            displayName: 'Synth Piano 1',
+            baseUrl: 'https://sounds.chordloops.net/CLSynthKeys1Ogg/'
+            },
+            {
+            name: 'fromDust',
+            displayName: 'From Dust',
+            baseUrl: 'https://sounds.chordloops.net/CLSynth4Ogg/'
+            },
+            {
+            name: 'electricChoir',
+            displayName: 'Electric Choir',
+            baseUrl: 'https://sounds.chordloops.net/ElectricChoirOgg/'
+            }
+        ]
+
+        for (let i=0; i < synths.length; i++){
+            if (settings.instruments.includes(synths[i].name)){
+
+                let fileType = '.ogg'
+                //if (synths[i].name == 'electricChoir'){fileType = '.ogg'}
+
+                window[synths[i].name] = new Tone.Buffers({
+                    urls: {
+                        C1: 'C1' + fileType,
+                        A1: 'A1' + fileType,
+                        E2: 'E2' + fileType,
+                        C3: 'C3' + fileType,
+                        A3: 'A3' + fileType,
+                        E4: 'E4' + fileType,
+                        C5: 'C5' + fileType,
+                        A5: 'A5' + fileType,
+                        E6: 'E6' + fileType,
+                    },
+                    onload: () => {
+                        console.log(synths[i].name + ' loaded');
+                        synthsLoaded++;
+                        document.querySelector('.loadingItem').setAttribute('class','loadedItem')
+                        checkLoading();
+                        
+                    },
+                    baseUrl: synths[i].baseUrl,
+                })
+                window[synths[i].name].synthName = synths[i].displayName
+                allSynths.push(window[synths[i].name])
+            }
+        }
+        
+    }
+
+    let buffers = createBuffers()
+
+    function checkLoading(){
+        if (synthsLoaded == settings.instruments.length){
+            console.log("all synths have loaded.")
+            document.querySelector(".loading").style = "display: none;"
+            pickChords()
+            // unveil the download button, so it doesn't appear on loading instruments screen on mobile: 
+            document.querySelector('.downloadDiv').style.display = ""
+            console.log('should be showing download button')
+        }
+    }
+    
+    // move download button for mobile:
+    window.onload = function(){
+        var currentWidth = window.innerWidth;
+        if (currentWidth < 800) {
+            document.querySelector('.loopDisplay').insertAdjacentElement('afterend', document.querySelector('.downloadDiv'))
+            document.querySelector('.downloadDiv').insertAdjacentElement('afterend', document.querySelector('.downloadPopUp'))
+        }
+    } 
+    window.addEventListener("resize", function() {
+        if (window.innerWidth < 800) {
+            document.querySelector('.loopDisplay').insertAdjacentElement('afterend', document.querySelector('.downloadDiv'))
+            document.querySelector('.downloadDiv').insertAdjacentElement('afterend', document.querySelector('.downloadPopUp'))
+        }
+        else {
+            document.querySelector('#backButton').insertAdjacentElement('afterend', document.querySelector('.downloadDiv'))
+            document.querySelector('.downloadDiv').insertAdjacentElement('afterend', document.querySelector('.downloadPopUp'))
+        }
+    })
+
+</script>
+
+<script>
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////// Initiate loop generation process //////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    let currentLoopIndex = 0
+
+    // variables for time stat tracking
+    let spaceTimeout = false
+    let intervalID = undefined 
+    let elapsedTime = 0
+    let listens = 0
+    let loopTime = undefined
+
+    let currentSynth = undefined 
+    let piano = undefined
+    const reverb = new Tone.Reverb().toDestination()
+    reverb.decay = 0.1
+    reverb.wet = 0.3
+
+    // save how many 'v' chords there are to avoid 'always end on V' bug where each loop ends on 'v'
+    let numOfv = LSForEachPanel[1][4].length
+
+
+    function pickChords(){
+
+        let loop = []
+        
+        // choosing the instrument
+        currentSynth = allSynths[Math.floor(Math.random()*allSynths.length)]   
+        
+        piano = new Tone.Sampler({
+            urls: {
+                "C1": currentSynth.get("C1"),
+                // "E1": currentSynth.get("E1"),
+                "A1": currentSynth.get("A1"),
+                // "C2": currentSynth.get("C2"),
+                "E2": currentSynth.get("E2"),
+                // "A2": currentSynth.get("A2"),
+                "C3": currentSynth.get("C3"),
+                // "E3": currentSynth.get("E3"),
+                "A3": currentSynth.get("A3"),
+                // "C4": currentSynth.get("C4"),
+                "E4": currentSynth.get("E4"),
+                // "A4": currentSynth.get("A4"),
+                "C5": currentSynth.get("C5"),
+                // "E5": currentSynth.get("E5"),
+                "A5": currentSynth.get("A5"),
+                // "C6": currentSynth.get("C6"),
+                "E6": currentSynth.get("E6"),
+                // "A6": currentSynth.get("C6"),
+            },
+            release: 1,
+        }).connect(reverb).toDestination();
+
+        // changing to long release for Electric Choir
+        if (currentSynth.synthName == "Electric Choir"){
+            piano.release = 3
+        }
+        
+        // chosing the start/end chords
+        let startObj = undefined
+        if (settings.startChords.length > 0){
+            startObj = settings.startChords[Math.floor(Math.random()*settings.startChords.length)]
+            loop[0] = LSForEachPanel[startObj.panel][startObj.row][startObj.index]
+        }
+        let endObj = undefined
+        if (settings.endChords.length > 0){
+            endObj = settings.endChords[Math.floor(Math.random()*settings.endChords.length)]
+        }
+
+        // making sure we don't just get 2 of the same chord as a progression, unless the user forces it.
+        let loopLength = undefined
+        if (settings.progressionLength.length > 1){
+            if (startObj !== undefined &&
+                endObj !== undefined &&
+                JSON.stringify(startObj.LSsymbol) == JSON.stringify(endObj.LSsymbol) && 
+                settings.progressionLength.includes('2')){
+                loopLength = Number(settings.progressionLength[Math.floor(Math.random()*(settings.progressionLength.length - 1)) + 1])
+            }
+            else {
+                loopLength = Number(settings.progressionLength[Math.floor(Math.random()*settings.progressionLength.length)])
+            }
+        }
+        else {loopLength = Number(settings.progressionLength[0])}
+
+        
+
+        // next, we figure out the mode (major/minor) to determine which side is borrowed chords & other things.
+        let mode = undefined
+
+        let allSolfege = []
+        for (let i=0; i < solfegesForEachPanel.flat(Infinity).length; i++){
+            if (!allSolfege.includes(solfegesForEachPanel.flat(Infinity)[i].string)){
+                allSolfege.push(solfegesForEachPanel.flat(Infinity)[i].string)
+            }
+        }
+        allSolfege = allSolfege.flat(Infinity)
+
+        let allNumerals = []
+        for (let i=0; i < LSForEachPanel.flat(Infinity).length; i++){
+            allNumerals.push(LSForEachPanel.flat(Infinity)[i].LSsymbol)
+        }
+
+        // determining if we're going major or minor
+        let alternateMajorMinor = undefined
+        if (loop[0] != undefined){
+            if (loop[0].LSsymbol.includes('I')){mode = 'major'}
+            else if (loop[0].LSsymbol.includes('i')){mode = 'minor'}
+            else if (loop[0].panel == 0){mode = 'major'}
+            else if (loop[0].panel == 1){mode = 'minor'}
+            else if (loop[0].panel == 2){
+                if (LSForEachPanel[0].flat().length >= LSForEachPanel[1].flat().length){mode = 'major'}
+                else {mode = 'minor'}
+            }
+        }
+        else if (allSolfege.includes('Mi') && !allSolfege.includes('Me')){mode = 'major'}
+        else if (allSolfege.includes('Me') && !allSolfege.includes('Mi')){mode = 'minor'}
+        else if (
+            allNumerals.flat().includes('I') && 
+            !allNumerals.flat().includes('i') && 
+            LSForEachPanel[0].filter(n => n.length>0).length > LSForEachPanel[1].filter(n => n.length>0).length)
+        {mode = 'major'}
+        else if (
+            allNumerals.flat().includes('i') && 
+            !allNumerals.flat().includes('I') && 
+            LSForEachPanel[1].filter(n => n.length>0).length > LSForEachPanel[0].filter(n => n.length>0).length)
+        {mode = 'minor'}
+        else {
+            if (allNumerals.flat().includes('I') && !allNumerals.flat().includes('i')){
+                if (Math.floor(Math.random()*100) < 75){mode = 'major'}
+                else {mode = 'minor'}
+            }
+            else if (allNumerals.flat().includes('i') && !allNumerals.flat().includes('I')){
+                if (Math.floor(Math.random()*100) < 75){mode = 'minor'}
+                else {mode = 'major'}
+            }
+            else {
+                if (LSForEachPanel[0].filter(n => n.length>0).length > LSForEachPanel[1].filter(n => n.length>0).length){
+                    if (LSForEachPanel[1].filter(n => n.length>0).length <= 3){mode = 'major'}
+                    else {
+                        if (Math.floor(Math.random()*100) < 75){mode = 'major'}
+                        else {mode = 'minor'}
+                    }
+                }
+                else if (LSForEachPanel[1].filter(n => n.length>0).length > LSForEachPanel[0].filter(n => n.length>0).length){
+                    if (LSForEachPanel[0].filter(n => n.length>0).length <= 3){mode = 'minor'}
+                    else {
+                        if (Math.floor(Math.random()*100) < 75){mode = 'minor'}
+                        else {mode = 'major'}
+                    }
+                }
+                else {    
+                    alternateMajorMinor = true
+                    if (Math.floor(Math.random()*2) == 0){mode = 'major'}
+                    else {mode = 'minor'}
+                }
+            }
+        }
+
+        
+
+        // Let's change the panels of any V between panels if needed
+        if (mode == 'minor' && LSForEachPanel[0][4].length > 0){ 
+            let LSlength = LSForEachPanel[0][4].length
+            for (let i = 0; i < LSlength; i++){
+                if (LSForEachPanel[0][4][i].LSsymbol[0] == 'V'){
+                    LSForEachPanel[0][4][i].panel = 1
+                    LSForEachPanel[1][4].push(LSForEachPanel[0][4][i])
+                    selectionsForEachPanel[0][4][i].panel = 1
+                    selectionsForEachPanel[1][4].push(LSForEachPanel[0][4][i])
+
+                    LSForEachPanel[0][4].splice(i, 1)
+                    selectionsForEachPanel[0][4].splice(i, 1)
+                }
+            }
+        }
+        else if (mode == 'major' && LSForEachPanel[1][4].length > 0){
+            for (let i = 0; i < LSForEachPanel[1][4].length; i++){
+                if (LSForEachPanel[1][4][i].LSsymbol[0] == 'V'){
+                    LSForEachPanel[1][4][i].panel = 0
+                    LSForEachPanel[0][4].push(LSForEachPanel[1][4][i])
+                    selectionsForEachPanel[1][4][i].panel = 0
+                    selectionsForEachPanel[0][4].push(LSForEachPanel[1][4][i])
+
+                    LSForEachPanel[1][4].splice(i, 1)
+                    selectionsForEachPanel[1][4].splice(i, 1)
+                }
+            }
+        }
+
+        // adding the Always End On
+        if (endObj !== undefined){
+            loop[loopLength - 1] = LSForEachPanel[endObj.panel][endObj.row][endObj.index]
+            // if V chord is in different panel. This will be bugged if the 'v' is present.
+            // in the future, add 
+            if (loop[loopLength - 1] == undefined && endObj.LSsymbol[0] == 'V' && mode=='minor'){
+                loop[loopLength - 1] = LSForEachPanel[1][endObj.row][endObj.index + numOfv]
+            }
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////    
+        ///////////////////////////////// Switch to Ear Trainer UI if necessary: ///////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        if (settings.mode == "earTrainer"){
+            
+            document.querySelector('.earTrainerUI').style = 'display: '
+            document.querySelector('#ETmodeDisplay').innerHTML = mode
+            
+            document.querySelector('.majChoices').innerHTML = ''
+            document.querySelector('.minChoices').innerHTML = ''
+            document.querySelector('.secDomChoices').innerHTML = ''
+
+            for (let i = 0; i < 3; i++){
+                let div = undefined;
+                if (i == 0 && LSForEachPanel[0].flat(Infinity).length > 0){
+                    document.querySelector('.majChoices').style = "display: "
+                    div = document.querySelector(".majChoices")
+                    addEarTrainerChoices(div, 0)
+                } 
+                else if (i == 1 && LSForEachPanel[1].flat(Infinity).length > 0){
+                    document.querySelector('.minChoices').style = "display: "
+                    div = document.querySelector(".minChoices")
+                    addEarTrainerChoices(div, 1)
+                }       
+                else if (i == 2 && LSForEachPanel[2].flat(Infinity).length > 0){
+                    document.querySelector('.secDomChoices').style = "display: "
+                    div = document.querySelector(".secDomChoices")
+                    addEarTrainerChoices(div, 2)
+                }            
+            }
+            
+        }
+        else if (settings.mode == "experimentMode"){
+            document.querySelector(".loopDisplay").style = "display: "
+            document.querySelector(".buttonsDisplay").style = "display: "
+        }
+
+        // pick first chord if it's not already been.
+        if (loop[0] == undefined){
+            if (mode == 'major'){
+                loop[0] = LSForEachPanel[0].flat()[Math.floor(Math.random()*LSForEachPanel[0].flat().length)]
+            }
+            else if (mode == 'minor'){
+                loop[0] = LSForEachPanel[1].flat()[Math.floor(Math.random()*LSForEachPanel[1].flat().length)]
+            }
+        }
+
+        // picking the first non diatonic chord.
+        let firstNonDiatonic = undefined
+        let borrowedPossible = undefined 
+        let secondaryPossible = undefined 
+        // if start and end chord are of different panels, and loop length is less than or equal to 5, let's not
+        // pick yet another non-diatonic chord tbh lol.
+        if ((loop[loopLength - 1] == undefined || loop[0].panel == loop[loopLength - 1].panel) &&
+        (Math.floor(Math.random()*100) <= 75 || loopLength >= 6)){
+            if (mode == 'major'){
+                if (LSForEachPanel[1].flat(Infinity).length > 0 && (loopLength - loop.flat().length) >= 1){
+                    if (alternateMajorMinor == true){
+                        if (//Math.floor(Math.random()*2) == 0
+                        true){
+                            borrowedPossible = true
+                        }
+                    }
+                    else {borrowedPossible = true}
+                }
+                if (LSForEachPanel[2].flat(Infinity).length > 0 && (loopLength - loop.flat().length) >= 2){
+                    if (alternateMajorMinor == true){
+                        if (Math.floor(Math.random()*2) == 0){
+                            secondaryPossible = true
+                        }
+                    }
+                    else {secondaryPossible = true}
+                }
+
+                if (borrowedPossible == true && secondaryPossible !== true){
+                    firstNonDiatonic = LSForEachPanel[1].flat(Infinity)[Math.floor(Math.random()*LSForEachPanel[1].flat(Infinity).length)]
+                }
+                else if (borrowedPossible !== true && secondaryPossible == true){
+                    firstNonDiatonic = LSForEachPanel[2].flat(Infinity)[Math.floor(Math.random()*LSForEachPanel[2].flat(Infinity).length)]
+                }
+                else if (borrowedPossible == true && secondaryPossible == true){
+                    if (Math.floor(Math.random()*100) <= 30){
+                        firstNonDiatonic = LSForEachPanel[1].flat(Infinity)[Math.floor(Math.random()*LSForEachPanel[1].flat(Infinity).length)]
+                    }
+                    else {
+                        firstNonDiatonic = LSForEachPanel[2].flat(Infinity)[Math.floor(Math.random()*LSForEachPanel[2].flat(Infinity).length)]
+                    }
+                }
+            }
+            else if (mode == 'minor'){
+            if (LSForEachPanel[0].flat(Infinity).length > 0 && (loopLength - loop.flat().length) >= 1){
+                if (alternateMajorMinor == true){
+                    if (Math.floor(Math.random()*2) == 0){
+                        borrowedPossible = true
+                    }
+                }
+                else {borrowedPossible = true}
+            }
+            if (LSForEachPanel[2].flat(Infinity).length > 0 && (loopLength - loop.flat().length) >= 2){
+                if (alternateMajorMinor == true){
+                    if (Math.floor(Math.random()*2) == 0){
+                        secondaryPossible = true
+                    }
+                }
+                else {secondaryPossible = true}
+            }
+
+            if (borrowedPossible == true && secondaryPossible !== true){
+                firstNonDiatonic = LSForEachPanel[0].flat(Infinity)[Math.floor(Math.random()*LSForEachPanel[0].flat(Infinity).length)]
+            }
+            else if (borrowedPossible !== true && secondaryPossible == true){
+                // try 6 times to not pick V/iii, or V/vi.
+                let tries = 0
+                while (tries <= 6){
+                    firstNonDiatonic = LSForEachPanel[2].flat(Infinity)[Math.floor(Math.random()*LSForEachPanel[2].flat(Infinity).length)]
+                    if (firstNonDiatonic.row !== 1 || firstNonDiatonic.row !== 4){break}
+                    tries ++
+                }
+            }
+            else if (borrowedPossible == true && secondaryPossible == true){
+                if (Math.floor(Math.random()*100) <= 30){
+                    firstNonDiatonic = LSForEachPanel[0].flat(Infinity)[Math.floor(Math.random()*LSForEachPanel[1].flat(Infinity).length)]
+                }
+                else {
+                    // try 3 times to not pick V/iii, or V/vi.
+                    let tries = 0
+                    while (tries <= 10){
+                        firstNonDiatonic = LSForEachPanel[2].flat(Infinity)[Math.floor(Math.random()*LSForEachPanel[2].flat(Infinity).length)]
+                        if (firstNonDiatonic.row !== 1 || firstNonDiatonic.row !== 4){break}
+                        tries ++
+                    }
+                }
+            }
+        }
+        }
+
+        // find a placement for the firstNonDiatonic chord
+        // find empty indices and then randomly chose one to place the nondiatonic chord
+        // PS I wanna add the possibility of resolving sec dom to another sec dom. But that's such a bitch rn. Maybe
+        // when I add the feature for two/three non diatonic chords, I can allow it to replace a previous resolution chord.
+        let indices = []
+        for (let i = 0; i < loopLength; i++){
+            if (loop[i] == undefined){
+                indices.push(i)
+            }
+        }
+        let resolutionChord = undefined
+        if (firstNonDiatonic !== undefined && (firstNonDiatonic.panel == 0 || firstNonDiatonic.panel == 1)){
+            loop[indices[Math.floor(Math.random()*indices.length)]] = firstNonDiatonic
+        }
+        else if (firstNonDiatonic !== undefined && firstNonDiatonic.panel == 2){
+
+            let secondaryPlaced = false 
+            let tries = 0
+            let testIndex = undefined
+
+            while (secondaryPlaced == false && tries <= indices.length){
+                testIndex = indices[Math.floor(Math.random()*indices.length)]
+                // let's make it more likely to put the secdom at the end if possible & loopLength is <= 4:
+                if (loopLength < 5 && indices.includes(loopLength - 1) && Math.floor(Math.random()*100) <= 80){
+                    testIndex = loopLength - 1
+                }
+                // placing the sec dom
+                if (testIndex == loopLength - 1){
+                    if (loop[0].LSsymbol[0] == firstNonDiatonic.LSsymbol.slice(-1)[0].slice(1).replace('/','')){
+                        if (loopLength < 5){
+                            loop[testIndex] = firstNonDiatonic
+                            secondaryPlaced = true
+                        }
+                        else if (Math.floor(Math.random()*100) <= 60){
+                            loop[testIndex] = firstNonDiatonic
+                            secondaryPlaced = true
+                        }
+                    }
+                    
+                }
+                else if (loop[testIndex + 1] == undefined){
+                    loop[testIndex] = firstNonDiatonic
+                    secondaryPlaced = true
+                }
+
+                // placing the resolution chord:
+                // best thing to do is go through each possible sec dom and figure it out that way
+                if (firstNonDiatonic.row == 0){
+                    // V/ii
+                    tries = 0
+                    while (tries <= 10 && resolutionChord == undefined){
+                        if (mode == 'major'){
+                            if (LSForEachPanel[0][1].length > 0 && Math.floor(Math.random()*100 <= 95)){
+                                resolutionChord = LSForEachPanel[0][1][Math.floor(Math.random()*LSForEachPanel[0][1].length)]
+                            }
+                            else if (LSForEachPanel[0][2].length > 0 && Math.floor(Math.random()*100 <= 70)){
+                                resolutionChord = LSForEachPanel[0][2][Math.floor(Math.random()*LSForEachPanel[0][2].length)]
+                            }
+                            else if (LSForEachPanel[1][1].length > 0 && Math.floor(Math.random()*100 <= 80)){
+                                resolutionChord = LSForEachPanel[1][1][Math.floor(Math.random()*LSForEachPanel[1][1].length)]
+                            }
+                            else if (LSForEachPanel[1][2].length > 0 && Math.floor(Math.random()*100 <= 30)){
+                                resolutionChord = LSForEachPanel[1][2][Math.floor(Math.random()*LSForEachPanel[1][2].length)]
+                            }
+                            else if (tries == 3){loop.splice(testIndex, 1); break}
+                        }
+                        else if (mode == 'minor'){
+                            if (LSForEachPanel[1][1].length > 0 && Math.floor(Math.random()*100 <= 70)){
+                                resolutionChord = LSForEachPanel[1][1][Math.floor(Math.random()*LSForEachPanel[1][1].length)]
+                            }
+                            else if (LSForEachPanel[0][1].length > 0 && Math.floor(Math.random()*100 <= 95)){
+                                resolutionChord = LSForEachPanel[0][1][Math.floor(Math.random()*LSForEachPanel[0][1].length)]
+                            }
+                            else if (LSForEachPanel[1][2].length > 0 && Math.floor(Math.random()*100 <= 40)){
+                                resolutionChord = LSForEachPanel[1][2][Math.floor(Math.random()*LSForEachPanel[1][2].length)]
+                            }
+                            else if (LSForEachPanel[0][2].length > 0 && Math.floor(Math.random()*100 <= 20)){
+                                resolutionChord = LSForEachPanel[0][1][Math.floor(Math.random()*LSForEachPanel[1][1].length)]
+                            }
+                            else if (tries == 3){loop.splice(testIndex, 1); break}
+                        }
+                        tries ++
+                    }
+                }
+                else if (firstNonDiatonic.row == 1){
+                    // V/iii
+                    tries = 0
+                    while (tries <= 10 && resolutionChord == undefined){
+                        if (mode == 'major'){
+                            if (LSForEachPanel[0][2].length > 0 && Math.floor(Math.random()*100 <= 95)){
+                                resolutionChord = LSForEachPanel[0][2][Math.floor(Math.random()*LSForEachPanel[0][2].length)]
+                            }
+                            else if (LSForEachPanel[0][0].length > 0 && Math.floor(Math.random()*100 <= 70)){
+                                resolutionChord = LSForEachPanel[0][0][Math.floor(Math.random()*LSForEachPanel[0][0].length)]
+                            }
+                            else if (LSForEachPanel[1][0].length > 0 && Math.floor(Math.random()*100 <= 40)){
+                                resolutionChord = LSForEachPanel[1][0][Math.floor(Math.random()*LSForEachPanel[1][0].length)]
+                            }
+                            else if (LSForEachPanel[1][2].length > 0 && Math.floor(Math.random()*100 <= 30)){
+                                resolutionChord = LSForEachPanel[1][2][Math.floor(Math.random()*LSForEachPanel[1][2].length)]
+                            }
+                            else if (tries == 3){loop.splice(testIndex, 1); break}
+                        }
+                        else if (mode == 'minor'){
+                            if (LSForEachPanel[0][2].length > 0 && Math.floor(Math.random()*100 <= 50)){
+                                resolutionChord = LSForEachPanel[0][2][Math.floor(Math.random()*LSForEachPanel[0][2].length)]
+                            }
+                            else if (LSForEachPanel[0][0].length > 0 && Math.floor(Math.random()*100 <= 30)){
+                                resolutionChord = LSForEachPanel[0][0][Math.floor(Math.random()*LSForEachPanel[0][0].length)]
+                            }
+                            else if (LSForEachPanel[1][2].length > 0 && Math.floor(Math.random()*100 <= 70)){
+                                resolutionChord = LSForEachPanel[1][2][Math.floor(Math.random()*LSForEachPanel[1][2].length)]
+                            }
+                            else if (tries == 3){loop.splice(testIndex, 1); break}
+                        }
+                        tries ++
+                    }
+                }
+                else if (firstNonDiatonic.row == 2){
+                    // V/IV
+                    tries = 0
+                    while (tries <= 10 && resolutionChord == undefined){
+                        if (mode == 'major'){
+                            if (LSForEachPanel[0][3].length > 0 && Math.floor(Math.random()*100 <= 90)){
+                                resolutionChord = LSForEachPanel[0][3][Math.floor(Math.random()*LSForEachPanel[0][3].length)]
+                            }
+                            else if (LSForEachPanel[0][1].length > 0 && Math.floor(Math.random()*100 <= 70)){
+                                resolutionChord = LSForEachPanel[0][1][Math.floor(Math.random()*LSForEachPanel[0][1].length)]
+                            }
+                            else if (LSForEachPanel[1][1].length > 0 && Math.floor(Math.random()*100 <= 40)){
+                                resolutionChord = LSForEachPanel[1][1][Math.floor(Math.random()*LSForEachPanel[1][1].length)]
+                            }
+                            else if (LSForEachPanel[1][3].length > 0 && Math.floor(Math.random()*100 <= 70)){
+                                resolutionChord = LSForEachPanel[1][3][Math.floor(Math.random()*LSForEachPanel[1][3].length)]
+                            }
+                            else if (tries == 3){loop.splice(testIndex, 1); break}
+                        }
+                        else if (mode == 'minor'){
+                            if (LSForEachPanel[1][3].length > 0 && Math.floor(Math.random()*100 <= 90)){
+                                resolutionChord = LSForEachPanel[1][3][Math.floor(Math.random()*LSForEachPanel[1][3].length)]
+                            }
+                            else if (LSForEachPanel[1][1].length > 0 && Math.floor(Math.random()*100 <= 20)){
+                                resolutionChord = LSForEachPanel[1][1][Math.floor(Math.random()*LSForEachPanel[1][1].length)]
+                            }
+                            else if (LSForEachPanel[0][3].length > 0 && Math.floor(Math.random()*100 <= 60)){
+                                resolutionChord = LSForEachPanel[0][3][Math.floor(Math.random()*LSForEachPanel[0][3].length)]
+                            }
+                            else if (LSForEachPanel[0][1].length > 0 && Math.floor(Math.random()*100 <= 40)){
+                                resolutionChord = LSForEachPanel[0][1][Math.floor(Math.random()*LSForEachPanel[0][1].length)]
+                            }
+                            else if (tries == 3){loop.splice(testIndex, 1); break}
+                        tries ++
+                        }
+                    }
+                }
+                else if (firstNonDiatonic.row == 3){
+                    // V/V
+                    tries = 0
+                    while (tries <= 10 && resolutionChord == undefined){
+                        if (mode == 'major'){
+                            if (LSForEachPanel[0][4].length > 0 && Math.floor(Math.random()*100 <= 95)){
+                                resolutionChord = LSForEachPanel[0][4][Math.floor(Math.random()*LSForEachPanel[0][4].length)]
+                            }
+                            else if (LSForEachPanel[0][2].length > 0 && Math.floor(Math.random()*100 <= 70)){
+                                resolutionChord = LSForEachPanel[0][2][Math.floor(Math.random()*LSForEachPanel[0][2].length)]
+                            }
+                            else if (LSForEachPanel[1][4].length > 0 && Math.floor(Math.random()*100 <= 40)){
+                                resolutionChord = LSForEachPanel[1][4][Math.floor(Math.random()*LSForEachPanel[1][4].length)]
+                            }
+                            else if (tries == 3){loop.splice(testIndex, 1); break}
+                        }
+                        else if (mode == 'minor'){
+                            if (LSForEachPanel[1][4].length > 0 && Math.floor(Math.random()*100 <= 80)){
+                                resolutionChord = LSForEachPanel[1][4][Math.floor(Math.random()*LSForEachPanel[1][4].length)]
+                            }
+                            else if (LSForEachPanel[0][4].length > 0 && Math.floor(Math.random()*100 <= 50)){
+                                resolutionChord = LSForEachPanel[0][4][Math.floor(Math.random()*LSForEachPanel[0][4].length)]
+                            }
+                            
+                            else if (LSForEachPanel[0][2].length > 0 && Math.floor(Math.random()*100 <= 60)){
+                                resolutionChord = LSForEachPanel[0][2][Math.floor(Math.random()*LSForEachPanel[0][2].length)]
+                            }
+                            else if (tries == 3){loop.splice(testIndex, 1); break}
+                        tries ++
+                        }
+                    }
+                }           
+                else if (firstNonDiatonic.row == 4){
+                    // V/vi
+                    tries = 0
+                    while (tries <= 10 && resolutionChord == undefined){
+                        if (mode == 'major'){
+                            if (LSForEachPanel[0][5].length > 0 && Math.floor(Math.random()*100 <= 95)){
+                                resolutionChord = LSForEachPanel[0][5][Math.floor(Math.random()*LSForEachPanel[0][5].length)]
+                            }
+                            else if (LSForEachPanel[0][3].length > 0 && Math.floor(Math.random()*100 <= 50)){
+                                resolutionChord = LSForEachPanel[0][3][Math.floor(Math.random()*LSForEachPanel[0][3].length)]
+                            }
+                            else if (LSForEachPanel[0][4].length > 0 && Math.floor(Math.random()*100 <= 70)){
+                                resolutionChord = LSForEachPanel[0][4][Math.floor(Math.random()*LSForEachPanel[0][4].length)]
+                            }
+                            else if (tries == 3){loop.splice(testIndex, 1); break}
+                        }
+                        else if (mode == 'minor'){
+                            if (LSForEachPanel[0][4].length > 0 && Math.floor(Math.random()*100 <= 70)){
+                                resolutionChord = LSForEachPanel[0][4][Math.floor(Math.random()*LSForEachPanel[0][4].length)]
+                            }
+                            else if (LSForEachPanel[0][5].length > 0 && Math.floor(Math.random()*100 <= 90)){
+                                resolutionChord = LSForEachPanel[0][5][Math.floor(Math.random()*LSForEachPanel[0][5].length)]
+                            }
+                            else if (tries == 3){loop.splice(testIndex, 1); break}
+                        tries ++
+                        }
+                    }
+                }
+                indices.splice(indices.indexOf(testIndex), 1)
+                tries++
+            }
+            // add resolution chord
+            if (resolutionChord !== undefined){
+
+                loop[testIndex + 1] = resolutionChord
+
+                // fixing the display name for the secondary dom
+                if ((loop[testIndex + 1].LSsymbol[0] == 'iv' && firstNonDiatonic.row == 2) ||
+                loop[testIndex + 1].LSsymbol[0] == 'v' && firstNonDiatonic.row == 3)
+                {
+                    let fixedDom = firstNonDiatonic
+                    if (fixedDom.row == 3){
+                        if (fixedDom.LSsymbol.length == 1){
+                            fixedDom.LSsymbol = ["V/v"]
+                        }
+                        else {fixedDom.LSsymbol[2] = "/v"}
+                    }
+                    else if (fixedDom.row == 2){
+                        fixedDom.LSsymbol[2] = "/iv"
+                    }
+
+                    loop[testIndex] = fixedDom
+                }
+
+
+            }
+        }
+
+        // the last step: fill in the gaps!
+        for (let i = 0; i < loopLength; i++){
+            if (loop[i] == undefined){
+                let currentFiller = undefined
+                if (mode == 'major'){
+                    currentFiller = LSForEachPanel[0].flat()[Math.floor(Math.random()*LSForEachPanel[0].flat().length)] 
+                }
+                else if (mode == 'minor'){
+                    currentFiller = LSForEachPanel[1].flat()[Math.floor(Math.random()*LSForEachPanel[1].flat().length)] 
+                }
+
+                // if the currentFiller is a duplicate of the previous or next chord, try again 
+                let tries = 0
+                while (tries <= 30 && 
+                (currentFiller.LSsymbol == loop[i - 1].LSsymbol ||
+                (loop[i + 1] !== undefined && currentFiller.LSsymbol == loop[i + 1].LSsymbol))){
+
+                    currentFiller = LSForEachPanel[currentFiller.panel].flat()[Math.floor(Math.random()*LSForEachPanel[currentFiller.panel].flat().length)]
+                    tries ++
+
+                    // if there's not enough chords in panel to pick from: 
+                    if (mode == 'major' && tries >= 20 && LSForEachPanel[0].flat().length < 2){
+                        currentFiller = LSForEachPanel.flat(Infinity)[Math.floor(Math.random()*LSForEachPanel.flat(Infinity).length)]
+                    }
+                    else if (mode == 'minor' && tries >= 20 && LSForEachPanel[1].flat().length < 2){
+                        currentFiller = LSForEachPanel.flat(Infinity)[Math.floor(Math.random()*LSForEachPanel.flat(Infinity).length)]
+                    }
+
+                }
+                loop[i] = currentFiller
+            }
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////// Send Loop to Voicing ///////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        loopToVoicing(loop, loopLength, mode, currentSynth)
+
+        // display loop, presumably after everything else finishes running.
+        displayLoop(loopFile)
+
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////// Display chords!! ///////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    function displayLoop(){
+        if (settings.mode == 'experimentMode'){
+            let content = document.querySelector(".loopDisplay")
+            for (let c = 0; c < loopFile[currentLoopIndex].loopLength; c++){
+                    
+                let currentPreview = document.createElement('div')
+                currentPreview.setAttribute('class','chordLSDisplay')
+
+                if (loopFile[currentLoopIndex].loop[c].LSsymbol.length == 1){
+                    currentPreview.innerHTML = "<span class ='RN'>" + loopFile[currentLoopIndex].loop[c].LSsymbol[0] + "</span>"
+                }
+                else if (loopFile[currentLoopIndex].loop[c].LSsymbol.length == 2){
+                    currentPreview.innerHTML = "<span class ='RN'>" + loopFile[currentLoopIndex].loop[c].LSsymbol[0] + "</span>" + 
+                    "<span class ='LStag'>" + loopFile[currentLoopIndex].loop[c].LSsymbol[1] + "</span>"
+                }
+                else if (loopFile[currentLoopIndex].loop[c].LSsymbol.length == 3){
+                    currentPreview.innerHTML = "<span class ='RN'>" + loopFile[currentLoopIndex].loop[c].LSsymbol[0] + "</span>" + 
+                    "<span class ='LStag'>" + loopFile[currentLoopIndex].loop[c].LSsymbol[1] + "</span>" + "<span class ='RN'>" + 
+                        loopFile[currentLoopIndex].loop[c].LSsymbol[2] + "</span>"
+
+                }
+
+                content.append(currentPreview)
+            }
+        }
+        else if (settings.mode == 'earTrainer'){
+            let ETloop = document.querySelector('.ETloop')
+
+            let selectedIndicator = document.createElement('div')
+            selectedIndicator.setAttribute('id','selectedIndicator')
+            ETloop.style.position = "relative"
+            ETloop.append(selectedIndicator)
+            
+            for (let c = 0; c < loopFile[currentLoopIndex].loopLength; c++){
+                let currentHolder = document.createElement('div')
+                currentHolder.setAttribute('class','loopHolder')
+                currentHolder.setAttribute('data-index', c)
+                currentHolder.setAttribute('onClick','ETmoveIndicator(' + c + ')')
+                currentHolder.innerHTML = "<div>" + (c + 1) + "</div>"
+
+                ETloop.append(currentHolder)
+            }
+
+            // display Tempo here after the loop has been made:
+            document.querySelector('#tempoDisplay').innerHTML = Math.round(loopFile[loopFile.length - 1].tempo) + " BPM"
+
+            document.querySelectorAll(".loopHolder")[0].insertBefore(selectedIndicator, null)
+                
+            
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////// Play the final sound ////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    document.querySelector('body').addEventListener('click', async () => { 
+        await Tone.start()
+    })
+
+    onkeydown = (KeyboardEvent) => {
+        if (KeyboardEvent.code == 'KeyP'){
+            
+            spaceTimeout = true
+            setTimeout(() => {spaceTimeout = false}, 200)
+
+            playButton()
+        }
+        else if (settings.mode == "experimentMode"){
+            if (KeyboardEvent.code == 'KeyN'){
+                nextButton()
+            }
+            else if (KeyboardEvent.code == 'KeyB'){
+                backButton()
+            }
+        }
+    }   
+    let playToggle = 0
+    function playButton(){
+        if (playToggle == 0){
+            playPiano()
+            Tone.Master.volume.rampTo(0,0.01)
+            Tone.Transport.start()
+
+            if (KEP == 1){
+                KEPsequence.start()
+            }
+            else {
+                sequence.start()
+                countTime()
+            }
+
+            playToggle = 1
+
+            if (settings.mode == "experimentMode"){
+                document.querySelector(".playButton").style.backgroundColor = "#ffa1a1"
+                document.querySelector(".playButton").innerText = "Stop"
+            }
+            else if (settings.mode == "earTrainer"){
+                document.querySelector(".ETplayButton").style.backgroundColor = "#ffa1a1"
+                document.querySelector(".ETplayButton").innerText = "Stop"
+            }
+        }
+        else if (playToggle == 1){
+            Tone.Transport.stop()
+            if (KEP == 1 && KEPsequence !== undefined){KEPsequence.cancel()}
+            sequence.cancel()
+            Tone.Master.volume.rampTo(-100,0.25)
+
+            clearInterval(intervalID)
+
+            playToggle = 0
+
+            if (settings.mode == "experimentMode"){
+                document.querySelector(".playButton").style.backgroundColor = "rgb(143, 255, 143)"
+                document.querySelector(".playButton").innerText = "Play"
+                for (let i = 0; i < document.querySelectorAll(".chordLSDisplay").length; i++){
+                document.querySelectorAll(".chordLSDisplay")[i].style.boxShadow = "0px 0px 0px 0px var(--RN-pressed-color)"
+                }
+            }
+            else if (settings.mode == "earTrainer"){
+                document.querySelector(".ETplayButton").style.backgroundColor = "rgb(143, 255, 143)"
+                document.querySelector(".ETplayButton").innerText = "Play"
+                for (let i = 0; i < document.querySelectorAll(".loopHolder").length; i++){
+                document.querySelectorAll(".loopHolder")[i].style.boxShadow = "0px 0px 0px 0px var(--RN-pressed-color)"
+                }
+            }
+            
+        }
+    }
+
+    let sequence 
+    let KEPsequence
+    function playPiano(){
+
+        if (currentSynth.loaded){
+            Tone.Transport.clear()
+
+            if (KEP == 1){
+                let almostDone = 0
+                KEPsequence = new Tone.Part(function(time, note) {
+
+                    Tone.Transport.bpm.value = loopFile[currentLoopIndex].tempo*2
+
+                    piano.triggerAttackRelease(note.note, note.duration, time)
+
+                    almostDone++
+                    if (almostDone == 6){
+                        sequence.start()
+                        countTime()
+                    }
+
+                }, loopFile[currentLoopIndex].KEPinstructions);
+                KEPsequence.loop = false
+            }
+
+            sequence = new Tone.Part(function(time, note) {
+                Tone.Transport.bpm.value = loopFile[currentLoopIndex].tempo
+                piano.triggerAttackRelease(note.note, note.duration, time)
+                // do the animation
+                Tone.Draw.schedule(() => {
+                    let chordPanel = undefined 
+                    if (settings.mode == "experimentMode"){chordPanel = document.querySelectorAll(".chordLSDisplay")}
+                    else if (settings.mode == "earTrainer"){chordPanel = document.querySelectorAll(".loopHolder")}
+
+                    let chordDOM = chordPanel[loopFile[currentLoopIndex].harmRhythm.indexOf(note.time)]
+
+                    if (loopFile[currentLoopIndex].harmRhythm.includes(note.time) && (note.type == 'chordVoices')){
+
+                        if (settings.mode == "experimentMode"){chordDOM.style.boxShadow = "0px 0px 10px 2px var(--RN-pressed-color)"}
+                        else if (settings.mode == "earTrainer"){
+                            if (chordDOM.lastChild.className == 'wrongAnswer' && correctOrYours == 0){
+                                chordDOM.style.boxShadow = "0px 0px 12px -2px grey"
+                            }
+                            else {
+                                chordDOM.style.boxShadow = "0px 0px 12px -2px var(--RN-pressed-color)"
+                            }
+                        }
+
+
+                        if (loopFile[currentLoopIndex].harmRhythm.indexOf(note.time) == 0){
+                            chordPanel[loopFile[currentLoopIndex].harmRhythm.length - 2].style.boxShadow = "0px 0px 0px 0px var(--RN-pressed-color)"
+                        }
+                        else {chordPanel[loopFile[currentLoopIndex].harmRhythm.indexOf(note.time) - 1].style.boxShadow = "0px 0px 0px 0px var(--RN-pressed-color)"}
+                        
+                    }
+                }, time)
+            }, loopFile[currentLoopIndex].finalInstructions);
+            sequence.loop = true
+            sequence.loopEnd = Tone.Time(Tone.Time(loopFile[currentLoopIndex].harmRhythm[loopFile[currentLoopIndex].harmRhythm.length - 1]) - Tone.Time(loopFile[currentLoopIndex].harmRhythm[0])).toSeconds()
+
+        }
+        else if (currentSynth.loaded == false) {console.log("Waiting to load.")}
+        
+    }
+
+    ///////////////////////////////////////////////
+    ///////////// Next/Back Buttons: //////////////
+    ///////////////////////////////////////////////
+
+    function nextButton(){
+
+        if (playToggle == 1){
+            playButton()
+        }
+        Tone.Transport.cancel()
+        Tone.Transport.clear()
+        if (sequence !== undefined){
+            sequence.clear()
+            sequence.dispose()
+            piano.dispose()
+            sequence = undefined
+        }
+        
+        
+        
+        if ((currentLoopIndex + 1) == loopFile.length){
+            // going forward and needing to generate new loop:
+            let loopDisplay = document.querySelector(".loopDisplay")
+            while (loopDisplay.firstChild) {
+                loopDisplay.removeChild(loopDisplay.firstChild);
+            }
+
+            document.querySelectorAll('.loopInfo > p')[0].innerText = "Loop: "
+            document.querySelectorAll('.loopInfo > p')[1].innerText = "Key: "
+            document.querySelectorAll('.loopInfo > p')[2].innerText = "Tempo: "
+            document.querySelectorAll('.loopInfo > p')[3].innerText = "Instrument: "
+            currentLoopIndex++
+
+            pickChords()
+            
+        }
+        else {
+            // going forward to an already-generated loop:
+
+            if (playToggle == 1){
+                Tone.Transport.cancel()
+                Tone.Transport.clear()
+                sequence.clear()
+                sequence.dispose()
+                playButton()
+            }
+
+            let loopDisplay = document.querySelector(".loopDisplay")
+            while (loopDisplay.firstChild) {
+                loopDisplay.removeChild(loopDisplay.firstChild);
+            }
+
+            currentLoopIndex++
+            document.querySelectorAll('.loopInfo > p')[0].innerText = "Loop: " + (currentLoopIndex + 1) + " of " + loopFile.length
+            document.querySelectorAll('.loopInfo > p')[1].innerText = "Key: " + loopFile[currentLoopIndex].key + " " + loopFile[currentLoopIndex].mode
+            document.querySelectorAll('.loopInfo > p')[2].innerText = "Tempo: " + Math.round(loopFile[currentLoopIndex].tempo) + " BPM"
+            document.querySelectorAll('.loopInfo > p')[3].innerText = "Instrument: " + loopFile[currentLoopIndex].instrument.synthName
+            Tone.Transport.bpm.value = Math.round(loopFile[currentLoopIndex].tempo)
+            displayLoop()
+
+            // switching the instrument
+            currentSynth = loopFile[currentLoopIndex].instrument
+            piano = new Tone.Sampler({
+                urls: {
+                    "C1": currentSynth.get("C1"),
+                    // "E1": currentSynth.get("E1"),
+                    "A1": currentSynth.get("A1"),
+                    // "C2": currentSynth.get("C2"),
+                    "E2": currentSynth.get("E2"),
+                    // "A2": currentSynth.get("A2"),
+                    "C3": currentSynth.get("C3"),
+                    // "E3": currentSynth.get("E3"),
+                    "A3": currentSynth.get("A3"),
+                    // "C4": currentSynth.get("C4"),
+                    "E4": currentSynth.get("E4"),
+                    // "A4": currentSynth.get("A4"),
+                    "C5": currentSynth.get("C5"),
+                    // "E5": currentSynth.get("E5"),
+                    "A5": currentSynth.get("A5"),
+                    // "C6": currentSynth.get("C6"),
+                    "E6": currentSynth.get("E6"),
+                    // "A6": currentSynth.get("C6"),
+                },
+                release: 1,
+            }).connect(reverb).toDestination();
+            if (currentSynth.synthName == 'Electric Choir'){piano.release = 3}
+            else {piano.release = 1}
+        }
+    }
+
+    function backButton(){
+        if (currentLoopIndex !== 0){
+
+            if (playToggle == 1){
+                playButton()
+            }
+            Tone.Transport.cancel()
+            Tone.Transport.clear()
+            if (sequence !== undefined){
+                sequence.clear()
+                sequence.dispose()
+                piano.dispose()
+                sequence = undefined
+            }
+
+
+            let loopDisplay = document.querySelector(".loopDisplay")
+            while (loopDisplay.firstChild) {
+                loopDisplay.removeChild(loopDisplay.firstChild);
+            }
+
+            currentLoopIndex--
+            document.querySelectorAll('.loopInfo > p')[0].innerText = "Loop: " + (currentLoopIndex + 1) + " of " + loopFile.length
+            document.querySelectorAll('.loopInfo > p')[1].innerText = "Key: " + loopFile[currentLoopIndex].key + " " + loopFile[currentLoopIndex].mode
+            document.querySelectorAll('.loopInfo > p')[2].innerText = "Tempo: " + Math.round(loopFile[currentLoopIndex].tempo) + " BPM"
+            document.querySelectorAll('.loopInfo > p')[3].innerText = "Instrument: " + loopFile[currentLoopIndex].instrument.synthName
+
+            Tone.Transport.bpm.value = Math.round(loopFile[currentLoopIndex].tempo)
+            displayLoop()
+            
+            // switching the instrument
+            currentSynth = loopFile[currentLoopIndex].instrument
+            piano = new Tone.Sampler({
+                urls: {
+                    "C1": currentSynth.get("C1"),
+                    // "E1": currentSynth.get("E1"),
+                    "A1": currentSynth.get("A1"),
+                    // "C2": currentSynth.get("C2"),
+                    "E2": currentSynth.get("E2"),
+                    // "A2": currentSynth.get("A2"),
+                    "C3": currentSynth.get("C3"),
+                    // "E3": currentSynth.get("E3"),
+                    "A3": currentSynth.get("A3"),
+                    // "C4": currentSynth.get("C4"),
+                    "E4": currentSynth.get("E4"),
+                    // "A4": currentSynth.get("A4"),
+                    "C5": currentSynth.get("C5"),
+                    // "E5": currentSynth.get("E5"),
+                    "A5": currentSynth.get("A5"),
+                    // "C6": currentSynth.get("C6"),
+                    "E6": currentSynth.get("E6"),
+                    // "A6": currentSynth.get("C6"),
+                },
+                release: 1,
+            }).connect(reverb).toDestination();
+            if (currentSynth.synthName == 'Electric Choir'){piano.release = 3}
+            else {piano.release = 1}
+        }
+    }
+
+    ///////////////////////////////////////////////
+    ///////////// ET move indicator: //////////////
+    ///////////////////////////////////////////////
+
+    function ETmoveIndicator(index){
+        if (index !== null){
+            document.querySelectorAll(".loopHolder")[index].insertBefore(document.querySelector("#selectedIndicator"), null)
+        }
+    }
+
+    function addEarTrainerChoices(div, i){
+        for (let c = 0; c < LSForEachPanel[i].flat(Infinity).length; c++){    
+
+            let currentPreview = document.createElement('div')
+            currentPreview.setAttribute('class','ETchordLSDisplay')
+            currentPreview.setAttribute('data-panel', LSForEachPanel[i].flat(Infinity)[c].panel)
+            currentPreview.setAttribute('data-c', c)
+            currentPreview.setAttribute('onClick', 'ETchoicePressed(dataset, this)')
+
+            if (LSForEachPanel[i].flat(Infinity)[c].LSsymbol.length == 1){
+                currentPreview.innerHTML = "<span class ='RN'>" + LSForEachPanel[i].flat(Infinity)[c].LSsymbol[0] + "</span>"
+            }
+            else if (LSForEachPanel[i].flat(Infinity)[c].LSsymbol.length == 2){
+                currentPreview.innerHTML = "<span class ='RN'>" + LSForEachPanel[i].flat(Infinity)[c].LSsymbol[0] + "</span>" + 
+                "<span class ='LStag'>" + LSForEachPanel[i].flat(Infinity)[c].LSsymbol[1] + "</span>"
+            }
+            else if (LSForEachPanel[i].flat(Infinity)[c].LSsymbol.length == 3){
+                currentPreview.innerHTML = "<span class ='RN'>" +LSForEachPanel[i].flat(Infinity)[c].LSsymbol[0] + "</span>" + 
+                "<span class ='LStag'>" + LSForEachPanel[i].flat(Infinity)[c].LSsymbol[1] + "</span>" + "<span class ='RN'>" + 
+                    LSForEachPanel[i].flat(Infinity)[c].LSsymbol[2] + "</span>"
+            }
+            div.append(currentPreview)
+
+        }   
+    }
+
+    let choicesCounter = 0
+    function ETchoicePressed(dataset, button){
+
+        button.style.backgroundColor = 'var(--append-color)'
+        setTimeout(() => {
+            button.style.transition = '0.5s'
+            button.style.transitionProperty = 'background-color'
+            button.style.backgroundColor = 'var(--generator-accent-color)'
+        }, 175)
+        button.style.transition = '0s'
+
+        let divToFill = document.querySelector("#selectedIndicator").parentElement
+        divToFill.setAttribute('data-panel', dataset.panel)
+        divToFill.setAttribute('data-c', dataset.c)
+        if (divToFill.querySelector('div').innerText > 0){choicesCounter++}
+
+        if (LSForEachPanel[dataset.panel].flat(Infinity)[dataset.c].LSsymbol.length == 1){
+            divToFill.firstChild.innerHTML = "<span class ='RN'>" + LSForEachPanel[dataset.panel].flat(Infinity)[dataset.c].LSsymbol[0] + "</span>"
+        }
+        else if (LSForEachPanel[dataset.panel].flat(Infinity)[dataset.c].LSsymbol.length == 2){
+            divToFill.firstChild.innerHTML = "<span class ='RN'>" + LSForEachPanel[dataset.panel].flat(Infinity)[dataset.c].LSsymbol[0] + "</span>" + 
+            "<span class ='LStag'>" + LSForEachPanel[dataset.panel].flat(Infinity)[dataset.c].LSsymbol[1] + "</span>"
+        }
+        else if (LSForEachPanel[dataset.panel].flat(Infinity)[dataset.c].LSsymbol.length == 3){
+            divToFill.firstChild.innerHTML = "<span class ='RN'>" +LSForEachPanel[dataset.panel].flat(Infinity)[dataset.c].LSsymbol[0] + "</span>" + 
+            "<span class ='LStag'>" + LSForEachPanel[dataset.panel].flat(Infinity)[dataset.c].LSsymbol[1] + "</span>" + "<span class ='RN'>" + 
+            LSForEachPanel[dataset.panel].flat(Infinity)[dataset.c].LSsymbol[2] + "</span>"
+        }
+
+        const styleUpdate = {
+            
+            fontSize: "32px",
+            lineHeight: "50px",
+            letterSpacing: "0px",
+            fontFamily: 'Music',
+
+            display: 'grid',
+            gridTemplateColumns: 'auto auto 1fr auto auto',
+            gridTemplateRows: '1fr',
+            margin: 'auto',
+            width: 'min-content'
+
+        }
+        Object.assign(divToFill.firstChild.style, styleUpdate)
+
+        if (Number(divToFill.dataset.index) + 1 < document.querySelectorAll(".loopHolder").length){
+            ETmoveIndicator(Number(divToFill.dataset.index) + 1)
+        }
+        else {ETmoveIndicator(0)}
+                   
+        if (choicesCounter >= document.querySelectorAll(".loopHolder").length){
+            document.querySelector(".ETcheckDisabled").style = "display: none"
+            document.querySelector(".ETcheck").style = "display: "
+        }
+
+    }
+
+    let checkedAnswer = 0
+    let totalChords = 0
+    let totalCorrect = 0
+    let totalListens = 0
+    function checkAnswer(){
+
+        if (checkedAnswer == 1){return}
+
+        document.querySelector("#selectedIndicator").remove()
+        if (playToggle == 1){
+            playButton()
+        }
+
+        let ETloop = document.querySelector('.ETloop')
+        let loopHolders = document.querySelectorAll('.loopHolder')
+        for (let i = 0; i < loopHolders.length; i++){
+
+            loopHolders[i].setAttribute('onClick', '')
+            loopHolders[i].setAttribute('style', 'cursor: default')
+
+            if (
+                LSForEachPanel[loopHolders[i].dataset.panel].flat(Infinity)[loopHolders[i].dataset.c].LSsymbol.flat(Infinity).toString()
+                == loopFile[currentLoopIndex].loop[i].LSsymbol.flat(Infinity).toString()
+            ){
+                let checkMark = document.createElement('img')
+                checkMark.setAttribute('src','img/checkMark.png')
+                checkMark.setAttribute('class','checkMark')
+                ETloop.style.position = "relative"
+                ETloop.append(checkMark)
+                document.querySelectorAll(".loopHolder")[i].insertBefore(checkMark, null)
+            }
+            else {
+                let checkMark = document.createElement('img')
+                checkMark.setAttribute('src','img/wrongAnswer.png')
+                checkMark.setAttribute('class','wrongAnswer')
+                ETloop.style.position = "relative"
+                ETloop.append(checkMark)
+                document.querySelectorAll(".loopHolder")[i].insertBefore(checkMark, null)
+            }
+        }
+        
+        let choices = document.querySelectorAll(".ETchoices > div > div")
+        for (let i = 0; i < choices.length; i++){
+            choices[i].setAttribute('onClick', '')
+            choices[i].setAttribute('style', 'cursor: default')
+        }
+    
+        document.querySelector('.ETcheck').style = "display: none"
+        document.querySelector('.ETnext').style = "display: "
+        
+
+        if (document.querySelectorAll('.wrongAnswer').length > 0){
+            let showAnswer = document.createElement('div')
+            showAnswer.setAttribute('class','showAnswer')
+            showAnswer.setAttribute('onClick','showAnswer()')
+            showAnswer.innerHTML = "<p1>Show Correct Answer...</p1>"
+            document.querySelector('.loopHolder').append(showAnswer)
+        }
+
+
+        document.querySelector('#ETmodeDisplay').innerHTML = loopFile[loopFile.length - 1].key + " " + loopFile[loopFile.length - 1].mode
+        document.querySelector('#scoreDisplay').innerHTML = 
+            (loopFile[loopFile.length - 1].loopLength - document.querySelectorAll('.wrongAnswer').length)
+        + "/" + loopFile[loopFile.length - 1].loopLength
+
+        // calculating average scores
+        
+        totalChords += loopFile[loopFile.length - 1].loopLength
+        totalCorrect += document.querySelectorAll('.checkMark').length
+        totalListens = Number(totalListens) + Number(listens)
+
+        document.querySelector('#averageScore').innerHTML = ((totalCorrect / totalChords)*100).toFixed(0) + "%"
+        document.querySelector('#averageTime').innerHTML = (totalListens / loopFile.length).toFixed(2)
+
+        checkedAnswer = 1
+    }
+
+    let correctOrYours = 0
+    let yourAnswers = []
+    function showAnswer(){
+
+        let rightWrongImgs = document.querySelectorAll('.checkMark, .wrongAnswer')
+
+        if (correctOrYours == 0){
+
+            document.querySelector('.showAnswer').innerHTML = "<p1>Show Your Answer...</p1>"
+            document.querySelector('.showAnswer').style.left = '43.6px'
+
+            for (let i = 0; i < rightWrongImgs.length; i++){
+                rightWrongImgs[i].style = "visibility: hidden"
+                if (rightWrongImgs[i].className == 'wrongAnswer'){
+                    yourAnswers[i] = rightWrongImgs[i].parentElement.childNodes[0].innerHTML
+                    
+                    let divToFill = document.querySelectorAll('.loopHolder > div:not(.showAnswer)')[i]
+                    document.querySelectorAll('.loopHolder > div:not(.showAnswer)')[i].innerHTML = ""
+
+                    if (loopFile[currentLoopIndex].loop[i].LSsymbol.length == 1){
+                        divToFill.innerHTML = "<span class ='RN'>" + loopFile[currentLoopIndex].loop[i].LSsymbol[0] + "</span>"
+                    }
+                    else if (loopFile[currentLoopIndex].loop[i].LSsymbol.length == 2){
+                        divToFill.innerHTML = "<span class ='RN'>" + loopFile[currentLoopIndex].loop[i].LSsymbol[0] + "</span>" + 
+                        "<span class ='LStag'>" + loopFile[currentLoopIndex].loop[i].LSsymbol[1] + "</span>"
+                    }
+                    else if (loopFile[currentLoopIndex].loop[i].LSsymbol.length == 3){
+                        divToFill.innerHTML = "<span class ='RN'>" +loopFile[currentLoopIndex].loop[i].LSsymbol[0] + "</span>" + 
+                        "<span class ='LStag'>" + loopFile[currentLoopIndex].loop[i].LSsymbol[1] + "</span>" + "<span class ='RN'>" + 
+                        loopFile[currentLoopIndex].loop[i].LSsymbol[2] + "</span>"
+                    }
+                }
+            }
+
+            correctOrYours = 1
+        }
+        else if (correctOrYours == 1){
+
+            document.querySelector('.showAnswer').innerHTML = "<p1>Show Correct Answer...</p1>"
+            document.querySelector('.showAnswer').style.left = '30px'
+
+            for (let i = 0; i < rightWrongImgs.length; i++){
+               rightWrongImgs[i].style = "visibility: visible"
+            }
+
+            for (let i = 0; i < rightWrongImgs.length; i++){
+                if (rightWrongImgs[i].className == 'wrongAnswer'){
+                    document.querySelectorAll('.loopHolder > div:not(.showAnswer)')[i].innerHTML = ""
+                    document.querySelectorAll('.loopHolder > div:not(.showAnswer)')[i].innerHTML = yourAnswers[i]
+                    
+                }
+            }
+
+            correctOrYours = 0
+        }
+    }
+
+    function nextQuestion(){
+
+        if (playToggle == 1){
+            playButton()
+        }
+
+        let ETloop = document.querySelector('.ETloop')
+        while (ETloop.firstChild) {
+            ETloop.removeChild(ETloop.firstChild);
+        }
+        document.querySelector('.ETcheckDisabled').style = "display: "
+        document.querySelector('.ETnext').style = "display: none"
+
+        currentLoopIndex ++ 
+
+        pickChords()
+
+        let choices = document.querySelectorAll(".ETchoices > div > div")
+        for (let i = 0; i < choices.length; i++){
+            choices[i].setAttribute('onClick', 'ETchoicePressed(dataset, this)')
+            choices[i].setAttribute('style', 'cursor: pointer')
+        }
+
+        choicesCounter = 0
+        checkedAnswer = 0
+        correctOrYours = 0
+        yourAnswers = []
+
+        spaceTimeout = false
+        intervalID = undefined 
+        elapsedTime = 0
+        listens = 0
+
+        document.querySelector('#questionNumber').innerHTML = "#" + (loopFile.length)
+        document.querySelector('#elapsedTime').innerHTML = "0"
+        document.querySelector('#scoreDisplay').innerHTML = "..."
+
+        
+
+    }
+
+    let toggleKepInfo = 0
+    function toggleKEPInfo(){
+        if (toggleKepInfo == 0){
+            document.querySelector('#KEPinfo').style = 'opacity: 100%;'
+            toggleKepInfo = 1
+        }
+        else if (toggleKepInfo == 1){
+            document.querySelector('#KEPinfo').style = 'opacity: 0%;'
+            toggleKepInfo = 0
+        }
+    }
+    let KEP = 0
+    function toggleKEP(){
+        if (document.querySelector('#KEP').checked){
+            KEP = 1
+            console.log('KEP enabled')
+        }
+        else {
+            if (KEPsequence !== undefined){
+                KEPsequence.cancel()
+                playButton()
+            }
+            KEP = 0
+            console.log('KEP disabled')
+        }
+    }
+
+    function countTime(){
+        // time counter
+        if (checkedAnswer == 0){
+            intervalID = setInterval(() => {
+            elapsedTime++
+            listens = ((elapsedTime / (10*loopTime)) - 0.02).toFixed(2)
+            if (listens > 0){
+                    document.querySelector("#elapsedTime").innerHTML = listens
+                }
+                
+            }, 100)
+        }
+    }
+
+    // function that systematically console logs the contents of local storage for easier copy/paste to
+    // Browse Presets page:
+    function logStoragePresets(){
+        // console.log('finalChordList: ')
+        // console.log(localStorage.getItem('finalChordList'))
+        // console.log('settings: ')
+        // console.log(localStorage.getItem('settings'))
+        // console.log('solfegesForEachPanel: ')
+        // console.log(localStorage.getItem('solfegesForEachPanel'))
+        // console.log('LSForEachPanel: ')
+        // console.log(localStorage.getItem('LSForEachPanel'))
+        console.log(localStorage)
+    }
+
+    let downloadPopUpToggle = 0
+    function downloadPopUp(){
+        if (downloadPopUpToggle == 0 && synthsLoaded == settings.instruments.length){
+            document.querySelector(".downloadDiv").style.marginBottom = "24px"
+            document.querySelector(".downloadPopUp").style.display = ""
+            document.querySelector(".downloadPopUp").style.opacity = "100%"
+            document.querySelector(".downloadPopUp").style.pointerEvents = "all"
+            document.querySelector(".downloadPopUp").style.width = "238px"
+            document.querySelector(".downloadPopUp").style.height = "170px"
+            downloadPopUpToggle = 1
+
+        }
+        else if (downloadPopUpToggle == 1 && synthsLoaded == settings.instruments.length){
+            document.querySelector(".downloadDiv").style.marginBottom = "48px"
+            document.querySelector(".downloadPopUp").style.display = "none"
+            document.querySelector(".downloadPopUp").style.opacity = "0%"
+            document.querySelector(".downloadPopUp").style.pointerEvents = "none"
+            downloadPopUpToggle = 0
+        }
+    }
+
+    function createWav(){
+		try {
+
+            document.querySelector('.playButton').click()
+            if (playToggle==1){playButton()}
+
+            const renderingPromise = Tone.Offline(({ transport }) => {
+
+                const synthA = new Tone.Sampler({
+                    urls: {
+                        "C1": currentSynth.get("C1"),
+                        // "E1": currentSynth.get("E1"),
+                        "A1": currentSynth.get("A1"),
+                        // "C2": currentSynth.get("C2"),
+                        "E2": currentSynth.get("E2"),
+                        // "A2": currentSynth.get("A2"),
+                        "C3": currentSynth.get("C3"),
+                        // "E3": currentSynth.get("E3"),
+                        "A3": currentSynth.get("A3"),
+                        // "C4": currentSynth.get("C4"),
+                        "E4": currentSynth.get("E4"),
+                        // "A4": currentSynth.get("A4"),
+                        "C5": currentSynth.get("C5"),
+                        // "E5": currentSynth.get("E5"),
+                        "A5": currentSynth.get("A5"),
+                        // "C6": currentSynth.get("C6"),
+                        "E6": currentSynth.get("E6"),
+                        // "A6": currentSynth.get("C6"),
+                    },
+                    release: 1,
+                }).toDestination();
+
+                const seqA = new Tone.Part(((time, value) => {
+                    // console.log(`Note: ${value.note}, Velocity: ${value.velocity}, Duration: ${value.duration}, Time: ${time}`);
+                    synthA.triggerAttackRelease(value.note, value.duration, value.time)
+                }), loopFile[currentLoopIndex].finalInstructions);
+                seqA.loop = true;
+                // having to set this to a high number to avoid issues with notes doubling and becoming louder:
+                seqA.loopEnd = 40;
+                seqA.humanize = false;
+                transport.bpm.value = Math.round(loopFile[currentLoopIndex].tempo)
+                seqA.start()
+                transport.start();
+
+            }, sequence.loopEnd + 1);
+
+            // set the buffer when it's done
+            renderingPromise.then(buffer => {
+            let file = audioBufferToWav(buffer, {sampleRate: 48000, bitDepth: 32, numChannels: 2})
+            // console.log(file)
+            const blob = new Blob([file], {type: "audio/wav"})
+            // console.log(blob)
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = loopFile[currentLoopIndex].key + " " + loopFile[currentLoopIndex].mode 
+                + ", " + Math.round(loopFile[currentLoopIndex].tempo) + " BPM, " + loopFile[currentLoopIndex].instrument.synthName + " chordloops" ;
+            link.innerHTML = "download WAV";
+            document.body.appendChild(link);
+            link.click()
+            link.remove()
+        });
+        }
+        catch {window.alert("Download failed :(")}
+
+        downloadPopUp()
+    }
+	
+    function createMIDI(){
+        
+        try {
+            document.querySelector('.playButton').click()
+            if (playToggle==1){playButton()}
+
+            let toneInstructions = loopFile[currentLoopIndex].finalInstructions
+
+            let chordVoices = new MidiWriter.Track()
+            let bassLine = new MidiWriter.Track()
+            chordVoices.setTempo(loopFile[currentLoopIndex].tempo)
+            chordVoices.setTimeSignature(4, 4)
+            bassLine.setTempo(loopFile[currentLoopIndex].tempo)
+            bassLine.setTimeSignature(4, 4)
+            // let write = new MidiWriter.Writer([chordVoices, bassLine], {tempo: loopFile[currentLoopIndex].tempo})
+
+            let lastChordWait = 0
+            let lastChordDuration= 0
+            let lastBassWait = 0
+            let lastBassDuration = 0
+            for (let i = 0; i < toneInstructions.length; i++){
+                if (toneInstructions[i].type == 'chordVoices'){
+                    // console.log(toneInstructions[i])
+                    let noteEvent = new MidiWriter.NoteEvent({
+                        pitch: toneInstructions[i].note,
+                        duration: 'T' + toneToMidi(toneInstructions[i].duration),
+                        wait: 'T' + (toneToMidi(toneInstructions[i].time) - lastChordWait - lastChordDuration),
+                    })
+                    chordVoices.addEvent(noteEvent)
+                    lastChordWait = toneToMidi(toneInstructions[i].time)
+                    lastChordDuration = toneToMidi(toneInstructions[i].duration)
+                }
+                else if (toneInstructions[i].type == 'bassLine'){
+                    //console.log(toneInstructions[i])
+                    let noteEvent = new MidiWriter.NoteEvent({
+                        pitch: toneInstructions[i].note,
+                        duration: 'T' + toneToMidi(toneInstructions[i].duration),
+                        wait: 'T' + (toneToMidi(toneInstructions[i].time) - lastBassWait - lastBassDuration),
+                    })
+                    bassLine.addEvent(noteEvent)
+                    lastBassWait = toneToMidi(toneInstructions[i].time)
+                    lastBassDuration = toneToMidi(toneInstructions[i].duration)
+                }
+                
+            }
+
+            // console.log(chordVoices)
+            // console.log(bassLine)
+
+            let write = new MidiWriter.Writer([chordVoices, bassLine]);
+            // console.log(write.buildFile());
+
+            let file = write.buildFile()
+            // console.log(file)
+            const blob = new Blob([file], {type: "audio/midi"})
+            // console.log(blob)
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = loopFile[currentLoopIndex].key + " " + loopFile[currentLoopIndex].mode  + " chordloops.mid";
+            link.innerHTML = "download MIDI";
+            document.body.appendChild(link);
+            link.click()
+            link.remove()
+        }
+        catch {window.alert("Download failed :(")}
+    }
+
+    function toneToMidi(toneTime){
+        var seconds = Tone.Time(toneTime).toSeconds()
+        var quarterNoteDuration = 60 / loopFile[currentLoopIndex].tempo // duration of a quarter note in seconds
+        var ticksPerQuarterNote = 128 // ticks per quarter note
+        var midiTime = seconds / quarterNoteDuration * ticksPerQuarterNote
+        // console.log(midiTime)
+        return Math.round(midiTime)
+    }
+
+</script>

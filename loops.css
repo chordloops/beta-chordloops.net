@@ -1,0 +1,844 @@
+body {
+    background-image: linear-gradient(to right, var(--background-color), var(--background-color));
+    background-color: var(--header-color);
+    margin: 0px;
+}
+@supports(padding:max(0px)) {
+    body, header {
+        padding-left: min(0vmin, env(safe-area-inset-left));
+        padding-right: min(0vmin, env(safe-area-inset-right));
+        padding-top: min(0vmin, env(safe-area-inset-top))
+    }
+}
+
+:root {
+    --background-color: #1c1c1c;
+    --header-color: rgb(22, 22, 22);
+    --heading-mouseover-color: rgb(8, 8, 8);
+    --heading-border-color: rgb(52, 52, 52);
+
+    --titles-color: white;
+    --main-text-color: white;
+    --fade-out-gradient: linear-gradient(90deg, rgba(255,255,255,0) 85%, rgb(26, 26, 26) 98%);
+
+    --generator-text-color: black;
+    --main-dotted-border: white;
+
+    --primary-generator-color: rgb(218, 218, 218);
+    --generator-accent-color: rgb(240, 240, 240);
+    --generator-RN-button:  white;
+    --RN-pressed-color: #0FAFFF;
+
+    --extension-hover-color: rgb(255, 255, 255);
+    --extension-selected-color: rgb(199, 199, 199);
+    --append-color: rgb(184, 184, 184);
+
+    --CL-orange: #ff8041;
+    --lowerInfo: #273f48;
+    --settings: #274841;
+}
+
+@font-face {
+    font-family: 'Music';
+    src: url(MusAnalysis.otf);
+}
+@font-face {
+    font-family: 'flat';
+    src: url(muscEdited.otf);
+    unicode-range: U+0062;
+}
+
+.content{
+    column-gap: 16px;
+    margin-bottom: 16px;
+    font-family: 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
+    letter-spacing: +1px;
+}
+
+/* Start header:  */
+header {
+    grid-column: 1/3;
+    grid-row: 1/2;
+    background-color: var(--header-color);
+    box-shadow: 0px 2px 12px rgba(11, 11, 11, 0.783);
+    border-bottom: 2px solid var(--heading-border-color);
+    display: grid;
+    grid-template-rows: none;
+    grid-template-columns: 1fr 1fr 1fr;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+}
+
+.navBar {
+    display: inline-flex;
+    height: 61.79px;
+    width: min-content;
+    margin-left: env(safe-area-inset-left)
+}
+.navImg {
+    margin: auto;
+    padding: 13.985px;
+    padding-inline: 40px;
+}
+.logo {
+    width: 220px;
+}
+header > a {
+    margin: auto;
+    width: min-content;
+    height: min-content;
+    width: 220px;
+    padding-top: 6px;
+    padding-bottom: 0px;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    width: 250px;
+    top: 61.97px;
+    box-shadow: 0px 2px 12px rgba(11, 11, 11, 0.783);
+}
+@media (hover: hover) {
+    .nav:hover {
+      background-color: var(--heading-mouseover-color);
+    }
+    .navBar:hover .dropdown-content {
+        display: grid;
+        grid-auto-flow: row;
+    }
+}
+.display-grid {
+    display: grid;
+    grid-auto-flow: row;
+}
+.dropdown-content > a {
+    padding: 20px;
+    padding-left: calc(20px + env(safe-area-inset-left));
+    background-color: hsla(0, 0%, 0%, 0.95);
+    color: white;
+    text-decoration: none;
+    user-select: none;
+}
+.dropdown-content > a:hover {
+    background-color: var(--header-color);
+}
+.display-grid > a {
+    padding: 20px;
+    background-color: hsla(0, 0%, 0%, 0.95);
+    color: white;
+    text-decoration: none;
+    user-select: none;
+}
+/* end header */
+
+
+.loading {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    color: white;
+    margin-top: 200px;
+}
+.loadingBar {
+    margin-inline: auto;
+    display: grid;
+    grid-auto-flow: column;
+    width: 200px;
+    height: 10px;
+    border-radius: 5px;
+
+}
+.loadingItem {
+    border: 1px solid black;
+    background-color: var(--primary-generator-color);
+}
+.loadedItem {
+    border: 1px solid black;
+    background-color: rgb(143, 255, 143);
+}
+
+.experimentModeUI{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: min-content;
+    margin-inline: auto;
+    margin-top: 63.79px;
+    font-family: 'Porsche', 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
+    letter-spacing: +1px;
+}
+#rotateNotif {
+    color: white;
+    grid-column: 1/3;
+    font-size: 24px;
+    text-align: center;
+    display: none;
+}
+#outerPhone {
+    width: 240px;
+    height: 100px;
+    border-radius: 15px;
+    margin-inline: auto;
+    margin-top: 24px;
+    background-color: rgb(219, 219, 219);
+    position: relative;
+    
+}
+#innerPhone {
+    width: 230px;
+    height: 90px;
+    border-radius: 12px;
+    margin-inline: auto;
+    margin-top: 24px;
+    background: rgb(52,52,52);
+    background: linear-gradient(125deg, rgba(52,52,52,1) 0%, rgba(28,28,28,1) 90%);
+
+    position: relative;
+    top: 5px;
+}
+
+.loopDisplay {
+    width: min-content;
+    margin-left: auto;
+    grid-row: 2/3;
+    grid-column: 1/2;
+}
+.chordLSDisplay {
+    height: 50px;
+    width: 232px;
+    font-size: 32px;
+    line-height: 50px;
+    letter-spacing: 0px;
+    margin-top: 24px;
+    margin-bottom: 24px;
+    padding-left: 8px;
+
+    font-family: 'Music';
+
+    display: grid;
+    grid-template-columns: auto auto 1fr auto auto;
+    grid-template-rows: 1fr;
+
+    background-color: var(--generator-accent-color);
+    border-radius: 8px;
+
+    position: relative;
+
+    transition-property: box-shadow;
+    transition-duration: 0.95s;
+    transition-timing-function: ease-out;
+}
+.RN {
+    font-weight: 500;
+    letter-spacing: 0px;
+}
+.LStag {
+    font-family: "flat", "Lucida Console", "Times New Roman";
+    margin-left: 1px;
+    font-size: 26px;
+    line-height: 32px;
+    white-space: nowrap;
+}
+
+.buttonsDisplay {
+    grid-row: 2/3;
+    grid-column: 2/3;
+    display: grid;
+    grid-template-columns: 80px 140px;
+    grid-template-rows: 32px 32px 32px 32px;
+    row-gap: 14px;
+    column-gap: 16px;
+    margin-top: 24px;
+    margin-left: 24px;
+
+    position: relative;
+}
+.playButton {
+    width: 80px;
+    height: 32px;
+    background-color: rgb(143, 255, 143);
+    border-color: white;
+    transition-property: background-color;
+    transition-duration: 0.6s;
+    transition-timing-function: ease-out;
+    cursor: pointer;
+}
+.experimentNext {
+    width: 80px;
+    height: 32px;
+    background-color:#9cdeff;
+    border-color: white;
+    cursor: pointer;
+}
+#nextArrowImg {
+    height: 26px;
+}
+#backButton {
+    width: 80px;
+    height: 32px;
+    background-color:#9cdeff;
+    border-color: white;
+    cursor: pointer;
+
+}
+#backArrowImg {
+    height: 26px;
+    transform: scaleX(-1);
+}
+.downloadDiv {
+    width: 76px;
+    height: 28px;
+    background-color: #9cdeff;
+    border: 2px outset rgb(255, 255, 255);
+    user-select: none;
+    cursor: pointer;
+}
+#downloadIcon {
+    font-size: 28px;
+    position: relative;
+    left: 24px;
+}
+
+.downloadPopUp {
+    opacity: 0%;
+    position: absolute;
+    color: white;
+    width: 100%; 
+    height: 100%;
+    max-height: 170px;
+    pointer-events: none;
+
+    border: solid 1px var(--heading-border-color);     
+    background-color:  var(--header-color);
+    z-index: 1;
+
+    transition-property: opacity;
+    transition: 0.1s;
+    transition-timing-function: ease-out;
+}
+#downloadX {
+    padding: 16px;
+    width: min-content;
+    user-select: none;
+    cursor: pointer;
+}
+#downloadX:hover {
+    background-color: var(--background-color);
+}
+.downloadPopUp > p {
+    padding-inline: 16px;
+    padding-top: 8px;
+    padding-bottom: 16px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    user-select: none;
+    cursor: pointer;
+}
+.downloadPopUp > p > #downloadIcon {
+    font-size: 24px;
+    position: relative;
+    bottom: -5px;
+    left: -5px;
+    margin-right: 8px;
+}
+.downloadPopUp > p:hover {
+    text-decoration: underline;
+    background-color: var(--background-color);
+}
+
+
+.loopInfo {
+    color: white;
+    font-family: Arial, sans-serif;
+    grid-row: 1/4;
+    grid-column: 2/3;
+}
+.loopInfo > p {
+    margin-top: 0px;
+}
+
+.earTrainerUI {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 32px;
+    row-gap: 32px;
+    padding-inline: 40px;
+    margin: 0px;
+    padding-left: 230px;
+    padding-right: 230px;
+    font-family: 'Porsche', 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
+    letter-spacing: +1px;
+}
+.ETloop {
+    width: min-content;
+    height: min-content;
+    margin-top: 32px;
+    display: grid; 
+    grid-template-rows: auto;
+    row-gap: 16px;
+}
+.loopHolder {
+    height: 50px;
+    width: 234px;
+    border: 1px solid rgb(120, 120, 120); 
+    border-radius: 8px;
+    text-align: center;
+    color: white;
+    font-size: larger;
+    line-height: 50px;
+    background-color:rgb(35,35,35);
+    cursor: pointer;
+
+    position: relative;
+
+    transition-property: box-shadow;
+    transition-duration: 0.75s;
+    transition-timing-function: ease-out;
+}
+#selectedIndicator {
+    position: relative;
+    left: -20px;
+    top: -35px;
+    width: 0; 
+    height: 0; 
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 10px solid rgb(120, 120, 120);
+}
+.ETbuttons {
+    margin-top: 32px;
+    background-color: rgb(35,35,35);
+    border-radius: 8px;
+    border: 1px solid rgb(120, 120, 120);
+    min-width: 400px;
+}
+.ETbuttonBar{
+    margin-top: 8px;
+    margin-inline: 16px;
+    padding-bottom: 8px;
+    display: grid;
+    grid-template-columns: 80px 132px 1fr 39.02px 16px;
+    column-gap: 8px;
+    border-bottom: 1px solid rgb(120, 120, 120)
+}
+.ETplayButton{
+    width: 80px;
+    height: 32px;
+    margin-left:auto;
+    background-color: rgb(143, 255, 143);
+    border-color: white;
+    transition-property: background-color;
+    transition-duration: 0.6s;
+    transition-timing-function: ease-out;
+    cursor: pointer;
+}
+.ETcheckDisabled {
+    pointer-events: none;
+    width: 132px;
+    height: 32px;
+    color: rgb(120, 120, 120);
+    background-color: var(--generator-accent-color);
+    border-color: white;
+}
+.ETcheck {
+    background-color: #9cdeff;
+    color: black;
+    cursor: pointer;
+    width: 132px;
+    height: 32px;
+    border-color: white;
+}
+.ETnext {
+    width: 132px;
+    height: 32px;
+    background-color:#9cdeff;
+    border-color: white;
+}
+.KEPdiv {
+    grid-column: 4/5;
+    line-height: 32px;
+    user-select: none;
+    width: min-content;  
+    margin-left: auto;
+    position: relative;
+}
+.KEPdiv > input {
+    display: none;
+    cursor: pointer;
+}
+.KEPdiv > label {
+    background-color: var(--generator-accent-color);
+    border: 3px solid var(--extension-selected-color);
+    font-size: 12px;
+    font-family: Arial;
+    padding-top: 7.5px;
+    padding-bottom: 5.5px;
+    padding-inline: 3px;
+    cursor: pointer;
+}
+.KEPdiv > input:checked + label {
+    border: 3px solid var(--RN-pressed-color)
+}
+#moreInfo {
+    width: 24px;
+    padding-top: 4px;
+    cursor: pointer;
+}
+#KEPinfo {
+    opacity: 0%;
+    position: absolute;
+    color: white;
+    width: 300px;
+    padding: 5px;
+    border: solid 1px var(--heading-border-color); 
+    pointer-events: none;
+    
+    top: 43px;
+    right: -24px;
+    background-color: var(--heading-mouseover-color);
+    z-index: 1;
+
+    transition-property: opacity;
+    transition: 0.2s;
+}
+
+.ETchordLSDisplay {
+    height: 50px;
+    font-size: 32px;
+    line-height: 50px;
+    letter-spacing: 0px;
+    padding-inline: 8px;
+    font-family: 'Music';
+
+    display: grid;
+    grid-template-columns: auto auto 1fr auto auto;
+    grid-template-rows: 1fr;
+
+    background-color: var(--generator-accent-color);
+    border-radius: 8px;
+    border: 1px solid rgb(120, 120, 120); 
+
+    position: relative;
+
+    user-select: none;
+    cursor: pointer;
+
+    transition-property: box-shadow;
+    transition-duration: 0.95s;
+    transition-timing-function: ease-out;
+}
+.majChoices {
+    margin-inline: 16px;
+    margin-top: 18px;
+    padding-bottom: 4px;
+    margin-bottom: 3px;
+
+    display: grid;
+    grid-template-columns: auto;
+    grid-auto-flow: column;
+    column-gap: 16px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    
+}
+.minChoices {
+    margin-inline: 16px;
+    margin-top: 7px;
+    padding-bottom: 4px;
+    margin-bottom: 3px;
+
+    display: grid;
+    grid-template-columns: auto;
+    grid-auto-flow: column;
+    column-gap: 16px;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+.secDomChoices {
+    margin-inline: 16px;
+    margin-top: 7px;
+    padding-bottom: 4px;
+    margin-bottom: 3px;
+
+    display: grid;
+    grid-template-columns: auto;
+    grid-auto-flow: column;
+    column-gap: 16px;
+    overflow-x: auto;   
+    overflow-y: hidden;
+}
+
+.checkMark {
+    height: 22px;
+    width: 22px;
+    position: absolute;
+    top: 12px;
+    left: -30px;
+}
+.wrongAnswer {
+    height: 26px;
+    width: 26px;
+    position: absolute;
+    top: 12px;
+    left: -33px;
+}
+.showAnswer {
+    position: absolute; 
+    height: min-content;
+    top: -46px;
+    left: 30px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    user-select: none;
+}
+.showAnswer:hover {
+    text-decoration: underline;
+}
+
+.controlsStats {
+    text-align: center;
+    font-size: large;
+    padding-top: 8px;
+    color: white;
+    border-radius: 8px;
+    border: 1px solid rgb(120, 120, 120);
+    grid-column: 1/3;
+
+    background-color: rgb(35,35,35);
+
+    display: grid;
+    grid-template-rows: 24px 1fr;
+}
+.statGrid {
+
+    margin-top: 8px;
+    border-top: 1px solid rgb(120, 120, 120);
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+.statTitleA {
+    background-color: rgb(31, 31, 31);
+    height: min-content;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.statTitleB {
+    height: min-content;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+
+/* width */
+::-webkit-scrollbar {
+    height: 2px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; 
+    border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgb(201, 201, 201); 
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #ffffff; 
+}
+
+@media only screen and (min-width: 1630px){
+    .earTrainerUI {
+        padding-left: 500px;
+        padding-right: 500px;
+    }
+}
+@media only screen and (max-width: 1410px) {
+    .earTrainerUI {
+        padding-left: 200px;
+        padding-right: 200px;
+    }
+}
+@media only screen and (max-width: 1250px) {
+    .earTrainerUI {
+        padding-left: 120px;
+        padding-right: 120px;
+    }
+}
+@media only screen and (max-width: 1160px) {
+    header {
+        position: relative;
+    }
+    .experimentModeUI {
+        margin-top: 0px;
+        margin-inline: auto;
+    }
+    .loading {
+        margin-top: 24px;
+    }
+}
+@media only screen and (max-width: 1080px) {
+    .earTrainerUI {
+        padding-left: max(40px, calc(30px + env(safe-area-inset-left)));
+        padding-right: 40px;
+        padding-bottom: max(20px, calc(10px + env(safe-area-inset-left)));
+    }
+    .ETbuttons {
+        min-width: 250px;
+    }
+}
+@media only screen and (max-width: 800px) {
+    .navImg {
+        width: 26px;
+        padding: 17.685px;
+    }
+    .experimentModeUI {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr;
+        width: 240px;
+        margin-top: 16px;
+    }
+    .loopDisplay{
+        margin-inline: auto;
+    }
+    .downloadDiv {
+        margin-inline: auto;
+        margin-bottom: 48px;
+        background-color: var(--background-color);
+        color: white;
+        border: none;
+    }
+    .downloadPopUp {
+        margin-bottom: 32px;
+        width: 0px;
+        height: 0px;
+        position: static
+    }
+    .buttonsDisplay {
+        margin-top: 0px;
+        width: 190px;
+        grid-row: 1/2;
+        grid-column: 1/2;
+        margin-inline: auto;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 111px 32px;
+        row-gap: 16px;
+        height: min-content;
+        column-gap: 23px;
+    }
+    .playButton {
+        grid-column: 2/3;
+        grid-row: 2/3;
+        margin: auto;
+    }
+    .experimentNext {
+        grid-column: 3/4;
+        grid-row: 2/3;
+        width: 32px;
+        position: relative;
+    }
+    #backButton {
+        grid-column: 1/2;
+        grid-row: 2/3;
+        width: 32px;
+        position: relative;
+    }
+    #nextArrowImg {
+        position: relative;
+        transform: translateX(-3px);
+    }
+    #backArrowImg {
+        position: relative;
+        transform: translateX(-3px) scaleX(-1);
+    }
+    .loopInfo {
+        width: 140px;
+        grid-row: 1/2;
+        grid-column: 1/4;
+        margin: auto;
+    }
+    .loopInfo > p {
+        margin-bottom: 6px;
+        position: relative;
+    }
+    .loopHolder {
+        width: 224px;
+    }
+    .showAnswer {
+        font-size: 14px;
+    }
+    .RN {
+        font-size: 26px;
+    }
+    .LStag {
+        font-size: 20px;
+    }
+
+    .earTrainerUI{
+        column-gap: 16px;
+        row-gap: 16px;
+    }
+    .controlsStats {
+        padding-top: 0px;
+        grid-template-rows: 10px 1fr;
+    }
+    .statGrid {
+        margin-top: 16px;
+    }
+    .showAnswer {
+        top: -38px;
+    }
+}
+@media only screen and (max-width: 655px){
+    .loopHolder {
+        width: 190px;
+    }
+    .ETbuttonBar {
+        grid-template-columns: 50px 104px 39.02px 24px;
+        column-gap: 16px;
+    }
+    .ETplayButton {
+        width: 50px
+    }
+    .ETcheckDisabled {
+        width: 104px
+    }
+    .ETcheck {
+        width: 104px
+    }
+    .ETnext {
+        width: 104px;
+    }
+    .KEPdiv {
+        grid-column: 3/4;
+    }
+    #KEPinfo {
+        right: -48px
+    }
+
+    .RN {
+        font-size: 24px;
+    }
+    .LStag {
+        font-size: 18px;
+    }
+}
+@media (hover: none) and (orientation: portrait) and (max-width: 600px) {
+    #rotateNotif {
+        display:block;
+    }
+    .earTrainerUI > section{
+        display: none;
+    }
+    .earTrainerUI {
+        column-gap: 0px;
+    }
+}

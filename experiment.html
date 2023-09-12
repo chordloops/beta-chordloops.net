@@ -1,0 +1,1607 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chord Progession Generator</title>
+    <meta name="description" content="Generate random chord progressions by choosing your settings and 
+    pressing 'Start'.">
+    <link rel="icon" type="image/x-icon" href="img/favicon.png">
+    <meta name='viewport' content='initial-scale=1, viewport-fit=cover'>
+    <link rel="stylesheet" href="experiment.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2KR1FZCMFL"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-2KR1FZCMFL');
+</script>
+
+<body onload="onloadPage()">
+    <section class="content">
+        <header>
+            <div class = "navBar">
+                <a class = "nav" style="cursor: pointer" ontouchstart="toggleDropdown()">
+                    <img src ="img/menu.png" class="navImg">
+                </a>
+                <div class="dropdown-content">
+                    <a href="index.html">Home</a>
+                    <a href="experiment.html">Generator</a>
+                    <a href="browsePresets.html">Presets</a> 
+                    <a href="howToUse.html">User Guide</a>
+                    
+                </div>
+            </div>
+            <a href="index.html"><img class = "logo", src="img/chordloopsLogo5.png" style="cursor:pointer"></a>
+        </header>
+
+        <!-- <div class="aboveMain">
+            <section class="tutorials">
+                <h1 class = "aboveMainTitles" id="tutorialTitle">Tutorials:</h1>
+                <ul class="tutorialLinks">
+                    <li style="cursor:pointer">Preset Recipes!</li>
+                    <li style="cursor:pointer">Full User Guide</li>
+                    <li style="cursor:pointer">What Are Roman Numerals?</li>
+                    <li style="cursor:pointer" title="Modes, Extensions">Reference Charts</li>
+                </ul>
+            </section>
+            <section class="presets">
+                <h1 class = "aboveMainTitles" id="presetTitle">Featured Presets:</h1>
+                <div class="presetScroll">
+                    <ul class = presetsUL>
+                        <li class="presetPannels" id="pannelA"><p id="textA"><h1>7th Chords</h1></p></li>
+                        <li class="presetPannels" id="pannelA"><p id="textA"><h1>Basic Pop</h1></p></li>
+                        <li class="presetPannels" id="pannelB"><p id="textA"><h1>Minor</h1></p></li>
+                        <li class="presetPannels" id="pannelC"><p id="textA"><h1>Piano Only</h1></p></li>
+                        <li class="presetPannels" id="pannelD"><p id="textA"><h1>Neo-soul</h1></p></li>
+                        <li class="presetPannels" id="pannelD"><p id="textA"><h1>Classical</h1></p></li>
+                        <li class="presetPannels" id="pannelE"><p id="textA"><h1>ii-V-I</h1></p></li>
+                        <li class="presetPannels" id="pannelE"><p id="textA"><h1>R&B/Soul</h1></p></li>
+                    </ul>
+                </div>
+            </section>
+        </div> -->
+        <!-- <div class="fadeOut"></div> -->
+
+        <div class="explanation">
+            <h2>Generator:</h2> Select which chords can appear in loops, choose your settings, then press <i>Start</i>
+            to begin generating. Learn more at <a href="howToUse.html">User Guide</a>. Try
+            out the  <a href="browsePresets.html">Presets</a>, which are pre-programmed to easily generate 
+            excellent chord progressions!
+        </div>
+
+        <section class="generator">
+
+            <section class="chordSelection">
+
+                    <h1 class="generatorTitles">1. Chord Selector:
+                        <select id="panelSelector" onchange="chordTypeDisplay(value)">
+                            <option value="diatonic">Diatonic Major</option>
+                            <option value="modal">Natural Minor</option>
+                            <option value="secDom" class="secDomPanelSelected">Secondary Dominants</option>
+                        </select>
+                    </h1>
+                    <div class="chordSelectionPanels">
+                        <div class="romanNumerals">
+                        </div>
+                        <div class="extensions">
+                            <div class="extensionGrid" id="diatonicExtensions"></div>
+                            <div class="extensionGrid" id="modalExtensions" style="display:none"></div>
+                            <div class="extensionGrid" id="secDomExtensions" style="display:none"></div>
+                        </div>
+                        <div class="extensionLabel">EXTENSIONS & ALTERATIONS</div>
+
+                </div>
+            </section>
+
+            <section class="previews">
+
+                    <h1 class="generatorTitles">2. Previews:</h1>
+                    <div class="previewsPanel">
+                        <span class="previewNotif">The chords you select will appear here. You can hear each chord in the key of C, or change this key in the Settings under<br>"Key / Tonic".</span>
+                    </div>
+
+            </section>
+
+            <section class="options">
+
+                    <h1 class="generatorTitles">3. Settings:</h1>
+                    <div class="optionsPanel">
+                        <div class="start" style="cursor:pointer" onclick="startSession()">
+                            <h3>START --></h3>
+                        </div>
+                        <div id="optionsOne">
+                            <h1 class="headingForEachOption">Mode:</h1>
+                                <input type="radio" name="mode" id="earTrainer">
+                                <label for="earTrainer">Ear Trainer</label>
+                                <input type="radio" name="mode" id="experimentMode" checked>
+                                <label for="experimentMode">Experiment mode</label>
+                            <h1 class="headingForEachOption">Key / Tonic:</h1>
+                                <input type="radio" name="key" id="autoKey" value="auto" onchange="keyRadioButtons(this)" checked>
+                                <label for="autoKey">Auto</label>
+                                <input type="radio" name="key" id="userSelectedKey" value="C" onchange="keyRadioButtons(this)">
+                                <label for="userSelectedKey">
+                                    <select id="keyDropdown" onchange="previewsDisplay(null); document.querySelector('#userSelectedKey').value = this.value" disabled>
+                                            <option>C</option>
+                                            <option>C#/Db</option>
+                                            <option>D</option>
+                                            <option>D#/Eb</option>
+                                            <option>E</option>
+                                            <option>F</option>
+                                            <option>F#/Gb</option>
+                                            <option>G</option>
+                                            <option>G#/Ab</option>
+                                            <option>A</option>
+                                            <option>A#/Bb</option>
+                                            <option>B</option>
+                                    </select>
+                                </label>
+                            <h1 class="headingForEachOption">Tempo:</h1>
+                                <input type="radio" name="tempo" value="autoTempo" id="autoTempo" onchange="tempoRadioButtons(this)" checked>
+                                <label for="autoTempo">Auto</label>
+                                <input type="radio" name="tempo" value="100" id="selectTempo" onchange="tempoRadioButtons(this)">
+                                <label for="selectTempo">
+                                    <input id="bpmValue" type="range" min="50" max="150" value="100" oninput="this.nextElementSibling.value = this.value; document.querySelector('#selectTempo').value = this.value" disabled>
+                                    <output for="bpmValue">100</output>
+                                </label>
+                            <h1 class="headingForEachOption">Length (in chords):</h1>
+                                <input type="checkbox" class="lengthBoxes" id="twochord" value="2">
+                                <label for="twochord">2</label>
+                                <input type="checkbox" class="lengthBoxes" id="threechord" value="3" checked>
+                                <label for="threechord">3</label>
+                                <input type="checkbox" class="lengthBoxes" id="fourchord" value="4" checked>
+                                <label for="fourchord">4</label>
+                                <input type="checkbox" class="lengthBoxes" id="fivechord" value="5">
+                                <label for="fivechord">5</label>
+                                <input type="checkbox" class="lengthBoxes" id="sixchord" value="6">
+                                <label for="sixchord">6</label>
+                                <input type="checkbox" class="lengthBoxes" id="eightchord" value="8">
+                                <label for="eightchord">8</label>
+                            <h1 class="headingForEachOption">Always Start On:</h1>
+                                <div class="startEndBlock">
+                                    <div class="startEndIndicator" id="startIndicator"></div>
+                                    <button onclick="alwaysStartOn()">Press here, then select chords in "Previews".</button>
+                                </div>
+                            <h1 class="headingForEachOption">Always End On:</h1>
+                                <div class="startEndBlock">
+                                    <div class="startEndIndicator" id="endIndicator" style="visibility: hidden;"></div>
+                                    <button onclick="alwaysEndOn()">Press here, then select chords in "Previews".</button>
+                                </div>
+                        </div>
+                        <button id="moreOptions" onclick=
+                            "document.getElementById('optionsOne').style.display = 'none';
+                            document.getElementById('moreOptions').style.display = 'none';
+                            document.getElementById('backOptions').style.display = '';
+                            document.getElementById('optionsTwo').style.display = ''; ">
+                            More Settings&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <img src="img/nextArrow.png" id="nextArrow">
+                        </button>
+                        <div id="optionsTwo" style="display: none">
+                            <h1 class="headingForEachOption">Instrument:</h1>
+                            <div class="instrumentBoxes">
+                                <div>
+                                    <input type="checkbox" value="vintagePad" class="instrument" id="vintagePad" checked>
+                                    <label for="vintagePad">Vintage Pad</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" value="darkSurge" class="instrument" id="darkSurge" checked>
+                                    <label for="darkSurge">Dark Surge</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" value="liquidKeys" class="instrument" id="liquidKeys" checked>
+                                    <label for="liquidKeys">Liquid Keys</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" value="fromDust" class="instrument" id="fromDust" checked>
+                                    <label for="fromDust">From Dust</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" value="synthPianoOne" class="instrument" id="synthPianoOne" checked>
+                                    <label for="synthPianoOne">Synth Piano 1</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" value="electricChoir" class="instrument" id="electricChoir">
+                                    <label for="electricChoir">Electric Choir</label>
+                                </div>
+                            </div>
+                        </div>
+                        <button id="backOptions" style="display: none" onclick=
+                            "document.getElementById('optionsTwo').style.display = 'none';
+                            document.getElementById('backOptions').style.display = 'none';
+                            document.getElementById('moreOptions').style.display = '';
+                            document.getElementById('optionsOne').style.display = ''; ">
+                            Back
+                        </button>
+                    </div>
+
+            </section>
+
+        </section>
+    </section>
+<script>
+    
+    function toggleDropdown() {
+        console.log('touch screen')
+        document.querySelector('.dropdown-content').classList.toggle('display-grid');
+    }
+    /*
+
+    Using Javascript to create HTML, allowing for easy addition/removal of pannels, buttons, etc without having to
+    code each new lement individually and fix the layout and so on.
+
+    */
+
+    var romanNumerals = document.querySelector('.romanNumerals')
+
+    var diatonicExtensions = document.querySelector('#diatonicExtensions')
+    var modalExtensions = document.querySelector('#modalExtensions')
+    var secDomExtensions = document.querySelector('#secDomExtensions')
+    var allExtensions = [diatonicExtensions, modalExtensions, secDomExtensions]
+    
+
+    const extTitleTextDiatonic = ['+7th','+9th','sus2','sus4','']
+    const extDataDiatonic = ['seventh','ninth','sus2','sus4','append']
+
+    const extTitleTextModal = ['+7th','+9th','sus2','sus4','']
+    const extDataModal = ['seventh','ninth','sus2','sus4','append']
+
+    const extTitleTextSecDom = ['+7th','+9th','']
+    const extDataSecDom = ['seventh','ninth','append']
+    
+    const allExtTitleTexts = [extTitleTextDiatonic, extTitleTextModal, extTitleTextSecDom]
+    const allExtData = [extDataDiatonic, extDataModal, extDataSecDom]
+
+
+    const allNumeralsStrings = ['diatonicNumerals', 'modalNumerals', 'secDomNumerals']
+
+    const diatonicInputIDs = ['Ibutton','iibutton','iiibutton','IVbutton','Vbutton','vibutton','viiobutton']
+    const diatonicDataChord = ['I','ii','iii','IV','V','vi','viio']
+    const diatonicInnerHTML = ['I','ii','iii','IV','V','vi','vii&#176;']
+
+    const modalInputIDs = ['ibutton','iiobutton','bIIIbutton','ivbutton','vbutton','bVIbutton','bVIIbutton']
+    const modalDataChord = ['i','iio','bIII','iv','v','bVI','bVII']
+    const modalInnerHTML = ['i','ii&#176;','bIII','iv','v','bVI','bVII']
+
+    const secDomInputIDs = ['VofiiButton','VofiiiButton','VofIVButton','VofVButton','VofviButton']
+    const secDomDataChord = ['Vofii','Vofiii','VofIV','VofV','Vofvi']
+    const secDomInnerHTML = ['V/ii','V/iii','V/IV','V/V','V/vi']
+
+    const allInputIDs = [diatonicInputIDs, modalInputIDs, secDomInputIDs]
+    const allDataChord = [diatonicDataChord, modalDataChord, secDomDataChord]
+    const allInnerHTML = [diatonicInnerHTML, modalInnerHTML, secDomInnerHTML]
+
+
+
+    // generating all the roman numeral buttons
+    if (localStorage.getItem('generatorSection') == null){
+
+        //starting the process of making rn buttons add automatically:
+
+        for (let r = 0; r < allInputIDs.length; r++){
+
+            let romanNumeralGrid = document.createElement('div')
+            romanNumeralGrid.setAttribute('class','romanNumeralGrid')
+            romanNumeralGrid.setAttribute('id', allNumeralsStrings[r])
+            // following conditional means hide the RN grid if it's not the Major, which by default is visible
+            if (r !== 0){romanNumeralGrid.setAttribute('style','display: none')}
+            romanNumerals.append(romanNumeralGrid)
+
+            let selectAll = document.createElement('div')
+            selectAll.setAttribute('class','selectAll')
+            selectAll.setAttribute('data-panel-index', r)
+            selectAll.setAttribute('onclick','selectAllRN(dataset)')
+            selectAll.innerHTML = 'Select All'
+            romanNumeralGrid.append(selectAll)
+
+            for (let i = 0; i < allInputIDs[r].length; i++){
+                let romanNumeralButton = document.createElement('div')
+                romanNumeralButton.setAttribute('class','romanNumeralButton')
+
+                romanNumeralGrid.append(romanNumeralButton)
+
+                let romanNumeralInput = document.createElement('input')
+                romanNumeralInput.setAttribute('type', 'checkbox')
+                romanNumeralInput.setAttribute('class', 'romanNumeralInput')
+                romanNumeralInput.setAttribute('id', allInputIDs[r][i])
+                romanNumeralInput.setAttribute('data-chord', allDataChord[r][i])
+                romanNumeralInput.setAttribute('data-row', i)
+                romanNumeralInput.setAttribute('data-panel-index', r)
+                romanNumeralInput.setAttribute('onclick', 'rnChange(dataset, checked)')
+
+                romanNumeralButton.append(romanNumeralInput)
+
+                var romanNumeralLabel = document.createElement('label')
+                romanNumeralLabel.setAttribute('for', allInputIDs[r][i])
+                romanNumeralLabel.setAttribute('class', 'romanNumeralLabel')
+                romanNumeralLabel.innerHTML = allInnerHTML[r][i]
+
+                romanNumeralButton.append(romanNumeralLabel)
+            }
+        }
+
+        // making the extension titles 
+        for (let i = 0; i < allExtensions.length; i++) {
+            for (let column = 0; column < allExtTitleTexts[i].length; column++) {
+                var newExtTitle = document.createElement('div')
+
+                if (column == allExtTitleTexts[i].length - 1) {
+                    newExtTitle.innerHTML = allExtTitleTexts[i][column]
+                    allExtensions[i].append(newExtTitle)
+                }
+                else {
+                    newExtTitle.innerHTML = allExtTitleTexts[i][column]
+                    newExtTitle.setAttribute('class','extensionTitles')
+                    newExtTitle.setAttribute('data-extension', allExtData[i][column])
+                    newExtTitle.setAttribute('data-panel-index', i)
+                    newExtTitle.setAttribute('onclick','extTitleSelect(' + column + ',dataset' + ')')
+                    allExtensions[i].append(newExtTitle)
+                }
+            }
+        }
+    }
+    
+    let diatonicNumerals = document.querySelectorAll('.romanNumeralInput:not(#modalNumerals > .romanNumeralButton > .romanNumeralInput, #secDomNumerals > .romanNumeralButton > .romanNumeralInput)')
+    let modalNumerals = document.querySelectorAll('.romanNumeralInput:not(#diatonicNumerals > .romanNumeralButton > .romanNumeralInput, #secDomNumerals > .romanNumeralButton > .romanNumeralInput)')
+    let secDomNumerals = document.querySelectorAll('.romanNumeralInput:not(#diatonicNumerals > .romanNumeralButton > .romanNumeralInput, #modalNumerals > .romanNumeralButton > .romanNumeralInput)')
+    let allNumerals = [diatonicNumerals, modalNumerals, secDomNumerals]
+
+    // making extensions buttons
+    if (localStorage.getItem('generatorSection') == null){
+        for (let i = 0; i < allExtensions.length; i++) {
+            for (let row = 0; row < allNumerals[i].length; row++) {
+                for (let column = 0; column < allExtTitleTexts[i].length - 1; column++) {
+
+                    let newButtonDiv = document.createElement('div')
+                    newButtonDiv.setAttribute('class','extensionsButtons')
+
+
+                    let newButtonInput = document.createElement('input')
+                    newButtonInput.setAttribute('type','checkbox')
+                    newButtonInput.setAttribute('class','extensionsInputs')
+                    newButtonInput.setAttribute('data-chord', allNumerals[i][row].dataset.chord)
+                    newButtonInput.setAttribute('data-extension', allExtData[i][column])
+                    newButtonInput.setAttribute('data-row', row.toString())
+                    newButtonInput.setAttribute('data-panel-index', i)
+                    newButtonInput.setAttribute('onchange','extChange(dataset, checked)')
+
+                    let newButtonLabel = document.createElement('div')
+                    newButtonLabel.setAttribute('class','extensionsLabels')
+
+
+                    newButtonDiv.append(newButtonInput)
+                    newButtonDiv.append(newButtonLabel)
+                    allExtensions[i].append(newButtonDiv)
+                }
+                // add the append button
+                let newAppend = document.createElement('span')
+                newAppend.setAttribute('class','material-symbols-outlined')
+                newAppend.setAttribute('title','Press to begin a new variation of this chord.')
+                newAppend.setAttribute('data-row', row)
+                newAppend.setAttribute('data-panel-index', i)
+                newAppend.innerHTML = 'library_add'
+                allExtensions[i].append(newAppend)
+            }
+        }
+    }
+
+</script>
+
+
+
+
+<script src="solfege.js"></script>
+<script src="https://unpkg.com/tone@14.7.77/build/Tone.js"></script>
+
+
+<script>
+    /*
+
+    Responding to user actions.
+
+    */
+
+    function chordTypeDisplay(input) {
+        if (input == 'diatonic'){
+            document.querySelector('#diatonicNumerals').setAttribute('style','display:')
+            document.querySelector('#modalNumerals').setAttribute('style','display: none')
+            document.querySelector('#secDomNumerals').setAttribute('style','display: none')
+
+            document.querySelector('#diatonicExtensions').setAttribute('style','display:')
+            document.querySelector('#modalExtensions').setAttribute('style','display: none')
+            document.querySelector('#secDomExtensions').setAttribute('style','display: none')
+
+        }
+        else if (input == 'modal'){
+            document.querySelector('#modalNumerals').setAttribute('style','display:')
+            document.querySelector('#diatonicNumerals').setAttribute('style','display: none')
+            document.querySelector('#secDomNumerals').setAttribute('style','display: none')
+
+            document.querySelector('#modalExtensions').setAttribute('style','display:')
+            document.querySelector('#diatonicExtensions').setAttribute('style','display: none')
+            document.querySelector('#secDomExtensions').setAttribute('style','display: none')
+
+        }
+        else if (input == 'secDom'){
+            document.querySelector('#secDomNumerals').setAttribute('style','display:')
+            document.querySelector('#diatonicNumerals').setAttribute('style','display: none')
+            document.querySelector('#modalNumerals').setAttribute('style','display: none')
+
+            document.querySelector('#secDomExtensions').setAttribute('style','display:')
+            document.querySelector('#diatonicExtensions').setAttribute('style','display: none')
+            document.querySelector('#modalExtensions').setAttribute('style','display: none')
+
+        }
+    }
+
+
+    let extTitlePressedDiatonic = []
+    let extTitlePressedModal = []
+    let extTitlePressedSecDom = []
+    
+    var extTitlePressedAll = [extTitlePressedDiatonic, extTitlePressedModal, extTitlePressedSecDom]
+    
+    function rnChange(dataset, checked){
+        if (checked == true) {
+            // handling the V / IV and making it a seventh:
+            if (dataset.chord == 'VofIV'){
+                document.querySelectorAll("[data-row='" + dataset.row + "'].extensionsInputs:not(" + notTheseExtensions(dataset.panelIndex) + ")")[0].checked = true
+            }
+            enableAppend(dataset.row, dataset.panelIndex)
+            if (Array.from(allNumerals[dataset.panelIndex]).every((buttons) => buttons.checked == true)) {
+                document.querySelector(notTheseNumerals(dataset.panelIndex, true)).innerHTML = "Deselect"
+            }
+        }
+        else if (checked == false) {
+            enableAppend(dataset.row, dataset.panelIndex)
+            for (let column = 0; column < allExtData[dataset.panelIndex].length - 1; column++) {
+                document.querySelectorAll("[data-row='" + dataset.row + "'].extensionsInputs:not(" + notTheseExtensions(dataset.panelIndex) + ")")[column].checked = false
+            }
+
+            document.querySelector(notTheseNumerals(dataset.panelIndex, true)).innerHTML = "Select All"
+        }
+    }
+
+    function extChange(dataset, checked) {
+        // handling the V / IV and making it a seventh:
+        if (checked == true && dataset.chord == 'VofIV'){
+            document.querySelectorAll("[data-row='" + dataset.row + "'].extensionsInputs:not(" + notTheseExtensions(dataset.panelIndex) + ")")[0].checked = true
+        }
+        if (checked == false && dataset.chord == 'VofIV' && dataset.extension == 'seventh'){
+            for (let i = 0; i < 3; i++){
+                document.querySelectorAll("[data-row='" + 2 + "']:not(" + notTheseNumerals(2) + ", " + notTheseExtensions(2) + ", .material-symbols-outlined)")[i].checked = false
+            }
+        }
+        // on to normal behavior:
+
+        if (checked == true){
+            allNumerals[dataset.panelIndex][Number(dataset.row)].checked = true
+            extButtonDeselect(dataset.extension, dataset.row, dataset.panelIndex)
+            enableAppend(dataset.row, dataset.panelIndex)
+            if (Array.from(allNumerals[dataset.panelIndex]).every((button) => button.checked == true)) {
+                document.querySelector(notTheseNumerals(dataset.panelIndex, true)).innerHTML = "Deselect"
+            }
+        }
+        else if 
+            (
+                checked == false &&
+                Array.from(document.querySelectorAll("[data-row='" + dataset.row + "']:not(.romanNumeralInput, .material-symbols-outlined, " + notTheseExtensions(dataset.panelIndex) + ")")).every((button) => button.checked == false)
+            )
+            {   enableAppend(dataset.row, dataset.panelIndex)
+        }
+        else {enableAppend(dataset.row, dataset.panelIndex)}
+
+        
+    }
+
+    function selectAllRN(dataset) {
+        if (Array.from(allNumerals[dataset.panelIndex]).some((buttons) => buttons.checked == false)) {
+            for (let row = 0; row < allNumerals[dataset.panelIndex].length; row++){
+                allNumerals[dataset.panelIndex][row].checked = true
+                // handling V / IV
+                if (dataset.panelIndex == 2 && row == 2){
+                    document.querySelectorAll("[data-row='" + 2 + "'].extensionsInputs:not(" + notTheseExtensions(2) + ")")[0].checked = true
+                }
+                // Done with handling V/IV
+                enableAppend(row, dataset.panelIndex)
+            }
+            document.querySelector(notTheseNumerals(dataset.panelIndex, true)).innerHTML = "Deselect"
+        }
+        else {
+            for (let row = 0; row < allNumerals[dataset.panelIndex].length; row++){
+
+                let currentButtonsInRow = document.querySelectorAll("[data-row='" + row + "']:not(" + notTheseNumerals(dataset.panelIndex) + ", " + notTheseExtensions(dataset.panelIndex) + ", .material-symbols-outlined)")
+                for (column = 0; column < allExtTitleTexts[dataset.panelIndex].length; column++){
+                    currentButtonsInRow[column].checked = false
+                    extTitlePressedAll[dataset.panelIndex][column] = false
+                }
+                enableAppend(row, dataset.panelIndex)
+            }
+            document.querySelector(notTheseNumerals(dataset.panelIndex, true)).innerHTML = "Select All"
+        }
+    }
+
+    let RNcountDiatonic = 0
+    let RNcountModal = 0
+    let RNcountSecDom = 0
+
+    let EXTcountDiatonic = 0
+    let EXTcountModal = 0
+    let EXTcountSecDom = 0
+
+    var RNcountAll = [RNcountDiatonic, RNcountModal, RNcountSecDom]
+    var EXTcountAll = [EXTcountDiatonic, EXTcountModal, EXTcountSecDom]
+
+    function extTitleSelect(column, dataset) {
+
+        for (let row = 0; row < allNumerals[dataset.panelIndex].length; row++) {
+            if (allNumerals[dataset.panelIndex][row].checked == true) {RNcountAll[dataset.panelIndex]++}
+            if (document.querySelectorAll("[data-extension='" + dataset.extension + "']:not(" + notTheseExtensions(dataset.panelIndex) + ", .extensionTitles, .material-symbols-outlined)")[row].checked == true) {EXTcountAll[dataset.panelIndex]++}
+        }
+        if ((RNcountAll[dataset.panelIndex] == EXTcountAll[dataset.panelIndex]) && (RNcountAll[dataset.panelIndex] > 0)) {extTitlePressedAll[dataset.panelIndex][column] = true}
+        else if (RNcountAll[dataset.panelIndex] > EXTcountAll[dataset.panelIndex]) {extTitlePressedAll[dataset.panelIndex][column] = false}
+
+        if (extTitlePressedAll[dataset.panelIndex][column] == true){
+
+            extTitlePressedAll[dataset.panelIndex][column] = false
+            for (row = 0; row < allNumerals[dataset.panelIndex].length; row++) {
+                // deselecting extensions, except if it's V / IV:
+                if (!(dataset.extension == 'seventh' && dataset.panelIndex == 2 && row == 2)){
+                    document.querySelectorAll("[data-row='" + row + "']:not(.material-symbols-outlined, .romanNumeralInput, " + notTheseExtensions(dataset.panelIndex) + ")")[column].checked = false
+                }
+                enableAppend(row, dataset.panelIndex)
+            }
+
+        }
+        else if (Array.from(allNumerals[dataset.panelIndex]).every((buttons) => buttons.checked == false)) {
+            extTitlePressedAll[dataset.panelIndex][column] = true
+            for (row = 0; row < allNumerals[dataset.panelIndex].length; row++){
+                extButtonDeselect(dataset.extension, row, dataset.panelIndex, true)
+                document.querySelectorAll("[data-row='" + row + "']:not(" + notTheseNumerals(dataset.panelIndex) + ")")[0].checked = true
+                document.querySelectorAll("[data-row='" + row + "']:not(" + notTheseExtensions(dataset.panelIndex) + ", " + notTheseNumerals(dataset.panelIndex) + ", .material-symbols-outlined)")[column + 1].checked = true
+                // handling V / IV
+                if (dataset.panelIndex == 2 && row == 2){
+                    document.querySelectorAll("[data-row='" + 2 + "'].extensionsInputs:not(" + notTheseExtensions(2) + ")")[0].checked = true
+                }
+                // Done with handling V/IV
+                enableAppend(row, dataset.panelIndex)
+                document.querySelector(notTheseNumerals(dataset.panelIndex, true)).innerHTML = "Deselect"
+            }
+        }
+        else if (Array.from(allNumerals[dataset.panelIndex]).some((buttons) => buttons.checked == true)) {
+            for (row = 0; row < allNumerals[dataset.panelIndex].length; row++){
+                extTitlePressedAll[dataset.panelIndex][column] = true
+                extButtonDeselect(dataset.extension, row, dataset.panelIndex, true)
+                if (allNumerals[dataset.panelIndex][row].checked == true) {
+                    document.querySelectorAll("[data-row='" + row + "']:not(" + notTheseExtensions(dataset.panelIndex) + ", " + notTheseNumerals(dataset.panelIndex) + ", .material-symbols-outlined)")[column + 1].checked = true
+                    enableAppend(row, dataset.panelIndex)
+                }
+                
+            }
+        }
+
+        RNcountAll[0] = 0
+        RNcountAll[1] = 0
+        RNcountAll[2] = 0
+
+        EXTcountAll[0] = 0
+        EXTcountAll[1] = 0
+        EXTcountAll[2] = 0
+
+    }
+
+    function extButtonDeselect(extension, row, panelIndex, titlePressed) {
+        // will disallow sus2 and sus4, sus2 and 9th
+        try {
+            if (extension == 'sus2') {
+                document.querySelector("[data-extension='sus4'][data-row='" + row + "']:not(" + notThesePanels(panelIndex) + ")").checked = false
+                document.querySelector("[data-extension='ninth'][data-row='" + row + "']:not(" + notThesePanels(panelIndex) + ")").checked = false
+                if (titlePressed) {
+                    extTitlePressedAll[panelIndex][allExtData[panelIndex].indexOf('sus4')] = false
+                    extTitlePressedAll[panelIndex][allExtData[panelIndex].indexOf('ninth')] = false
+                }
+            }
+            else if (extension == 'sus4') {
+                document.querySelector("[data-extension='sus2'][data-row='" + row + "']:not(" + notThesePanels(panelIndex) + ")").checked = false
+                if (titlePressed){
+                    extTitlePressedAll[panelIndex][allExtData[panelIndex].indexOf('sus2')] = false
+                }
+            }
+            else if (extension == 'ninth') {
+                document.querySelector("[data-extension='sus2'][data-row='" + row + "']:not(" + notThesePanels(panelIndex) + ")").checked = false
+                if (titlePressed){
+                    extTitlePressedAll[panelIndex][allExtData[panelIndex].indexOf('sus2')] = false
+                }
+            }
+        }
+        catch {}
+    }
+    
+
+    /// enableAppend will also be used to send inputs to previews
+    var selectionsForEachPanel = [[ [], [], [], [], [], [], [] ], [ [], [], [], [], [], [], [] ], [  [], [], [], [], [] ]] 
+    var wasAppended =            [[ [], [], [], [], [], [], [] ], [ [], [], [], [], [], [], [] ], [  [], [], [], [], [] ]]
+    var solfegesForEachPanel =   [[ [], [], [], [], [], [], [] ], [ [], [], [], [], [], [], [] ], [  [], [], [], [], [] ]] 
+    var LSForEachPanel =         [[ [], [], [], [], [], [], [] ], [ [], [], [], [], [], [], [] ], [  [], [], [], [], [] ]] 
+
+    function enableAppend(row, panel){
+        var currentAppend = document.querySelector("[data-row='" + row + "'].material-symbols-outlined:not(" + notThesePanels(panel) + ")")
+        if (document.querySelector("[data-row='" + row + "'].romanNumeralInput:not(" + notTheseNumerals(panel) + ")").checked == true){
+
+            let rowInputs = document.querySelectorAll("[data-row='" + row + "'][data-panel-index='" + panel + "']:not(.material-symbols-outlined)")
+            let numeralExtensionsArray = []
+            numeralExtensionsArray.push(rowInputs[0].dataset.chord)
+            for (column = 1; column < rowInputs.length; column++){
+                if (rowInputs[column].checked) {
+                    numeralExtensionsArray.push(rowInputs[column].dataset.extension)
+                }
+            }
+            
+            var newChord = new chordConstructor(numeralExtensionsArray)
+
+            if (wasAppended[panel][row][wasAppended[panel][row].length - 1] !== true) {
+                selectionsForEachPanel[panel][row].pop()
+                solfegesForEachPanel[panel][row].pop()
+                LSForEachPanel[panel][row].pop()
+                finalChordList[row].pop()
+                selectionsForEachPanel[panel][row].push(newChord)
+            }
+            else {
+                selectionsForEachPanel[panel][row].push(newChord)
+                wasAppended[panel][row].push(false)
+            }
+
+            if (!selectionsForEachPanel[panel][row].slice(0,-1).some(
+                (chord) => Object.values(chord).join() == Object.values(selectionsForEachPanel[panel][row].slice(-1)[0]).join()))
+            {
+                currentAppend.style.color = 'black'
+                currentAppend.style.cursor = 'pointer'
+                currentAppend.setAttribute('onclick','appendButton(' + row + ', ' + panel + ')')
+            }
+            else {
+                currentAppend.style.color = 'var(--append-color)'
+                currentAppend.style.cursor = 'default'
+                currentAppend.removeAttribute('onclick')
+                selectionsForEachPanel[panel][row].pop()
+                wasAppended[panel][row].pop()
+
+                previewsDisplay(null)
+            }
+
+        }
+        
+        else {
+            currentAppend.style.color = 'var(--append-color)'
+            currentAppend.style.cursor = 'default'
+            currentAppend.removeAttribute('onclick')
+
+            if (wasAppended[panel][row][wasAppended[panel][row].length - 1] !== true) {
+                selectionsForEachPanel[panel][row].pop()
+                solfegesForEachPanel[panel][row].pop()
+                LSForEachPanel[panel][row].pop()
+                finalChordList[row].pop()
+                wasAppended[panel][row].pop()
+                previewsDisplay(null)
+            }
+
+        }
+
+        if (selectionsForEachPanel[panel][row][selectionsForEachPanel[panel][row].length - 1] !== undefined 
+        && wasAppended[panel][row][wasAppended[panel][row].length - 1] !== true) 
+        {
+            constructorToSolfege(selectionsForEachPanel[panel][row][selectionsForEachPanel[panel][row].length - 1], panel, row)
+        }
+
+    }
+
+    function appendButton(row, panel){
+        document.querySelector(notTheseNumerals(panel, true)).innerHTML = "Select All"
+        let rowInputs = document.querySelectorAll("[data-row='" + row + "'][data-panel-index='" + panel + "']:not(.material-symbols-outlined)")
+        rowInputs[0].checked = false
+        for (column = 1; column < rowInputs.length; column++){
+            if (rowInputs[column].checked) {rowInputs[column].checked = false}
+        }
+        wasAppended[panel][row].push(true)
+        enableAppend(row, panel)
+    }
+
+    function chordConstructor(numeralExtensionsArray){
+        this.romanNumeral = numeralExtensionsArray[0]
+        if (numeralExtensionsArray.includes('seventh')){
+            this.seventh = true
+        }
+        else {this.seventh = false}
+
+        if (numeralExtensionsArray.includes('ninth')){
+            this.ninth = true
+        }
+        else {this.ninth = false}
+
+        if (numeralExtensionsArray.includes('sus2')){
+            this.sus2 = true
+        }
+        else {this.sus2 = false}
+
+        if (numeralExtensionsArray.includes('sus4')){
+            this.sus4 = true
+        }
+        else {this.sus4 = false}
+    }
+
+    function notTheseNumerals(panel, selectAllTrue){
+
+        if (selectAllTrue){
+            if (panel == 0){return ".selectAll:not(#modalNumerals > .selectAll, #secDomNumerals > .selectAll)"}
+            else if (panel == 1){return ".selectAll:not(#secDomNumerals > .selectAll, #diatonicNumerals > .selectAll)"}
+            else if (panel == 2){return ".selectAll:not(#modalNumerals > .selectAll, #diatonicNumerals > .selectAll)"}
+        }
+        else if (selectAllTrue == undefined){
+            if (panel == 0){return "#modalNumerals > .romanNumeralButton > .romanNumeralInput, #secDomNumerals > .romanNumeralButton > .romanNumeralInput"}
+            else if (panel == 1){return "#diatonicNumerals > .romanNumeralButton > .romanNumeralInput, #secDomNumerals > .romanNumeralButton > .romanNumeralInput"}
+            else if (panel == 2){return "#diatonicNumerals > .romanNumeralButton > .romanNumeralInput, #modalNumerals > .romanNumeralButton > .romanNumeralInput"}
+        }
+    }
+
+    function notTheseExtensions(panel){
+        if (panel == 0){return "#modalExtensions > .extensionsButtons > .extensionsInputs, #secDomExtensions > .extensionsButtons > .extensionsInputs"}
+        else if (panel == 1){return "#diatonicExtensions > .extensionsButtons > .extensionsInputs, #secDomExtensions > .extensionsButtons > .extensionsInputs"}
+        else if (panel == 2){return "#modalExtensions > .extensionsButtons > .extensionsInputs, #diatonicExtensions > .extensionsButtons > .extensionsInputs"}
+    }
+
+    function notThesePanels(panel){
+        if (panel == 0){return "[data-panel-index='1'],[data-panel-index='2']"}
+        if (panel == 1){return "[data-panel-index='0'],[data-panel-index='2']"}
+        if (panel == 2){return "[data-panel-index='0'],[data-panel-index='1']"}
+    }
+
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////   PRESET PANNEL   ///////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+    function constructorToSolfege(constructor, panel, row ) {
+
+        let startSolfege = undefined 
+        var scale = undefined 
+
+        if (['I','i','VofIV'].includes(constructor.romanNumeral)) {startSolfege = Do}
+        else if (['ii','iio','VofV'].includes(constructor.romanNumeral)) {startSolfege = Re}
+        else if (['bIII'].includes(constructor.romanNumeral)) {startSolfege = Me}
+        else if (['iii','Vofvi'].includes(constructor.romanNumeral)) {startSolfege = Mi}
+        else if (['IV','iv'].includes(constructor.romanNumeral)) {startSolfege = Fa}
+        else if (['V','v'].includes(constructor.romanNumeral)) {startSolfege = So}
+        else if (['bVI'].includes(constructor.romanNumeral)) {startSolfege = Le}
+        else if (['vi','Vofii'].includes(constructor.romanNumeral)) {startSolfege = La}
+        else if (['bVII'].includes(constructor.romanNumeral)) {startSolfege = Te}
+        else if (['viio','Vofiii'].includes(constructor.romanNumeral)) {startSolfege = Ti}
+        else {console.log("Error"); return}
+
+        var currentSolfeges = []
+        if (panel == 0 || panel == 1) {
+
+            if (panel == 0) {scale = diatonicMajor}
+            else if (panel == 1) {scale = diatonicMinor}
+
+            startSolfege = scale.indexOf(startSolfege)
+            for (let i = 0; i < 10; i += 2){
+                let position = i + startSolfege;
+                if (position >= scale.length) {position = position % scale.length}
+                currentSolfeges.push(scale[position])
+            }
+            
+            for (let i = 0; i < allExtData[panel].length - 1; i++){
+                if ( ['seventh','ninth'].includes(allExtData[panel][i]) && 
+                    constructor[allExtData[panel][i]] == false )
+                {
+                    if (allExtData[panel][i] == 'seventh'){currentSolfeges.splice(3, 1, 'delete')}
+                    else {currentSolfeges.splice(4, 1, 'delete')}
+                }
+                else if ( ['sus2','sus4'].includes(allExtData[panel][i]) && 
+                    constructor[allExtData[panel][i]] == true)
+                {
+                    let thirdIndex = scale.indexOf(currentSolfeges[1])
+                    if (allExtData[panel][i] == 'sus2'){
+                        if (thirdIndex == 0){currentSolfeges.splice(1, 1, scale[6])}
+                        else {currentSolfeges.splice(1, 1, scale[thirdIndex - 1])}
+                    }
+                    else {
+                        if (scale[thirdIndex + 1] == undefined){currentSolfeges.splice(1, 1, scale[0])}
+                        else {currentSolfeges.splice(1, 1, scale[thirdIndex + 1])}
+                    }
+                }
+            }
+        }
+        else if (panel == 2){
+
+            if ([La, Ti, Do, Re, Mi].includes(startSolfege)){scale = diatonicMajor}
+
+            startSolfege = scale.indexOf(startSolfege)
+            for (let i = 0; i < 10; i += 2){
+                let position = i + startSolfege;
+                if (position >= scale.length) {position = position % scale.length}
+
+                if (i == 2 & constructor.romanNumeral !== 'VofIV'){currentSolfeges.push(scale[position].raised())}
+                else if (i == 4 && constructor.romanNumeral == 'Vofiii'){currentSolfeges.push(scale[position].raised())}
+                else if (i == 6 && constructor.romanNumeral == 'VofIV'){currentSolfeges.push(scale[position].lowered())}
+                else {currentSolfeges.push(scale[position])}
+            }
+
+            for (let i = 0; i < allExtData[panel].length - 1; i++){
+                if ( ['seventh','ninth'].includes(allExtData[panel][i]) && 
+                    constructor[allExtData[panel][i]] == false )
+                {
+                    if (allExtData[panel][i] == 'seventh'){currentSolfeges.splice(3, 1, 'delete')}
+                    else {currentSolfeges.splice(4, 1, 'delete')}
+                }
+            }
+        }
+        currentSolfeges = currentSolfeges.filter((item) => item !== 'delete')
+        solfegesForEachPanel[panel][row].push(currentSolfeges)
+
+        if (solfegesForEachPanel[panel][row].length > 0){
+            solfegeToSteps(solfegesForEachPanel[panel][row].slice(-1), constructor.romanNumeral, panel, row)
+        }
+    }
+
+    function solfegeToSteps(solfegeArray, RN, panel, row){
+        let startSolfege = chromaticAscending.indexOf(solfegeArray[0][0])
+        if (startSolfege == -1){startSolfege = chromaticAscending.indexOf(solfegeArray[0][0].enharmonic())}
+        let solfegeArrayIndex = 0
+        let stepCount = 0
+        let stepCountArray = []
+
+        for (let i = 0; i < 24; i ++){
+            let position = i + startSolfege;
+            if (position >= chromaticAscending.length) {position = position % chromaticAscending.length}
+
+            if (chromaticAscending[position] == solfegeArray[0][solfegeArrayIndex + 1] ||
+            chromaticAscending[position].enharmonic() == solfegeArray[0][solfegeArrayIndex + 1]) {
+                solfegeArrayIndex ++
+                stepCountArray.push(stepCount)
+                stepCount = 0
+            }
+
+            // break condition
+            if ((chromaticAscending[position] == solfegeArray[0].slice(-1)[0] ||
+            chromaticAscending[position].enharmonic() == solfegeArray[0].slice(-1)[0]) &&
+            stepCountArray.length == solfegeArray.length) {break}
+
+            stepCount ++
+
+        }
+
+        stepsToLS(stepCountArray, RN, panel, row)
+    }
+
+    
+    function stepsToLS(stepCountArray, RN, panel, row){
+
+        //console.table(stepCountArray)
+
+        let chordDescriptors = []
+        if (stepCountArray.length + 1 >= 3){    
+            if (stepCountArray.slice(0,2).every((value, i) => value == [4,3][i])){chordDescriptors.push("Major chord")}
+            else if (stepCountArray.slice(0,2).every((value, i) => value == [3,4][i])){chordDescriptors.push("Minor chord")}
+            else if (stepCountArray.slice(0,2).every((value, i) => value == [3,3][i])){chordDescriptors.push("Diminished chord")}
+            else if (stepCountArray.slice(0,2).every((value, i) => value == [2,5][i])){chordDescriptors.push("sus2")}
+            else if (stepCountArray.slice(0,2).every((value, i) => value == [5,2][i])){chordDescriptors.push("sus4")}
+            else if (stepCountArray.slice(0,2).every((value, i) => value == [1,6][i])){chordDescriptors.push("5add(b2)")}
+            else if (stepCountArray.slice(0,2).every((value, i) => value == [6,1][i])){chordDescriptors.push("5add(#4)")}
+            else if (stepCountArray.slice(0,2).every((value, i) => value == [1,5][i])){chordDescriptors.push("°add(b2)(no3)")}
+            else if (stepCountArray.slice(0,2).every((value, i) => value == [5,1][i])){chordDescriptors.push("sus4(b5)")}
+            else {console.log("Unknown triad :(")}
+        }
+
+        let sumToNoteFour = 0
+        if (stepCountArray.length + 1 >= 4){
+            
+            for (let i = 0; i < 3; i++){
+                sumToNoteFour = sumToNoteFour + stepCountArray[i]
+            }
+
+            if (sumToNoteFour == 10){
+                if (chordDescriptors[0] == "Major chord"){chordDescriptors.push("7")}
+                else if (["Diminished chord","sus4(b5)","°add(b2)(no3)"].includes(chordDescriptors[0])){chordDescriptors.push("&#248;7")}
+                else if (["Minor chord","sus2","sus4","5add(b2)","5add(#4)"].includes(chordDescriptors[0])){
+                    chordDescriptors.push("m7")
+                }
+
+            }
+            else if (sumToNoteFour == 11){
+                chordDescriptors.push("maj7")
+            }
+            else if (sumToNoteFour == 13){
+                chordDescriptors.push("add(b9)")
+            }
+            else if (sumToNoteFour == 14){
+                chordDescriptors.push("add9")
+            }
+        }
+
+        let sumToNoteFive = 0
+        if (stepCountArray.length + 1 >= 5){
+
+            sumToNoteFive = sumToNoteFour + stepCountArray[3]
+
+            if (sumToNoteFive == 13){
+                if (chordDescriptors[1] == "m7"){chordDescriptors.push("m7(b9)")}
+                if (chordDescriptors[1] == "7"){chordDescriptors.push("7(b9)")}
+                else if (chordDescriptors[1]=="&#248;7"){chordDescriptors.push("&#248;7(b9)")}
+
+            }
+            else if (sumToNoteFive == 14){
+                if (chordDescriptors[1] == "maj7"){chordDescriptors.push("maj9")}
+                else if (chordDescriptors[1] == "m7"){chordDescriptors.push("m9")}
+                else if (chordDescriptors[1] == "7"){chordDescriptors.push("9")}
+
+            }
+        }
+
+        // converting chordDescriptors into the final chord label
+
+        let finalChordLabel = []
+        if (["Major chord","Minor chord"].includes(chordDescriptors[0])){
+            if (panel == 0 || panel == 1){
+                if (chordDescriptors.length == 1){finalChordLabel.push(RN)}
+                else {finalChordLabel.push(RN)
+                    finalChordLabel.push(chordDescriptors[chordDescriptors.length - 1])
+                }
+            }
+            else if (panel == 2){
+                if (chordDescriptors.length == 1){finalChordLabel.push("V/" + RN.substring(3))}
+                else if (chordDescriptors[1] == "7" || chordDescriptors[1].includes("add")){
+                    finalChordLabel.push("V"); 
+                    finalChordLabel.push(chordDescriptors.slice(-1)); 
+                    finalChordLabel.push("/" + RN.substring(3))
+                }
+            }
+        }
+        else if (chordDescriptors[0] == "Diminished chord"){
+            if (chordDescriptors.length == 1){finalChordLabel.push(RN)}
+            else if (['m7','7','&#248;7'].includes(chordDescriptors[1])){
+                finalChordLabel.push(RN.substring(0, RN.length-1))
+                finalChordLabel.push(chordDescriptors[chordDescriptors.length - 1])
+            }
+            else {finalChordLabel.push(RN); finalChordLabel.push(chordDescriptors.slice(-1))}
+        }
+        else if (['sus2','sus4'].includes(chordDescriptors[0])){
+            if (chordDescriptors.length == 1){finalChordLabel.push(RN); finalChordLabel.push(chordDescriptors[0])}
+            else if (chordDescriptors[1].includes("add")){
+                finalChordLabel.push(RN)
+                finalChordLabel.push(chordDescriptors[0] + chordDescriptors.slice(-1))
+            }
+            else {
+                finalChordLabel.push(RN)
+                if (RN=='V'){
+                    finalChordLabel.push('7' + chordDescriptors[0])
+                }
+                else{
+                    finalChordLabel.push(chordDescriptors.slice(-1) + chordDescriptors[0])
+                }
+            }
+        }
+        else if (['5add(b2)','5add(#4)'].includes(chordDescriptors[0])){
+            if (chordDescriptors.length == 1){
+                finalChordLabel.push(RN)
+                finalChordLabel.push(chordDescriptors[0])
+            }
+            else {finalChordLabel.push(RN)
+                finalChordLabel.push(chordDescriptors.slice(-1) + chordDescriptors[0].substring(1) + "(no3)")
+            }
+        }
+        else if (chordDescriptors[0] == "sus4(b5)"){
+            if (chordDescriptors.length == 1){
+                finalChordLabel.push(RN.substring(0, RN.length-1))
+                finalChordLabel.push(chordDescriptors[0])
+            }
+            else if (chordDescriptors[1].includes("add")){
+                finalChordLabel.push(RN)
+                finalChordLabel.push(chordDescriptors.slice(-1) + chordDescriptors[0].substring(0,4))
+            }
+            else {
+                finalChordLabel.push(RN.substring(0, RN.length-1))
+                finalChordLabel.push(chordDescriptors.slice(-1) + chordDescriptors[0].substring(0,4))
+            }
+        }
+        else if (chordDescriptors[0] == "°add(b2)(no3)"){
+            if (chordDescriptors.length == 1){
+                finalChordLabel.push(RN.substring(0))
+                finalChordLabel.push(chordDescriptors[0].slice(1))
+            }
+            else {
+                finalChordLabel.push(RN.substring(0, RN.length-1))
+                finalChordLabel.push(chordDescriptors.slice(-1) + chordDescriptors[0].substring(1))
+            }
+        }
+        else {console.log("error: " + chordDescriptors)}
+
+        previewsDisplay(finalChordLabel, panel, row, stepCountArray)
+        
+
+    }
+
+    // display for the previews!!!!!!!
+    
+    let finalChordList = [ [], [], [], [], [], [], []]
+    let previewsPanel = document.querySelector(".previewsPanel")
+    function previewDataConstructor(finalChordLabel, panel, row, index, solfege, stepCountArray){
+        this.LSsymbol = finalChordLabel
+        this.panel = panel
+        this.row = row
+        this.index = index
+        this.solfege = solfege
+        this.stepCountArray = stepCountArray
+    }
+
+    function previewsDisplay(finalChordLabel, panel, row, stepCountArray){
+
+        finalChordList = [ [], [], [], [], [], [], []]
+        while (previewsPanel.firstChild) {
+            previewsPanel.removeChild(previewsPanel.lastChild);
+        }
+
+        if (finalChordLabel !== null){
+            LSForEachPanel[panel][row].push(
+                new previewDataConstructor(finalChordLabel, panel, row, 
+                LSForEachPanel[panel][row].length, solfegesForEachPanel[panel][row].slice(-1), 
+                stepCountArray)
+            )
+        }
+        else if (finalChordLabel == null){
+            
+                for (let r = 0; r < LSForEachPanel.flat(1).length; r++){
+                    for (let i = 0; i < LSForEachPanel.flat(1)[r].length; i++){
+                        LSForEachPanel.flat(1)[r][i].index = i
+                    }
+                }
+            
+        }
+        
+          
+        for (let r = 0; r < 7; r++){
+            for (let p = 0; p < 3; p++){
+                if (p == 1){finalChordList[r].push(LSForEachPanel[p][r])}
+                else if (p == 0){finalChordList[r].push(LSForEachPanel[p][r])}
+                else if (p == 2){
+                    if (r == 0){finalChordList[5].push(LSForEachPanel[p][r])}
+                    else if (r == 1){finalChordList[6].push(LSForEachPanel[p][r])}
+                    else if (r == 2){finalChordList[0].push(LSForEachPanel[p][r])}
+                    else if (r == 3){finalChordList[1].push(LSForEachPanel[p][r])}
+                    else if (r == 4){finalChordList[2].push(LSForEachPanel[p][r])}
+                }
+            }
+        }
+
+        for (let c = 0; c < finalChordList.flat(Infinity).length; c++){
+            
+            let currentPreview = document.createElement('div')
+            let playPreview = document.createElement('img')
+            let removeChord = document.createElement('img')
+            
+            currentPreview.setAttribute('class','previewDiv')
+            currentPreview.setAttribute('data-c', c)
+            currentPreview.setAttribute('onclick', 'startEndOn(this)')
+
+            if (finalChordList.flat(Infinity)[c].LSsymbol.length == 1){
+                currentPreview.innerHTML = "<span class ='RN'>" + finalChordList.flat(Infinity)[c].LSsymbol[0] + "</span>"
+            }
+            else if (finalChordList.flat(Infinity)[c].LSsymbol.length == 2){
+                currentPreview.innerHTML = "<span class ='RN'>" + finalChordList.flat(Infinity)[c].LSsymbol[0] + "</span>" + 
+                "<span class ='LStag'>" + finalChordList.flat(Infinity)[c].LSsymbol[1] + "</span>"
+            }
+            else if (finalChordList.flat(Infinity)[c].LSsymbol.length == 3){
+                currentPreview.innerHTML = "<span class ='RN'>" + finalChordList.flat(Infinity)[c].LSsymbol[0] + "</span>" + 
+                "<span class ='LStag'>" + finalChordList.flat(Infinity)[c].LSsymbol[1] + "</span>" + "<span class ='RN'>" + 
+                finalChordList.flat(Infinity)[c].LSsymbol[2] + "</span>"
+
+            }
+
+
+            playPreview.setAttribute('class','playPreview')
+            playPreview.setAttribute('data-c', c)
+            if (changePlayImg == false){playPreview.setAttribute('src','img/spinner.gif')}
+            else if (changePlayImg == true){playPreview.setAttribute('src','img/play-preview.png')}
+            playPreview.setAttribute('onclick',
+                "if (changePlayImg==true){previewToNotes(finalChordList.flat(Infinity)[dataset.c].solfege.flat()," + 
+                "finalChordList.flat(Infinity)[dataset.c].stepCountArray.flat(), '" +
+                document.querySelector('#keyDropdown').value.slice(-2) + "')}; event.stopPropagation()"
+            ) 
+
+            removeChord.setAttribute('class','removeChord')
+            removeChord.setAttribute('data-panel-index', finalChordList.flat(Infinity)[c].panel)
+            removeChord.setAttribute('data-row', finalChordList.flat(Infinity)[c].row)
+            removeChord.setAttribute('data-index', finalChordList.flat(Infinity)[c].index)
+            removeChord.setAttribute('data-c', c)
+            removeChord.setAttribute('src','img/delete-preview.png')
+            removeChord.setAttribute('onclick',"removeChord(dataset.panelIndex,dataset.row,dataset.index,dataset); event.stopPropagation()")
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            if (LSForEachPanel[removeChord.dataset.panelIndex][removeChord.dataset.row][removeChord.dataset.index].startOn == true){
+                if (LSForEachPanel[removeChord.dataset.panelIndex][removeChord.dataset.row][removeChord.dataset.index].endOn == true){
+                    currentPreview.setAttribute('style',"box-shadow: -3px 0px 0px limegreen, 3px 0px 0px red, 2.5px 3px 7px rgba(0, 0, 0, 0.177)")
+                }
+                else {currentPreview.setAttribute('style',"box-shadow: -3px 0px 0px limegreen, 2.5px 3px 7px rgba(0, 0, 0, 0.177)")}
+            }
+            else if (LSForEachPanel[removeChord.dataset.panelIndex][removeChord.dataset.row][removeChord.dataset.index].endOn == true){
+                currentPreview.setAttribute('style',"box-shadow: 3px 0px 0px red, 2.5px 3px 7px rgba(0, 0, 0, 0.177)")
+            }
+            
+
+
+            currentPreview.append(playPreview)
+            currentPreview.append(removeChord)
+            previewsPanel.append(currentPreview)
+        }
+
+        if (finalChordList.flat(Infinity).length == 0){
+            let previewNotif = document.createElement('span')
+            previewNotif.setAttribute('class','previewNotif')
+            previewNotif.innerHTML = 'The chords you select will appear here. You can hear each chord in the key of C, or change this key in the Settings under<br>"Key / Tonic".'
+            previewsPanel.append(previewNotif)
+        }
+    }
+
+    function removeChord(panel, row, index, dataset){
+
+        if (index == solfegesForEachPanel[panel][row].length - 1 || wasAppended[panel][row].slice(-1)[0] == true){
+
+            let buttons = document.querySelectorAll("[data-row='" + row + "']:not(" + notTheseNumerals(panel) + ")")
+            for (let i = 0; i < buttons.length; i++){buttons[i].checked = false}
+            enableAppend(row, panel)
+
+        }
+
+        selectionsForEachPanel[panel][row].splice(index, 1)
+        wasAppended[panel][row].splice(index, 1)
+        solfegesForEachPanel[panel][row].splice(index, 1)
+        LSForEachPanel[panel][row].splice(index, 1)
+
+        previewsDisplay(null)
+
+        document.querySelector(notTheseNumerals(panel, true)).innerHTML = "Select All"
+    }
+
+    function startEndOn(div) {
+
+        let currentPreview = div.querySelector('.removeChord')
+        let panel = Number(currentPreview.dataset.panelIndex)
+        let row = Number(currentPreview.dataset.row)
+        let index = Number(currentPreview.dataset.index)
+
+        if (alwaysStartMode && LSForEachPanel[panel][row][index].startOn !== true){
+            LSForEachPanel[panel][row][index].startOn = true
+            if (LSForEachPanel[panel][row][index].endOn == true){
+                div.style = "box-shadow: -3px 0px 0px limegreen, 3px 0px 0px red, 2.5px 3px 7px rgba(0, 0, 0, 0.177)"
+            }
+            else {div.style = "box-shadow: -3px 0px 0px limegreen, 2.5px 3px 7px rgba(0, 0, 0, 0.177)"}
+        }
+        else if (alwaysStartMode && LSForEachPanel[panel][row][index].startOn == true){
+            LSForEachPanel[panel][row][index].startOn = false
+            if (LSForEachPanel[panel][row][index].endOn == true){
+                div.style = "box-shadow: 3px 0px 0px red, 2.5px 3px 7px rgba(0, 0, 0, 0.177)"
+            }
+            else{div.style = "none"}
+        }
+        if (alwaysEndMode && LSForEachPanel[panel][row][index].endOn !== true){
+            LSForEachPanel[panel][row][index].endOn = true
+            if (LSForEachPanel[panel][row][index].startOn == true){
+                div.style = "box-shadow: -3px 0px 0px limegreen, 3px 0px 0px red, 2.5px 3px 7px rgba(0, 0, 0, 0.177)"
+            }
+            else {div.style = "box-shadow: 3px 0px 0px red, 2.5px 3px 7px rgba(0, 0, 0, 0.177)"}
+        }
+        else if (alwaysEndMode && LSForEachPanel[panel][row][index].endOn == true){
+            LSForEachPanel[panel][row][index].endOn = false
+            if (LSForEachPanel[panel][row][index].startOn == true){
+                div.style = "box-shadow: -3px 0px 0px limegreen, 2.5px 3px 7px rgba(0, 0, 0, 0.177)"
+            }
+            else{div.style = "none"}
+        }
+
+
+    }
+
+    
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////   PRESET PLAYBACK   /////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+    function previewToNotes(solfegeArray, stepCountArray, tonic){
+        //console.table(solfegeArray)
+        // console.table(stepCountArray)
+        // console.log(tonic)
+
+        let allNotes = undefined
+        if (['C','G','D','A','E','B','F#','C#'].includes(tonic)){allNotes = allNotesSharp}
+        else {allNotes = allNotesFlat}
+        let tonicIndex = allNotes.indexOf(allNotes.find((note) => note.substring(0, note.length - 1) == tonic))
+        let keyRange = []
+        for (let i = 0; i < 12; i++){
+            keyRange.push(allNotes[tonicIndex + i])
+        }
+        let indexOfOctaveReset = keyRange.indexOf(keyRange.find((note) => note.includes('C')))
+
+        let notesOfSolfeges = []
+        for (let i = 0; i < solfegeArray.length; i++){
+            let chromSolfege = undefined
+            if ([Do, Di, Re, Ri, Mi, Fa, Fi, So, Si, La, Li, Ti].includes(solfegeArray[i])){chromSolfege = chromaticAscending}
+            else {chromSolfege = chromaticDescending}
+
+            notesOfSolfeges.push(keyRange[chromSolfege.indexOf(solfegeArray[i])])
+        }
+
+        let octaveNumber = 4
+        let currentSolfegeIndex = 0
+        let finalPreviewNotes = [notesOfSolfeges[0].substring(0, notesOfSolfeges[0].length - 1) + 2]
+        if (stepCountArray[0] + stepCountArray[1] == 6){
+            finalPreviewNotes[0] = finalPreviewNotes[0].substring(0, finalPreviewNotes[0].length - 1) + 3
+        }
+        for (let i = 0; i < 24; i++){
+            let position = i + keyRange.indexOf(notesOfSolfeges[0]);
+            if (position >= keyRange.length) {position = position % keyRange.length}
+            if ((position == indexOfOctaveReset) && (i > 0)){octaveNumber++}
+
+            if (keyRange[position] == notesOfSolfeges[currentSolfegeIndex]){
+                currentSolfegeIndex++
+                finalPreviewNotes.push(keyRange[position].substring(0, keyRange[position].length - 1) + octaveNumber)
+            }
+
+            if (currentSolfegeIndex == notesOfSolfeges.length){break}
+        }
+
+        soundPreview(finalPreviewNotes)
+    }
+
+    // plays the piano 
+    let timeoutID = undefined
+    function soundPreview(finalPreviewNotes){
+
+        clearTimeout(timeoutID)
+
+        piano.releaseAll()
+        piano.triggerAttack(finalPreviewNotes)
+
+        timeoutID = setTimeout(() => {piano.releaseAll()}, 3000)
+    }
+
+    document.querySelector('.previewsPanel').addEventListener('click', async () => { 
+        await Tone.start()
+    })
+
+    // creating the piano instrument for previews using buffer.
+    let piano = undefined
+    let changePlayImg = false
+    let buffer = createBuffer()
+    function createBuffer(){
+        let sounds = new Tone.Buffers({
+            urls: {
+                C1: 'C1.wav',
+                E1: 'E1.wav',
+                A1: 'A1.wav',
+                C2: 'C2.wav',
+                E2: 'E2.wav',
+                A2: 'A2.wav',
+                C3: 'C3.wav',
+                E3: 'E3.wav',
+                A3: 'A3.wav',
+                C4: 'C4.wav',
+                E4: 'E4.wav',
+                A4: 'A4.wav',
+                C5: 'C5.wav',
+                E5: 'E5.wav',
+                A5: 'A5.wav',
+                C6: 'C6.wav',
+                E6: 'E6.wav',
+                A6: 'A6.wav'
+            },
+            onload: () => {
+                console.log('Preview instrument loaded.');
+                piano = createPiano()
+                //console.log(changePlayImg)
+            },
+            baseUrl: 'https://chordloops.net/instruments/CLSynthKeys1/'
+        })
+        return sounds
+    }
+    function createPiano(){
+        const inst = new Tone.Sampler({
+            urls: {
+                "C1": buffer.get("C1"),
+                "E1": buffer.get("E1"),
+                "A1": buffer.get("A1"),
+                "C2": buffer.get("C2"),
+                "E2": buffer.get("E2"),
+                "A2": buffer.get("A2"),
+                "C3": buffer.get("C3"),
+                "E3": buffer.get("E3"),
+                "A3": buffer.get("A3"),
+                "C4": buffer.get("C4"),
+                "E4": buffer.get("E4"),
+                "A4": buffer.get("A4"),
+                "C5": buffer.get("C5"),
+                "E5": buffer.get("E5"),
+                "A5": buffer.get("A5"),
+                "C6": buffer.get("C6"),
+                "E6": buffer.get("E6"),
+                "A6": buffer.get("C6"),
+            },
+        }).toDestination();
+        changePlayImg = true
+        for (let i = 0; i < document.querySelectorAll('.playPreview').length; i++){
+            document.querySelectorAll('.playPreview')[i].src = 'img/play-preview.png'
+        }
+        return inst
+    }
+    
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////   OPTIONS PANEL   ///////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    function keyRadioButtons(button) {
+        if (button.id == "userSelectedKey"){
+            document.getElementById("keyDropdown").disabled = false
+            document.getElementById("keyDropdown").style.pointerEvents = 'all'
+        }
+        else if (button.id == "autoKey") {
+            document.getElementById("keyDropdown").disabled = true
+            document.getElementById("keyDropdown").style.pointerEvents = 'none'
+        }
+    }
+
+    function tempoRadioButtons(button) {
+        if (button.id == "selectTempo"){
+            document.getElementById("bpmValue").disabled = false
+            document.getElementById("bpmValue").style.pointerEvents = 'all'
+        }
+        else if (button.id == "autoTempo") {
+            document.getElementById("bpmValue").disabled = true
+            document.getElementById("bpmValue").style.pointerEvents = 'none'
+        }
+    }
+
+    let alwaysStartMode = true 
+    let alwaysEndMode = false 
+
+    function alwaysStartOn(){
+        if (alwaysStartMode == false){
+            alwaysStartMode = true
+            alwaysEndMode = false
+        }
+        document.querySelector('#startIndicator').style = "visibility: visible;"
+        document.querySelector('#endIndicator').style = "visibility: hidden;"
+    }
+    function alwaysEndOn(){
+        if (alwaysEndMode == false){
+            alwaysEndMode = true
+            alwaysStartMode = false
+        }
+        document.querySelector('#endIndicator').style = "visibility: visible;"
+        document.querySelector('#startIndicator').style = "visibility: hidden;"
+    }
+    
+    function settingsConstructor(mode, tonic, tempo, progressionLength, startChords, endChords, instruments){
+        this.mode = mode
+        this.tonic = tonic
+        this.tempo = tempo
+        this.progressionLength = progressionLength
+        this.startChords = startChords
+        this.endChords = endChords
+        this.instruments = instruments
+    }
+
+    function startSession(){
+        if (selectionsForEachPanel.flat(Infinity).length < 2){window.alert("Please select at least 2 chords")}
+        else if (document.querySelectorAll('.lengthBoxes:checked').length == 0){window.alert("Please select a Length for each progression")}
+        else if (selectionsForEachPanel[0].flat(Infinity).length == 0 && selectionsForEachPanel[1].flat(Infinity).length == 0){
+            window.alert("Please select chords from the 'Diatonic Major 'or 'Natural Minor' lists")
+        }
+        
+        // setting local storage, starting game //
+        else {
+            localStorage.setItem('generatorSection', document.querySelector('.generator').innerHTML)
+
+            // saving checked boxes, radio, and select dropdowns to local storage.
+            let checkBoxes = document.querySelectorAll('input[type=checkbox]:checked')
+            let selectDropdowns = document.querySelectorAll('select')
+            let radioButtons = document.querySelectorAll('input[type=radio]:checked')
+
+            let checkBoxArray = Array.from(checkBoxes).map(node => {
+                return {
+                    className: node.className,
+                    id: node.id,
+                    dataset: node.dataset
+                }
+            })
+            let selectDropdownArray = Array.from(selectDropdowns).map(node => {
+                return {
+                    id: node.id,
+                    value: node.value
+                }
+            })
+            let radioButtonArray = Array.from(radioButtons).map(node => {
+                return {
+                    id: node.id,
+                }
+            })
+            
+            localStorage.setItem('checkBoxes', (JSON.stringify(checkBoxArray)))
+            localStorage.setItem('selectDropdowns', JSON.stringify(selectDropdownArray))
+            localStorage.setItem('radioButtons', JSON.stringify(radioButtonArray))
+
+            // saving other data to local storage
+            localStorage.setItem('extTitlePressedDiatonic', JSON.stringify(extTitlePressedDiatonic))
+            localStorage.setItem('extTitlePressedModal', JSON.stringify(extTitlePressedModal))
+            localStorage.setItem('extTitlePressedSecDom', JSON.stringify(extTitlePressedSecDom))
+            localStorage.setItem('selectionsForEachPanel', JSON.stringify(selectionsForEachPanel))
+            localStorage.setItem('wasAppended', JSON.stringify(wasAppended))
+            localStorage.setItem('solfegesForEachPanel', JSON.stringify(solfegesForEachPanel))
+            localStorage.setItem('LSForEachPanel', JSON.stringify(LSForEachPanel))
+            localStorage.setItem('finalChordList', JSON.stringify(finalChordList))
+            localStorage.setItem('alwaysStartMode', JSON.stringify(alwaysStartMode))
+            localStorage.setItem('alwaysEndMode', JSON.stringify(alwaysEndMode))
+
+
+            let progressionLength = []
+            for (let i=0; i<document.querySelectorAll('.lengthBoxes:checked').length; i++){
+                progressionLength.push(document.querySelectorAll('.lengthBoxes:checked')[i].value)
+            }
+            let startChords = []
+            let endChords = []
+            for (let p=0; p<LSForEachPanel.length; p++){
+                for (let r=0; r<LSForEachPanel[p].length; r++){
+                    for (let i=0; i<LSForEachPanel[p][r].length; i++){
+                        if (LSForEachPanel[p][r][i].startOn == true){
+                            startChords.push(LSForEachPanel[p][r][i])
+                        }
+                        if (LSForEachPanel[p][r][i].endOn == true){
+                            endChords.push(LSForEachPanel[p][r][i])
+                        }
+                    }
+                }
+            }
+            let instruments = []
+            for (let i=0; i<document.querySelectorAll('.instrumentBoxes > div > input:checked').length; i++){
+                instruments.push(document.querySelectorAll('.instrumentBoxes > div > input:checked')[i].value)
+            }
+
+            let settings = new settingsConstructor(
+                document.querySelectorAll('#optionsOne>input:checked')[0].id,
+                document.querySelectorAll('#optionsOne>input:checked')[1].value,
+                document.querySelectorAll('#optionsOne>input:checked')[2].value,
+                progressionLength,
+                startChords,
+                endChords, 
+                instruments
+            )
+            localStorage.setItem('settings', JSON.stringify(settings))
+
+            window.location.href = 'experiment-session.html'
+        }
+    }
+
+    function onloadPage(){
+        if (localStorage.getItem('generatorSection') !== null){
+
+            document.querySelector('.generator').innerHTML = ""
+            document.querySelector('.generator').innerHTML = localStorage.getItem('generatorSection')
+
+            let checkBoxes = (JSON.parse(localStorage.getItem('checkBoxes')))
+            let selectDropdowns = (JSON.parse(localStorage.getItem('selectDropdowns')))
+            let radioButtons = (JSON.parse(localStorage.getItem('radioButtons')))
+
+            // first uncheck all the boxes that are checked by default by the html:
+            document.querySelector('#fourchord').checked = false
+            document.querySelectorAll('.instrument').forEach((i) => i.checked = false)
+            // next restore checkboxes
+            for (let i = 0; i < checkBoxes.length; i++){
+                // console.log(checkBoxes[i])
+                if (checkBoxes[i].className == 'romanNumeralInput'){
+                    document.querySelector('#' + checkBoxes[i].id).checked = true
+                    // document.querySelector('#' + checkBoxes[i].id + '+ .romanNumeralLabel').border = "3px solid var(--RN-pressed-color)"
+                    // document.querySelector('#' + checkBoxes[i].id + '+ .romanNumeralLabel').boxShadow = "3px 3px 6px rgba(0, 0, 0, 0.189);"
+                    // document.querySelector('#' + checkBoxes[i].id + '+ .romanNumeralLabel').top = "0px;"
+                    // document.querySelector('#' + checkBoxes[i].id + '+ .romanNumeralLabel').bottom = "1px;"
+
+                }
+                else if (checkBoxes[i].className == 'extensionsInputs'){
+                    //console.log(checkBoxes[i].dataset)
+                    let data = checkBoxes[i].dataset
+                    document.querySelector(
+                        '[data-extension="' + data.extension + '"][data-row="' + data.row + '"][data-panel-index="' + data.panelIndex + '"]'
+                    ).checked = true
+
+                }
+                else if (checkBoxes[i].className == 'lengthBoxes'){
+                    // console.log(checkBoxes[i])
+                    document.querySelector("#" + checkBoxes[i].id).checked = true
+                }
+                else if (checkBoxes[i].className == 'instrument'){
+                    // console.log(checkBoxes[i].id)
+                    document.querySelector("#" + checkBoxes[i].id).checked = true
+                }
+            }
+            for (let i = 0; i < selectDropdowns.length; i++){
+                // console.log(selectDropdowns[i])
+                document.querySelector("#" + selectDropdowns[i].id).value = selectDropdowns[i].value
+            }
+            for (let i = 0; i < radioButtons.length; i++){
+                // console.log(radioButtons[i])
+                document.querySelector("#" + radioButtons[i].id).checked = true
+            }
+
+            extTitlePressedDiatonic = JSON.parse(localStorage.getItem('extTitlePressedDiatonic'))
+            extTitlePressedModal = JSON.parse(localStorage.getItem('extTitlePressedModal'))
+            extTitlePressedSecDom = JSON.parse(localStorage.getItem('extTitlePressedSecDom'))
+            selectionsForEachPanel = JSON.parse(localStorage.getItem('selectionsForEachPanel'))
+            wasAppended = JSON.parse(localStorage.getItem('wasAppended'))
+            solfegesForEachPanel = JSON.parse(localStorage.getItem('solfegesForEachPanel'))
+            LSForEachPanel = JSON.parse(localStorage.getItem('LSForEachPanel'))
+            finalChordList = JSON.parse(localStorage.getItem('finalChordList'))
+            alwaysStartMode = JSON.parse(localStorage.getItem('alwaysStartMode'))
+            alwaysEndMode = JSON.parse(localStorage.getItem('alwaysEndMode'))
+
+            fixSolfegeStrings(LSForEachPanel)
+            fixSolfegeStrings(finalChordList)
+
+            
+            diatonicExtensions = document.querySelector('#diatonicExtensions')
+            diatonicNumerals = document.querySelectorAll('.romanNumeralInput:not(#modalNumerals > .romanNumeralButton > .romanNumeralInput, #secDomNumerals > .romanNumeralButton > .romanNumeralInput)')
+            modalExtensions = document.querySelector('#modalExtensions')
+            modalNumerals = document.querySelectorAll('.romanNumeralInput:not(#diatonicNumerals > .romanNumeralButton > .romanNumeralInput, #secDomNumerals > .romanNumeralButton > .romanNumeralInput)')
+            secDomNumerals = document.querySelectorAll('.romanNumeralInput:not(#diatonicNumerals > .romanNumeralButton > .romanNumeralInput, #modalNumerals > .romanNumeralButton > .romanNumeralInput)')
+            allNumerals = [diatonicNumerals, modalNumerals, secDomNumerals]
+            allExtensions = [diatonicExtensions, modalExtensions, secDomExtensions]
+            previewsPanel = document.querySelector(".previewsPanel")
+            click = false
+
+            localStorage.clear()
+        }
+    }
+
+    function fixSolfegeStrings(input){  
+        if (input == LSForEachPanel){
+            for (let p = 0; p < allNumerals.length; p++){
+                for (let r = 0; r < input[p].length; r++){
+                    for (let i = 0; i < input[p][r].length; i++){
+                        for (let s = 0; s < input[p][r][i].solfege[0].length; s++){
+                            input[p][r][i].solfege[0][s] = eval(input[p][r][i].solfege[0][s].string)
+                        }
+                    }
+                }
+            }
+        }
+        else if (input == finalChordList){
+            for (let r = 0; r < finalChordList.length; r++){
+                for (let p = 0; p < finalChordList[r].length; p++){
+                    for (let i = 0; i < finalChordList[r][p].length; i++){
+                        for (let s = 0; s < finalChordList[r][p][i].solfege[0].length; s++){
+                            if (finalChordList[r][p][i].solfege[0][s].string.length > 0){
+                                finalChordList[r][p][i].solfege[0][s] = eval(finalChordList[r][p][i].solfege[0][s].string)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
+    
+
+
+</script>
+
+</body>
+</html>
